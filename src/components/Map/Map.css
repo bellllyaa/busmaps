@@ -1,0 +1,11 @@
+.leaflet-container {
+  width: 100vw;
+  height: calc(100vh - 0px);
+  background-color: #ffffff;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  .leaflet-container {
+    background-color: #dddddd;
+  }
+}
