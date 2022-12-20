@@ -81,7 +81,7 @@ function DeparturesTable(props) {
   useEffect(() => {
     function loadBusStopInfo() {
       console.log("loadBusStopInfo(): " + props.busStopId);
-      fetch(`https://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
+      fetch(`http://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
         .then(response => response.json())
         .then(data => {
           setBusStop(data);
