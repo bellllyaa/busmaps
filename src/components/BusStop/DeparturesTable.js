@@ -3,6 +3,8 @@ import * as MdDirections from "react-icons/md"
 
 import './DeparturesTable.css';
 
+const PROXY_URL = "http://localhost:8080/?url=";
+
 function DeparturesTable(props) {
   const [busStop, setBusStop] = useState();
 
@@ -79,7 +81,7 @@ function DeparturesTable(props) {
   useEffect(() => {
     function loadBusStopInfo() {
       console.log("loadBusStopInfo(): " + props.busStopId);
-      fetch("http://localhost:8080/?url=" + `http://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
+      fetch(`http://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
         .then(response => response.json())
         .then(data => {
           setBusStop(data);
