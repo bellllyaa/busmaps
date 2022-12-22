@@ -68,7 +68,7 @@ function Map () {
 
   return (
     <MapContainer
-      center={[54.4696210, 18.5001898]}
+      center={[54.5176944, 18.5387945]}
       zoom={16}
       scrollWheelZoom={true}
       zoomSnap={0.5}
