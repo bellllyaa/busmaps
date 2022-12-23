@@ -5,7 +5,7 @@ import './DeparturesTable.css';
 
 const PROXY_URL = "http://localhost:8080/?url=";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com/?url=";
-const NETLIFY_PROXY_URL = "https://bypass-cors-server.netlify.app";
+const NETLIFY_PROXY_URL = "https://bypass-cors-server.netlify.app/?url=";
 
 function DeparturesTable(props) {
   const [busStop, setBusStop] = useState();
