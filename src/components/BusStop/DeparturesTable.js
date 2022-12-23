@@ -5,6 +5,7 @@ import './DeparturesTable.css';
 
 const PROXY_URL = "http://localhost:8080/?url=";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com/?url=";
+const NETLIFY_PROXY_URL = "https://bypass-cors-server.netlify.app";
 
 function DeparturesTable(props) {
   const [busStop, setBusStop] = useState();
@@ -86,7 +87,7 @@ function DeparturesTable(props) {
   useEffect(() => {
     function loadBusStopInfo() {
       console.log("loadBusStopInfo(): " + props.busStopId);
-      fetch(HEROKU_PROXY_URL + `http://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
+      fetch(NETLIFY_PROXY_URL + `http://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
         .then(response => response.json())
         .then(data => {
           setBusStop(data);
