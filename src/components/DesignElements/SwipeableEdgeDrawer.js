@@ -161,7 +161,7 @@ function SwipeableEdgeDrawer(props) {
               />
             </div> */}
             {/* <BusStop /> */}
-            {/* {windowDimensions.width}x{windowDimensions.height} */}
+            {windowDimensions.width}x{windowDimensions.height}
             {busStop != null ? <CallDeparturesTable busStopId={busStop.stopId} busStopName={busStop.stopName}/> : <Loading />}
             {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
               <Button onClick={setToggleDrawerFunc(false)}>Close</Button>
