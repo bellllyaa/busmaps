@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap, circle } from "react-leaflet";
+import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap, circle, ZoomControl } from "react-leaflet";
 import L from 'leaflet';
 import { Button } from "@mui/material";
 
@@ -15,7 +15,11 @@ function Map () {
   console.log(toggleDrawer);
   console.log(busStop);
 
-  const setToggleDrawerFunc = (value, busStop) => {
+  const [map, setMap] = useState();
+
+  const setToggleDrawerFunc = (value, busStop, map) => {
+    // map.flyTo([busStop.stopLat, busStop.stopLon], map.getZoom());
+    console.log(map);
     setToggleDrawer(value);
     setBusStop(busStop);
     console.log(busStop.stopName);
@@ -41,16 +45,25 @@ function Map () {
     const map = useMap();
     console.log(map);
 
-    useEffect(() => {
-      map.locate().on("locationfound", function (e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        const radius = e.accuracy;
-        const circle = L.circle(e.latlng, radius);
-        circle.addTo(map);
-        setBbox(e.bounds.toBBoxString().split(","));
-      });
-    }, [map]);
+    map.locate().on("locationfound", function (e) {
+      setPosition(e.latlng);
+      map.flyTo(e.latlng, map.getZoom());
+      const radius = e.accuracy;
+      const circle = L.circle(e.latlng, radius);
+      circle.addTo(map);
+      setBbox(e.bounds.toBBoxString().split(","));
+    });
+
+    // useEffect(() => {
+    //   map.locate().on("locationfound", function (e) {
+    //     setPosition(e.latlng);
+    //     map.flyTo(e.latlng, map.getZoom());
+    //     const radius = e.accuracy;
+    //     const circle = L.circle(e.latlng, radius);
+    //     circle.addTo(map);
+    //     setBbox(e.bounds.toBBoxString().split(","));
+    //   });
+    // }, [map]);
 
     // return position === null ? null : (
     //   <Marker position={position}>
@@ -68,12 +81,16 @@ function Map () {
 
   return (
     <MapContainer
+      whenCreated={setMap}
       center={[54.5176944, 18.5387945]}
       zoom={16}
+      maxZoom={18}
       scrollWheelZoom={true}
       zoomSnap={0.5}
+      zoomControl={false}
       // style={{height: "80vh"}}
     >
+      <ZoomControl position={'topright'} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -84,7 +101,7 @@ function Map () {
         </Popup>
       </Marker> */}
 
-      <LocationMarker />
+      {/* <LocationMarker /> */}
       {zkmBusStops.map((busStop) => (
         <Marker
           key={busStop.stopId}
@@ -92,7 +109,7 @@ function Map () {
           closeOnEscapeKey={true}
           eventHandlers={{
             click: () => {
-              setToggleDrawerFunc(true, busStop);
+              setToggleDrawerFunc(true, busStop, map);
             }
           }}
         >

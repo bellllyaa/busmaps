@@ -137,7 +137,8 @@ function SwipeableEdgeDrawer(props) {
               visibility: 'visible',
               right: 0,
               left: 0,
-              top: -75,
+              // top: (windowDimensions.width <= 600 ? -75 : -76),
+              top: -76,
             }}
           >
             <Puller />
@@ -161,7 +162,7 @@ function SwipeableEdgeDrawer(props) {
               />
             </div> */}
             {/* <BusStop /> */}
-            {windowDimensions.width}x{windowDimensions.height}
+            {/* {windowDimensions.width}x{windowDimensions.height} */}
             {busStop != null ? <CallDeparturesTable busStopId={busStop.stopId} busStopName={busStop.stopName}/> : <Loading />}
             {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
               <Button onClick={setToggleDrawerFunc(false)}>Close</Button>

@@ -46,12 +46,12 @@ function DeparturesTable(props) {
           <div className="bus__direction">
             <MdDirections.MdDirectionsBus id="bus-icon" />
             <p id="headsign">{headsign}</p>
-            {status == "bus-delayed" ? <p className={status}>Delayed {differenceRealNow - differencePlanNow} min • {<s>{theoreticalTime}</s>}</p> : (status == "bus-early" ? <p className={status}>Early {differencePlanNow - differenceRealNow} min • {<s>{theoreticalTime}</s>}</p> : <p className={status}>On time • {estimatedTime}</p>)}
+            {status == "bus-delayed" ? <p className={status}>Opóźnienie o {differenceRealNow - differencePlanNow} min • {<s>{theoreticalTime}</s>}</p> : (status == "bus-early" ? <p className={status}>Wcześniej o {differencePlanNow - differenceRealNow} min • {<s>{theoreticalTime}</s>}</p> : <p className={status}>Na czas • {estimatedTime}</p>)}
           </div>
         </td>
         <td>
           <div className="bus__arriving-time">
-            <p>{differenceRealNow >= 1 ? <span className={status}>{differenceRealNow} min</span> : <span className={status}>{'Now'}</span>}</p>
+            <p>{differenceRealNow >= 1 ? <span className={status}>{differenceRealNow} min</span> : <span className={status}>{'Teraz'}</span>}</p>
             {/* {((differencePlanNow != differenceRealNow) && (differenceRealNow > 1) && (differencePlanNow > 0)) ? <span><s>{differencePlanNow + " min"}</s></span> : <></>} */}
           </div>
           {/* <div>
