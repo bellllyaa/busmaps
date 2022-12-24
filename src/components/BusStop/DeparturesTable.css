@@ -5,6 +5,7 @@
   border-collapse: collapse;
   width: 100vw;
   max-width: 600px;
+  height: 80px;
   /* width: calc(); */
   /* max-width: 600px; */
   /* width: 100%; */
