@@ -138,13 +138,13 @@ function SwipeableEdgeDrawer(props) {
               right: 0,
               left: 0,
               // top: (windowDimensions.width <= 600 ? -75 : -76),
-              top: -76,
+              top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -75.5,
             }}
           >
             <Puller />
             {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>Bus stop</Typography> */}
             {/* <BusStop /> */}
-            {busStop ? <h2>{busStop.stopName}</h2> : <h2>Bus stop</h2>}
+            {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop.stopName}</h2> : <h2>Bus stop</h2>}
           </StyledBox>
           <StyledBox
             sx={{
