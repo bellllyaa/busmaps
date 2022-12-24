@@ -3,7 +3,7 @@
   padding: 0;
   margin: 0;
   border-collapse: collapse;
-  width: 100vw;
+  width: 100%;
   max-width: 600px;
   /* width: calc(); */
   /* max-width: 600px; */
