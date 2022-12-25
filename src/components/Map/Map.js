@@ -113,6 +113,7 @@ const LocationButton = () => {
         legend.addTo(this._map);
       },
       addCircle: function ({ accuracy, latitude, longitude }) {
+        map.setZoom(16);
         return L.circle([latitude, longitude], accuracy / 2, {
           className: "circle-test",
           weight: 2,
