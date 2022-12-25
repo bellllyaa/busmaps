@@ -10,6 +10,7 @@ import { useToggleDrawer, useBusStop } from "../../pages/Home";
 import zkmBusStops from "./data/zkm-bus-stops.json";
 import routes from "./data/routes.json";
 
+// Add location button
 const LocationButton = () => {
   const map = useMap();
 
@@ -82,6 +83,9 @@ const LocationButton = () => {
         // add marker
         this.addMarker(e).addTo(this.featureGroup()).addTo(map);
 
+        // set zoom
+        map.setZoom(16);
+
         // add legend
       },
       // on location error
@@ -123,6 +127,7 @@ const LocationButton = () => {
         });
       },
       addMarker: function ({ latitude, longitude }) {
+        map.setZoom(16);
         return L.marker([latitude, longitude], {
           icon: L.divIcon({
             className: styles.locatedAnimation,
@@ -170,18 +175,6 @@ function Map () {
     setBusStop(busStop);
     console.log(busStop.stopName);
   };
-
-  const setToggleDrawerOpen = () => {
-    setToggleDrawer(true);
-  };
-
-  function ButtonElement () {
-    return (
-      <Button type="button" onClick={setToggleDrawerOpen}>
-        Press
-      </Button>
-    )
-  }
 
   // Get user's location
   // function LocationMarker() {
@@ -241,14 +234,8 @@ function Map () {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/* <Marker position={[54.4729600, 18.4952490]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
-
-      {/* <LocationMarker /> */}
       <LocationButton map={map} />
+
       {zkmBusStops.map((busStop) => (
         <Marker
           key={busStop.stopId}
@@ -259,25 +246,7 @@ function Map () {
               setToggleDrawerFunc(true, busStop, map);
             }
           }}
-        >
-          {/* <Popup
-            pane={"popupPane"}
-            maxWidth={400}
-            maxHeight={300}
-          >
-            <div>
-              <div className="bus-stop__name">
-                <h2>{busStop.stopName}:</h2>
-              </div>
-              {callDeparturesTable(busStop.stopId, busStop.stopName)}
-              <CallDeparturesTable
-                busStopId={busStop.stopId}
-                busStopName={busStop.stopName}
-              />
-            </div>
-          </Popup> */}
-
-        </Marker>
+        />
       ))}
       {/* <LocationMarker /> */}
     </MapContainer>
