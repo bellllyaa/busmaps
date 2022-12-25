@@ -128,7 +128,7 @@ const LocationButton = () => {
             iconSize: L.point(17, 17),
             popupAnchor: [0, -15],
           }),
-        }).bindPopup("Jesteś tus :)");
+        }).bindPopup("Jesteś tu :)");
       },
       removeLocate: function () {
         this._map.eachLayer(function (layer) {
