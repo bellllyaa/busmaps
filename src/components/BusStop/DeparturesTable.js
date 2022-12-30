@@ -157,12 +157,19 @@ function DeparturesTable(props) {
             // console.log(Number(countToday))
             // console.log(props.busStopStatic[0].length)
             if (Number(countToday) === props.busStopStatic[0].length) {
+              // if (countDynamic != busStop.delay.length) {
+              //   for (countDynamic; countDynamic < busStop.delay.length; countDynamic++) {
+              //     if (convertToDate(busStop.delay[countDynamic].estimatedTime, convertToDate(busStop.delay[countDynamic].estimatedTime, timeNow) - timeNow < -120000 ? timeTomorrow : timeNow) < convertToDate(props.busStopStatic[1][countTomorrow], timeTomorrow)) {
+              //       busStopDepartures.push(busStop.delay[countDynamic]);
+              //     }
+              //   }
+              // }
               for (countTomorrow; countTomorrow < props.busStopStatic[1].length; countTomorrow++) {
                 // console.log("countToday: " + countToday);
                 if (busStop.delay.find(b => b.routeShortName === props.busStopStatic[1][countTomorrow].routeShortName && b.theoreticalTime === props.busStopStatic[1][countTomorrow].departureTime) === undefined && convertToDate(props.busStopStatic[1][countTomorrow].departureTime, timeTomorrow) - timeNow < 86400000) {
                   // console.log(props.busStopStatic[1][countTomorrow]);
                   // console.log(props.busStopStatic[1][countTomorrow].departureTime);
-                  if (countDynamic === busStop.delay.length || (convertToDate(props.busStopStatic[1][countTomorrow].departureTime, timeNow) < convertToDate(busStop.delay[countDynamic].estimatedTime, convertToDate(busStop.delay[countDynamic].estimatedTime, timeNow) < timeNow ? timeTomorrow : timeNow))) {
+                  if (countDynamic === busStop.delay.length || (convertToDate(props.busStopStatic[1][countTomorrow].departureTime, timeTomorrow) < convertToDate(busStop.delay[countDynamic].estimatedTime, convertToDate(busStop.delay[countDynamic].estimatedTime, timeNow) - timeNow < -120000 ? timeTomorrow : timeNow))) {
                     busStopDepartures.push(props.busStopStatic[1][countTomorrow])
                   } else {
                     break

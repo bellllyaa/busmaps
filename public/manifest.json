@@ -1,6 +1,7 @@
 {
   "short_name": "BusMaps",
   "name": "BusMaps",
+  "description": "Komunikacja miejska w twojej ręce!",
   "icons": [
     {
       "src": "favicon.ico",
