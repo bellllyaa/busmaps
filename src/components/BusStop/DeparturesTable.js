@@ -6,7 +6,7 @@ import './DeparturesTable.css';
 const LOCAL_URL = "http://localhost:8080";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
-const PROXY_URL = GOOGLE_PROXY_URL;
+const PROXY_URL = LOCAL_URL;
 
 function DeparturesTable(props) {
   const [busStop, setBusStop] = useState();
