@@ -142,7 +142,7 @@ function SwipeableEdgeDrawer(props) {
               right: 0,
               left: 0,
               // top: (windowDimensions.width <= 600 ? -75 : -76),
-              top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -75.5,
+              top: busStop && windowDimensions.width <= 421 && (busStop[0].stopName).length > 30  ? -111.5 : -75.5,
             }}
           >
             <Puller />
