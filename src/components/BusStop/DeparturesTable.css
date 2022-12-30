@@ -40,7 +40,25 @@ tr:hover {
   color: green;
 }
 
-.bus-short-name p {
+.bus-scheduled {
+  color: black;
+}
+
+.bus-short-name__REALTIME p {
+  display: inline-block;
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-left: 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+}
+
+.bus-short-name__SCHEDULED p {
   display: inline-block;
   padding-left: 9px;
   padding-right: 9px;

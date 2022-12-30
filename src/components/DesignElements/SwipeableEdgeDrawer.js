@@ -14,17 +14,21 @@ import { useToggleDrawer, useBusStop } from "../../pages/Home";
 import { useWindowDimensions } from '../../App';
 import DeparturesTable from "../BusStop/DeparturesTable";
 //import BusStop from '../BusStops/BusStop';
-import routes from "../Map/data/routes.json";
+import routes from "../../data/routes.json";
 //import Select from "react-select";
 import "./SwipeableEdgeDrawer.css";
 
 function CallDeparturesTable (props) {
+  // console.log(props.busStopId)
+  // console.log(props.busStopName)
+  // console.log(props.busStopStatic)
   return (
     <DeparturesTable
       key={props.busStopId}
       busStopId={props.busStopId}
-      routes={routes}
       busStopName={props.busStopName}
+      routes={routes}
+      busStopStatic={props.busStopStatic}
     />
   )
 }
@@ -58,17 +62,22 @@ const Puller = styled(Box)(({ theme }) => ({
 }));
 
 function SwipeableEdgeDrawer(props) {
-  // const [busStopsList, setBusStopsList] = useState();
-  // // Load bus stops list
-  // const loadBusStops = () => {
-  //   fetch("http://localhost:8080/?url=" + "http://api.zdiz.gdynia.pl/pt/stops")
-  //     .then((response) => response.json())
-  //     .then((data) => setBusStopsList(data))
-  // }
+  // Variables
+  const {toggleDrawer, setToggleDrawer} = useToggleDrawer();
+  const {busStop, setBusStop} = useBusStop();
+  const windowDimensions = useWindowDimensions();
+
+  // const [busStopsStatic, setBusStopsStatic] = React.useState(null);
+
+  // Getting busStopsStatic
+  // fetch("http://api.zdiz.gdynia.pl/pt/stop_times")
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log(data);
+  //         setBusStopsStatic(data);
+  //       })
+
   console.log(useWindowDimensions());
-
-
-
 
   const swipableEdgeDrawerStyleHorizontal = () => {
     return ({
@@ -91,10 +100,6 @@ function SwipeableEdgeDrawer(props) {
       },
     })
   }
-  
-  const {toggleDrawer, setToggleDrawer} = useToggleDrawer();
-  const {busStop, setBusStop} = useBusStop();
-  const windowDimensions = useWindowDimensions();
 
   const { window } = props;
 
@@ -107,7 +112,6 @@ function SwipeableEdgeDrawer(props) {
 
   return (
     <div className="swipable-edge-drawer">
-      {/* <h1>Bruh</h1> */}
       <Root>
         <CssBaseline />
         <Global
@@ -144,7 +148,7 @@ function SwipeableEdgeDrawer(props) {
             <Puller />
             {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>Bus stop</Typography> */}
             {/* <BusStop /> */}
-            {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop.stopName}</h2> : <h2>Bus stop</h2>}
+            {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop[0].stopName}</h2> : <h2>Bus stop</h2>}
           </StyledBox>
           <StyledBox
             sx={{
@@ -163,7 +167,7 @@ function SwipeableEdgeDrawer(props) {
             </div> */}
             {/* <BusStop /> */}
             {/* {windowDimensions.width}x{windowDimensions.height} */}
-            {busStop != null ? <CallDeparturesTable busStopId={busStop.stopId} busStopName={busStop.stopName}/> : <Loading />}
+            {busStop != null? <CallDeparturesTable busStopId={busStop[0].stopId} busStopName={busStop[0].stopName} busStopStatic={busStop[1]} /> : <Loading />}
             {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
               <Button onClick={setToggleDrawerFunc(false)}>Close</Button>
             </Box> */}

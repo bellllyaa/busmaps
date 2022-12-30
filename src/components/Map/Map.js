@@ -8,7 +8,11 @@ import styles from "./location-button.module.css";
 import { useToggleDrawer, useBusStop } from "../../pages/Home";
 
 import zkmBusStops from "./data/zkm-bus-stops.json";
-import routes from "./data/routes.json";
+
+const LOCAL_URL = "http://localhost:8080";
+const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
+const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
+const PROXY_URL = LOCAL_URL;
 
 // Add location button
 const LocationButton = () => {
@@ -163,17 +167,30 @@ const LocationButton = () => {
 function Map () {
   const {toggleDrawer, setToggleDrawer} = useToggleDrawer();
   const {busStop, setBusStop} = useBusStop();
-  console.log(toggleDrawer);
+  // console.log(toggleDrawer);
   console.log(busStop);
 
   const [map, setMap] = useState();
 
   const setToggleDrawerFunc = (value, busStop, map) => {
-    // map.flyTo([busStop.stopLat, busStop.stopLon], map.getZoom());
-    console.log(map);
-    setToggleDrawer(value);
-    setBusStop(busStop);
-    console.log(busStop.stopName);
+    const timeNow = new Date();
+  
+    const convertToDate = (departureTime) => {
+      return new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), departureTime.slice(0,2), departureTime.slice(3, 5))
+    }
+
+    console.log("fetch")
+
+    fetch(PROXY_URL + `/trojmiasto?bus-stop-id-static=${busStop.stopId}`)
+      .then(response => response.json())
+      .then(data => {
+        // data.sort((a, b) => (convertToDate(a.departureTime) - convertToDate(b.departureTime)))
+        // console.log(busStop.stopName);
+        // console.log(data)
+        // console.log(map);
+        setToggleDrawer(value);
+        setBusStop([busStop, data]);
+      })
   };
 
   // Get user's location
