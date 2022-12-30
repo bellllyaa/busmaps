@@ -240,7 +240,7 @@ function Map () {
       whenCreated={setMap}
       center={[54.5176944, 18.5387945]}
       zoom={16}
-      maxZoom={18}
+      maxZoom={19}
       scrollWheelZoom={true}
       zoomSnap={0.5}
       zoomControl={false}
