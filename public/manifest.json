@@ -2,6 +2,7 @@
   "short_name": "BusMaps",
   "name": "BusMaps",
   "description": "Komunikacja miejska w twojej ręce!",
+  "categories": ["navigation", "travel", "utilities"],
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,7 +21,7 @@
     }
   ],
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#dfdfdf",
   "background_color": "#dfdfdf"
 }
