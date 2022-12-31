@@ -81,6 +81,10 @@ const LocationButton = () => {
         this._map.locate({ setView: true, enableHighAccuracy: true });
       },
       onLocationFound: function (e) {
+        // set localStorage
+        localStorage.setItem("lastUserLocationLat", e.latitude);
+        localStorage.setItem("lastUserLocationLon", e.longitude);
+
         // add circle
         this.addCircle(e).addTo(this.featureGroup()).addTo(map);
 
@@ -195,6 +199,15 @@ function Map () {
       })
   };
 
+  let center;
+  if (localStorage.getItem("lastUserLocationLat") != null) {
+    console.log(localStorage.getItem("lastUserLocationLat"))
+    console.log(localStorage.getItem("lastUserLocationLon"))
+    center = [Number(localStorage.getItem("lastUserLocationLat")), Number(localStorage.getItem("lastUserLocationLon"))];
+  } else {
+    center = [54.5176944, 18.5387945];
+  }
+
   useEffect(() => {
     console.log("Running in useEffect() in Map.js");
     console.log("lastOpenedStopId: " + localStorage.getItem("lastOpenedStopId"));
@@ -250,7 +263,7 @@ function Map () {
   return (
     <MapContainer
       whenCreated={setMap}
-      center={[54.5176944, 18.5387945]}
+      center={center}
       zoom={16}
       maxZoom={19}
       scrollWheelZoom={true}
