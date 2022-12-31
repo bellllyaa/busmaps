@@ -5,11 +5,6 @@ import Home from "./pages/Home";
 import trips from "./data/trips.json";
 import routes from "./data/routes.json";
 
-const LOCAL_URL = "http://localhost:8080/?url=";
-const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com/?url=";
-const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com/?url=";
-export const PROXY_URL = LOCAL_URL;
-
 function App() {
   // let busStopAllDepartures = [];
   // fetch("http://api.zdiz.gdynia.pl/pt/stop_times")

@@ -172,7 +172,7 @@ function Map () {
 
   const [map, setMap] = useState();
 
-  const setToggleDrawerFunc = (value, busStop, map) => {
+  const setToggleDrawerFunc = (value, busStop) => {
     const timeNow = new Date();
   
     const convertToDate = (departureTime) => {
@@ -190,8 +190,20 @@ function Map () {
         // console.log(map);
         setToggleDrawer(value);
         setBusStop([busStop, data]);
+        localStorage.setItem("lastOpenedStopId", busStop.stopId);
+        localStorage.setItem("lastOpenedStopName", busStop.stopName);
       })
   };
+
+  useEffect(() => {
+    console.log("Running in useEffect() in Map.js");
+    console.log("lastOpenedStopId: " + localStorage.getItem("lastOpenedStopId"));
+    console.log("lastOpenedStopName: " + localStorage.getItem("lastOpenedStopName"));
+
+    if (localStorage.getItem("lastOpenedStopId") != null) {
+      setToggleDrawerFunc(true, {stopId: Number(localStorage.getItem("lastOpenedStopId")), stopName: localStorage.getItem("lastOpenedStopName")})
+    }
+  }, [])
 
   // Get user's location
   // function LocationMarker() {
@@ -260,7 +272,7 @@ function Map () {
           closeOnEscapeKey={true}
           eventHandlers={{
             click: () => {
-              setToggleDrawerFunc(true, busStop, map);
+              setToggleDrawerFunc(true, busStop);
             }
           }}
         />
