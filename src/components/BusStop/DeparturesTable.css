@@ -46,30 +46,43 @@ tr:hover {
 
 .bus-short-name__REALTIME p {
   display: inline-block;
-  padding-left: 9px;
-  padding-right: 9px;
+  /* padding-left: max(9px, 20%); */
+  /* padding-right: max(9px, 20%); */
+  /* padding-left: clamp(9px, 15%, 20%);
+  padding-right: clamp(9px, 15%, 20%); */
   padding-top: 2px;
   padding-bottom: 2px;
-  margin-left: 20px;
+  margin-left: 15px;
   margin-top: 25px;
   margin-bottom: 25px;
   background-color: blue;
   color: white;
-  border-radius: 5px;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
 }
 
 .bus-short-name__SCHEDULED p {
   display: inline-block;
-  padding-left: 9px;
-  padding-right: 9px;
+  /* padding-left: max(9px, 15%); */
+  /* padding-right: max(10px, 14%); */
+  /* padding-left: clamp(9px, 15px, 20%); */
+  /* padding-right: clamp(9px, 10px, 20%); */
+  /* padding-right: max(9px, min(10px, 20%)); */
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
   padding-top: 2px;
   padding-bottom: 2px;
-  margin-left: 20px;
+  margin-left: 15px;
   margin-top: 25px;
   margin-bottom: 25px;
   background-color: blue;
   color: white;
-  border-radius: 5px;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
 }
 
 .bus__direction p {
@@ -77,6 +90,10 @@ tr:hover {
   /* width: 50px; */
   /* margin-left: auto;
   margin-right: auto; */
+}
+
+.bus__direction {
+  margin-left: 25px;
 }
 
 .bus__arriving-time p {
@@ -95,6 +112,7 @@ tr:hover {
   margin: 0;
   margin-right: 5px;
   height: 15px;
+  /* top: 80; */
 }
 
 #headsign {
