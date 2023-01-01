@@ -14,28 +14,60 @@ function DeparturesTable(props) {
   const convertArrivingTime = (status, estimatedTime, theoreticalTime, headsign) => {
     const timeNow = new Date();
     let timeTomorrow = new Date();
-    timeTomorrow.setDate(timeTomorrow.getDate() + 1)
+    timeTomorrow.setDate(timeTomorrow.getDate() + 1);
+    let timeYesterday = new Date();
+    timeYesterday.setDate(timeNow.getDate() - 1);
 
-    //console.log(timeNow.getHours())
-    //console.log(timeNow.getHours() == "22")
-    //console.log(timeTomorrow.getDate())
+    // console.log(timeNow);
+    // console.log(timeTomorrow);
+    // console.log(timeYesterday);
 
     if (status === "REALTIME") {
 
       let busRealTime;
       let busPlanTime;
 
-      if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (estimatedTime.slice(0,2) == "00" || estimatedTime.slice(0,2) == "01")) {
+      if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (estimatedTime.slice(0, 2) == "00" || estimatedTime.slice(0, 2) == "01")) {
         busRealTime = new Date(timeTomorrow.getFullYear(), timeTomorrow.getMonth(), timeTomorrow.getDate(), estimatedTime.slice(0, 2), estimatedTime.slice(3, 5));
+      } else if ((timeNow.getHours() == "00" || timeNow.getHours() == "01") && (estimatedTime.slice(0, 2) == "22" || estimatedTime.slice(0, 2) == "23")) {
+        busRealTime = new Date(timeYesterday.getFullYear(), timeYesterday.getMonth(), timeYesterday.getDate(), estimatedTime.slice(0, 2), estimatedTime.slice(3, 5));
       } else {
         busRealTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), estimatedTime.slice(0, 2), estimatedTime.slice(3, 5));
       }
 
-      if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (theoreticalTime.slice(0,2) == "00" || theoreticalTime.slice(0,2) == "01")) {
+      if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (theoreticalTime.slice(0, 2) == "00" || theoreticalTime.slice(0,2) == "01")) {
         busPlanTime = new Date(timeTomorrow.getFullYear(), timeTomorrow.getMonth(), timeTomorrow.getDate(), theoreticalTime.slice(0, 2), theoreticalTime.slice(3, 5))
+      } else if ((timeNow.getHours() == "00" || timeNow.getHours() == "01") && (theoreticalTime.slice(0, 2) == "22" || theoreticalTime.slice(0, 2) == "23")) {
+        busPlanTime = new Date(timeYesterday.getFullYear(), timeYesterday.getMonth(), timeYesterday.getDate(), theoreticalTime.slice(0, 2), theoreticalTime.slice(3, 5))
       } else {
         busPlanTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), theoreticalTime.slice(0, 2), theoreticalTime.slice(3, 5))
       }
+
+      // Debugging
+      // console.log("Debugging:");
+      // const tryEstimatedTime = "00:00";
+      // const tryTheoreticalTime = "23:58";
+      // let tryBusRealTime;
+      // let tryBusPlanTime;
+
+      // if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (tryEstimatedTime.slice(0,2) == "00" || tryEstimatedTime.slice(0,2) == "01")) {
+      //   tryBusRealTime = new Date(timeTomorrow.getFullYear(), timeTomorrow.getMonth(), timeTomorrow.getDate(), tryEstimatedTime.slice(0, 2), tryEstimatedTime.slice(3, 5));
+      // } else if ((timeNow.getHours() == "00" || timeNow.getHours() == "01") && (tryEstimatedTime.slice(0, 2) == "22" || tryEstimatedTime.slice(0, 2) == "23")) {
+      //   tryBusRealTime = new Date(timeYesterday.getFullYear(), timeYesterday.getMonth(), timeYesterday.getDate(), tryEstimatedTime.slice(0, 2), tryEstimatedTime.slice(3, 5));
+      // } else {
+      //   tryBusRealTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), tryEstimatedTime.slice(0, 2), tryEstimatedTime.slice(3, 5));
+      // }
+
+      // if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (tryTheoreticalTime.slice(0,2) == "00" || tryTheoreticalTime.slice(0,2) == "01")) {
+      //   tryBusPlanTime = new Date(timeTomorrow.getFullYear(), timeTomorrow.getMonth(), timeTomorrow.getDate(), tryTheoreticalTime.slice(0, 2), tryTheoreticalTime.slice(3, 5))
+      // } else if ((timeNow.getHours() == "00" || timeNow.getHours() == "01") && (tryTheoreticalTime.slice(0, 2) == "22" || tryTheoreticalTime.slice(0, 2) == "23")) {
+      //   tryBusPlanTime = new Date(timeYesterday.getFullYear(), timeYesterday.getMonth(), timeYesterday.getDate(), tryTheoreticalTime.slice(0, 2), tryTheoreticalTime.slice(3, 5))
+      // } else {
+      //   tryBusPlanTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), tryTheoreticalTime.slice(0, 2), tryTheoreticalTime.slice(3, 5))
+      // }
+
+      // console.log(tryBusPlanTime);
+      // console.log(tryBusRealTime);
 
       // console.log(timeNow)
       // console.log(busRealTime)
