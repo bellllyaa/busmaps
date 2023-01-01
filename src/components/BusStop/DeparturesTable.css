@@ -77,12 +77,15 @@ tr:hover {
   margin-left: 15px;
   margin-top: 25px;
   margin-bottom: 25px;
-  background-color: blue;
-  color: white;
+  /* background-color: blue; */
+  /* color: white; */
   border-radius: 6px;
   width: 100%;
   text-align: center;
   font-weight: 600;
+  /* border: 1px solid black; */
+  color: black;
+  background-color: rgb(210, 210, 210);
 }
 
 .bus__direction p {
