@@ -16,7 +16,7 @@ function CallDeparturesTable(props) {
 
   function Loading () {
     return (
-      <Skeleton variant="rectangular" height="100%" />
+      <Skeleton variant="rectangular" height="10%" width="90%" style={{margin: "5%", marginBottom: 0, borderRadius: "10px"}} />
     )
   }
 
@@ -40,7 +40,7 @@ function CallDeparturesTable(props) {
         busStopName={props.busStopName}
         routes={routes}
         busStopStatic={busStopStatic}
-      /> : <Loading />}
+      /> : <><Loading /><Loading /><Loading /><Loading /><Loading /></>}
     </>
   )
 }
