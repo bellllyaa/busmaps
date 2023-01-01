@@ -172,46 +172,53 @@ function Map () {
   const {toggleDrawer, setToggleDrawer} = useToggleDrawer();
   const {busStop, setBusStop} = useBusStop();
   // console.log(toggleDrawer);
-  console.log(busStop);
+  // console.log(busStop);
 
   const [map, setMap] = useState();
 
   const setToggleDrawerFunc = (value, busStop) => {
-    const timeNow = new Date();
+
+    setToggleDrawer(value);
+    setBusStop(busStop);
+
+    localStorage.setItem("lastOpenedStopId", busStop.stopId);
+    localStorage.setItem("lastOpenedStopName", busStop.stopName);
+
+    // const timeNow = new Date();
   
-    const convertToDate = (departureTime) => {
-      return new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), departureTime.slice(0,2), departureTime.slice(3, 5))
-    }
+    // const convertToDate = (departureTime) => {
+    //   return new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), departureTime.slice(0,2), departureTime.slice(3, 5))
+    // }
 
-    console.log("fetch")
+    // console.log("fetch")
 
-    fetch(PROXY_URL + `/trojmiasto?bus-stop-id-static=${busStop.stopId}`)
-      .then(response => response.json())
-      .then(data => {
-        // data.sort((a, b) => (convertToDate(a.departureTime) - convertToDate(b.departureTime)))
-        // console.log(busStop.stopName);
-        // console.log(data)
-        // console.log(map);
-        setToggleDrawer(value);
-        setBusStop([busStop, data]);
-        localStorage.setItem("lastOpenedStopId", busStop.stopId);
-        localStorage.setItem("lastOpenedStopName", busStop.stopName);
-      })
+    // fetch(PROXY_URL + `/trojmiasto?bus-stop-id-static=${busStop.stopId}`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     // data.sort((a, b) => (convertToDate(a.departureTime) - convertToDate(b.departureTime)))
+    //     // console.log(busStop.stopName);
+    //     // console.log(data)
+    //     // console.log(map);
+    //     setToggleDrawer(value);
+    //     setBusStop([busStop, data]);
+    //     localStorage.setItem("lastOpenedStopId", busStop.stopId);
+    //     localStorage.setItem("lastOpenedStopName", busStop.stopName);
+    //   })
   };
 
   let center;
   if (localStorage.getItem("lastUserLocationLat") != null) {
-    console.log(localStorage.getItem("lastUserLocationLat"))
-    console.log(localStorage.getItem("lastUserLocationLon"))
+    // console.log(localStorage.getItem("lastUserLocationLat"))
+    // console.log(localStorage.getItem("lastUserLocationLon"))
     center = [Number(localStorage.getItem("lastUserLocationLat")), Number(localStorage.getItem("lastUserLocationLon"))];
   } else {
     center = [54.5176944, 18.5387945];
   }
 
   useEffect(() => {
-    console.log("Running in useEffect() in Map.js");
-    console.log("lastOpenedStopId: " + localStorage.getItem("lastOpenedStopId"));
-    console.log("lastOpenedStopName: " + localStorage.getItem("lastOpenedStopName"));
+    // console.log("Running in useEffect() in Map.js");
+    // console.log("lastOpenedStopId: " + localStorage.getItem("lastOpenedStopId"));
+    // console.log("lastOpenedStopName: " + localStorage.getItem("lastOpenedStopName"));
 
     if (localStorage.getItem("lastOpenedStopId") != null) {
       setToggleDrawerFunc(true, {stopId: Number(localStorage.getItem("lastOpenedStopId")), stopName: localStorage.getItem("lastOpenedStopName")})

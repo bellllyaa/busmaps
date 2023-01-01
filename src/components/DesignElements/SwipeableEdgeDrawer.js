@@ -12,26 +12,27 @@ import Typography from '@mui/material/Typography';
 
 import { useToggleDrawer, useBusStop } from "../../pages/Home";
 import { useWindowDimensions } from '../../App';
-import DeparturesTable from "../BusStop/DeparturesTable";
+// import DeparturesTable from "../BusStop/DeparturesTable";
+import CallDeparturesTable from './CallDeparturesTable';
 //import BusStop from '../BusStops/BusStop';
-import routes from "../../data/routes.json";
+// import routes from "../../data/routes.json";
 //import Select from "react-select";
 import "./SwipeableEdgeDrawer.css";
 
-function CallDeparturesTable (props) {
-  // console.log(props.busStopId)
-  // console.log(props.busStopName)
-  // console.log(props.busStopStatic)
-  return (
-    <DeparturesTable
-      key={props.busStopId}
-      busStopId={props.busStopId}
-      busStopName={props.busStopName}
-      routes={routes}
-      busStopStatic={props.busStopStatic}
-    />
-  )
-}
+// function CallDeparturesTable (props) {
+//   // console.log(props.busStopId)
+//   // console.log(props.busStopName)
+//   // console.log(props.busStopStatic)
+//   return (
+//     <DeparturesTable
+//       key={props.busStopId}
+//       busStopId={props.busStopId}
+//       busStopName={props.busStopName}
+//       routes={routes}
+//       busStopStatic={props.busStopStatic}
+//     />
+//   )
+// }
 
 function Loading () {
   return (
@@ -142,13 +143,13 @@ function SwipeableEdgeDrawer(props) {
               right: 0,
               left: 0,
               // top: (windowDimensions.width <= 600 ? -75 : -76),
-              top: busStop && windowDimensions.width <= 421 && (busStop[0].stopName).length > 30  ? -111.5 : -75.5,
+              top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -75.5,
             }}
           >
             <Puller />
             {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>Bus stop</Typography> */}
             {/* <BusStop /> */}
-            {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop[0].stopName}</h2> : <h2>Bus stop</h2>}
+            {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop.stopName}</h2> : <h2>Bus stop</h2>}
           </StyledBox>
           <StyledBox
             sx={{
@@ -158,6 +159,7 @@ function SwipeableEdgeDrawer(props) {
               overflow: 'auto',
             }}
           >
+            {busStop != null ? <CallDeparturesTable key={busStop.stopId} busStopId={busStop.stopId} busStopName={busStop.stopName} /> : <></>}
             {/* <div className="bus-stop__select__dropdown">
               <Select
                 options={createRoutesDropdown()}
@@ -167,7 +169,6 @@ function SwipeableEdgeDrawer(props) {
             </div> */}
             {/* <BusStop /> */}
             {/* {windowDimensions.width}x{windowDimensions.height} */}
-            {busStop != null? <CallDeparturesTable busStopId={busStop[0].stopId} busStopName={busStop[0].stopName} busStopStatic={busStop[1]} /> : <Loading />}
             {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
               <Button onClick={setToggleDrawerFunc(false)}>Close</Button>
             </Box> */}

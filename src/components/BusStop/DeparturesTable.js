@@ -21,8 +21,21 @@ function DeparturesTable(props) {
     //console.log(timeTomorrow.getDate())
 
     if (status === "REALTIME") {
-      const busRealTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), (timeNow.getHours() == "23" && estimatedTime.slice(0,2) == "00" ? timeTomorrow.getDate() : timeNow.getDate()), estimatedTime.slice(0,2), estimatedTime.slice(3,))
-      const busPlanTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), (timeNow.getHours() == "23" && theoreticalTime.slice(0,2) == "00" ? timeTomorrow.getDate() : timeNow.getDate()), theoreticalTime.slice(0,2), theoreticalTime.slice(3,))
+
+      let busRealTime;
+      let busPlanTime;
+
+      if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (estimatedTime.slice(0,2) == "00" || estimatedTime.slice(0,2) == "01")) {
+        busRealTime = new Date(timeTomorrow.getFullYear(), timeTomorrow.getMonth(), timeTomorrow.getDate(), estimatedTime.slice(0, 2), estimatedTime.slice(3, 5));
+      } else {
+        busRealTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), estimatedTime.slice(0, 2), estimatedTime.slice(3, 5));
+      }
+
+      if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (theoreticalTime.slice(0,2) == "00" || theoreticalTime.slice(0,2) == "01")) {
+        busPlanTime = new Date(timeTomorrow.getFullYear(), timeTomorrow.getMonth(), timeTomorrow.getDate(), theoreticalTime.slice(0, 2), theoreticalTime.slice(3, 5))
+      } else {
+        busPlanTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), theoreticalTime.slice(0, 2), theoreticalTime.slice(3, 5))
+      }
 
       // console.log(timeNow)
       // console.log(busRealTime)
@@ -128,24 +141,13 @@ function DeparturesTable(props) {
 
           for (countDynamic; countDynamic < busStop.delay.length + 1; countDynamic++) {
 
-            // console.log(countToday);
-            // console.log(busStop.delay.length)
-            // if (countDynamic + 1 === busStop.delay.length) {
-            //   if ((Number(countToday) != props.busStopStatic[0].length && convertToDate(props.busStopStatic[0][countToday].departureTime, timeNow) < convertToDate(busStop.delay[countDynamic].estimatedTime, timeNow)) || (Number(countToday) === props.busStopStatic[0].length && convertToDate(props.busStopStatic[1][countTomorrow].departureTime, timeTomorrow) < convertToDate(busStop.delay[countDynamic].estimatedTime, convertToDate(busStop.delay[countDynamic].estimatedTime, timeNow) < timeNow ? timeTomorrow : timeNow))) {
-            //     busStopDepartures.push(busStop.delay[countDynamic]);
-            //     countDynamic++;
-            //     // console.log(countDynamic);
-            //     // console.log(busStop.delay.length);
-            //   }
-            // }
-
             // console.log("props.busStopStatic[0].length: " + props.busStopStatic[0].length);
             for (countToday; countToday < props.busStopStatic[0].length; countToday++) {
               // console.log("countToday: " + countToday);
               if (convertToDate(props.busStopStatic[0][countToday].departureTime, timeNow) >= timeNow && busStop.delay.find(b => b.routeShortName === props.busStopStatic[0][countToday].routeShortName && b.theoreticalTime === props.busStopStatic[0][countToday].departureTime) === undefined) {
                 // console.log(props.busStopStatic[0][countToday]);
                 // console.log(props.busStopStatic[0][countToday].departureTime);
-                console.log(countDynamic)
+                // console.log(countDynamic)
                 if (countDynamic === busStop.delay.length || (convertToDate(props.busStopStatic[0][countToday].departureTime, timeNow) < convertToDate(busStop.delay[countDynamic].estimatedTime, timeNow))) {
                   busStopDepartures.push(props.busStopStatic[0][countToday])
                 } else {
