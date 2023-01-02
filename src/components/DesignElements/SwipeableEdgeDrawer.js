@@ -7,8 +7,8 @@ import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { grey } from '@mui/material/colors';
 import Box from '@mui/material/Box';
-import Skeleton from '@mui/material/Skeleton';
-import Typography from '@mui/material/Typography';
+// import Skeleton from '@mui/material/Skeleton';
+// import Typography from '@mui/material/Typography';
 
 import { useToggleDrawer, useBusStop } from "../../pages/Home";
 import { useWindowDimensions } from '../../App';
@@ -16,9 +16,9 @@ import { useWindowDimensions } from '../../App';
 import CallDeparturesTable from './CallDeparturesTable';
 //import BusStop from '../BusStops/BusStop';
 // import routes from "../../data/routes.json";
-import Select from "react-select";
+// import Select from "react-select";
 import "./SwipeableEdgeDrawer.css";
-import zkmBusStops from "../Map/data/zkm-bus-stops.json";
+// import zkmBusStops from "../Map/data/zkm-bus-stops.json";
 
 // function CallDeparturesTable (props) {
 //   // console.log(props.busStopId)
@@ -35,24 +35,24 @@ import zkmBusStops from "../Map/data/zkm-bus-stops.json";
 //   )
 // }
 
-const createRoutesDropdown = () => {
-  if (zkmBusStops) {
-    //console.log(busStopsList)
-    return (
-      zkmBusStops
-        .sort((a, b) => a.stopName > b.stopName ? 1 : -1)
-        .map((s) => (
-          {value: s.stopId, label: s.stopName}
-        ))
-    )
-  }
-}
+// const createRoutesDropdown = () => {
+//   if (zkmBusStops) {
+//     //console.log(busStopsList)
+//     return (
+//       zkmBusStops
+//         .sort((a, b) => a.stopName > b.stopName ? 1 : -1)
+//         .map((s) => (
+//           {value: s.stopId, label: s.stopName}
+//         ))
+//     )
+//   }
+// }
 
-function Loading () {
-  return (
-    <Skeleton variant="rectangular" height="100%" />
-  )
-}
+// function Loading () {
+//   return (
+//     <Skeleton variant="rectangular" height="100%" />
+//   )
+// }
 
 const drawerBleeding = 56;
 
