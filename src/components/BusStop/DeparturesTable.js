@@ -222,7 +222,7 @@ function DeparturesTable(props) {
                 busRealTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), busStop.delay[countDynamic].estimatedTime.slice(0, 2), busStop.delay[countDynamic].estimatedTime.slice(3, 5));
               }
               const differenceRealNow = Math.floor((busRealTime - timeNow)/1000/60)
-              // console.log("Difference: " + differenceRealNow);
+
               if (differenceRealNow >=  -1) {
                 busStopDepartures.push(busStop.delay[countDynamic]);
               }

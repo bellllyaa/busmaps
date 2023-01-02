@@ -16,8 +16,9 @@ import { useWindowDimensions } from '../../App';
 import CallDeparturesTable from './CallDeparturesTable';
 //import BusStop from '../BusStops/BusStop';
 // import routes from "../../data/routes.json";
-//import Select from "react-select";
+import Select from "react-select";
 import "./SwipeableEdgeDrawer.css";
+import zkmBusStops from "../Map/data/zkm-bus-stops.json";
 
 // function CallDeparturesTable (props) {
 //   // console.log(props.busStopId)
@@ -33,6 +34,19 @@ import "./SwipeableEdgeDrawer.css";
 //     />
 //   )
 // }
+
+const createRoutesDropdown = () => {
+  if (zkmBusStops) {
+    //console.log(busStopsList)
+    return (
+      zkmBusStops
+        .sort((a, b) => a.stopName > b.stopName ? 1 : -1)
+        .map((s) => (
+          {value: s.stopId, label: s.stopName}
+        ))
+    )
+  }
+}
 
 function Loading () {
   return (
@@ -144,12 +158,20 @@ function SwipeableEdgeDrawer(props) {
               left: 0,
               // top: (windowDimensions.width <= 600 ? -75 : -76),
               top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -75.5,
+              // top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -105.5,
             }}
           >
             <Puller />
             {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>Bus stop</Typography> */}
             {/* <BusStop /> */}
             {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop.stopName}</h2> : <h2>Bus stop</h2>}
+            {/* <div className="bus-stop__select__dropdown">
+              <Select
+                options={createRoutesDropdown()}
+                onChange={console.log}
+                placeholder="Bus stop"
+              />
+            </div> */}
           </StyledBox>
           <StyledBox
             sx={{

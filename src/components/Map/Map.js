@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import "./Map.css";
 import styles from "./location-button.module.css";
 import { useToggleDrawer, useBusStop } from "../../pages/Home";
+import Select from "react-select";
 
 import zkmBusStops from "./data/zkm-bus-stops.json";
 
@@ -14,9 +15,32 @@ const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
 const PROXY_URL = GOOGLE_PROXY_URL;
 
+// Add search
+const SearchField = () => {
+  const map = useMap();
+
+  useEffect(() => {
+    const customControl = L.Control.extend({
+      options: {
+        position: "topright",
+        style:
+          "width: 100px; height: 34px; left: 0; margin-top: 0; display: flex; cursor: pointer; justify-content: center; font-size: 2rem;",
+      },
+
+      onAdd: function (map) {
+        const search = L.DomUtil.create("select");
+        search.appendChild({value: "bruh", text: "bruh"})
+        return search;
+      }
+    });
+    map.addControl(new customControl());
+  }, [map])
+}
+
 // Add location button
 const LocationButton = () => {
   const map = useMap();
+  // console.log(map);
 
   useEffect(() => {
     // create custom button
@@ -206,6 +230,27 @@ function Map () {
     //   })
   };
 
+  const BusStops = () => {
+    const map = useMap();
+    console.log(map);
+  
+    return zkmBusStops.map((busStop) => (
+      <Marker
+        key={busStop.stopId}
+        position={[busStop.stopLat, busStop.stopLon]}
+        closeOnEscapeKey={true}
+        riseOnHover={true}
+        eventHandlers={{
+          click: (e) => {
+            const location = e.target.getLatLng();
+            map.flyTo(location, 16);
+            setTimeout(() => {setToggleDrawerFunc(true, busStop)}, 500);
+          }
+        }}
+      />
+    ))
+  }
+
   let center;
   if (localStorage.getItem("lastUserLocationLat") != null) {
     // console.log(localStorage.getItem("lastUserLocationLat"))
@@ -216,10 +261,6 @@ function Map () {
   }
 
   useEffect(() => {
-    // console.log("Running in useEffect() in Map.js");
-    // console.log("lastOpenedStopId: " + localStorage.getItem("lastOpenedStopId"));
-    // console.log("lastOpenedStopName: " + localStorage.getItem("lastOpenedStopName"));
-
     if (localStorage.getItem("lastOpenedStopId") != null) {
       setToggleDrawerFunc(true, {stopId: Number(localStorage.getItem("lastOpenedStopId")), stopName: localStorage.getItem("lastOpenedStopName")})
     }
@@ -272,10 +313,11 @@ function Map () {
       whenCreated={setMap}
       center={center}
       zoom={16}
-      maxZoom={19}
+      maxZoom={18}
       scrollWheelZoom={true}
       zoomSnap={0.5}
       zoomControl={false}
+      doubleClickZoom={true}
       // style={{height: "80vh"}}
     >
       <ZoomControl position={'topright'} />
@@ -283,20 +325,10 @@ function Map () {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LocationButton map={map} />
+      <LocationButton />
 
-      {zkmBusStops.map((busStop) => (
-        <Marker
-          key={busStop.stopId}
-          position={[busStop.stopLat, busStop.stopLon]}
-          closeOnEscapeKey={true}
-          eventHandlers={{
-            click: () => {
-              setToggleDrawerFunc(true, busStop);
-            }
-          }}
-        />
-      ))}
+      <BusStops map={map} />
+
       {/* <LocationMarker /> */}
     </MapContainer>
   )
