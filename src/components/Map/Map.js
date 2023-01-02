@@ -238,13 +238,12 @@ function Map () {
       <Marker
         key={busStop.stopId}
         position={[busStop.stopLat, busStop.stopLon]}
-        closeOnEscapeKey={true}
         riseOnHover={true}
         eventHandlers={{
           click: (e) => {
             const location = e.target.getLatLng();
             map.flyTo(location, 16);
-            setTimeout(() => {setToggleDrawerFunc(true, busStop)}, 500);
+            setToggleDrawerFunc(true, busStop);
           }
         }}
       />
