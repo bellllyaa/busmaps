@@ -241,8 +241,8 @@ function Map () {
         riseOnHover={true}
         eventHandlers={{
           click: (e) => {
-            const location = e.target.getLatLng();
-            map.flyTo(location, 16);
+            // const location = e.target.getLatLng();
+            // map.flyTo(location, 16);
             setToggleDrawerFunc(true, busStop);
           }
         }}
