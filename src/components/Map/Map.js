@@ -15,28 +15,6 @@ const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
 const PROXY_URL = GOOGLE_PROXY_URL;
 
-// Add search
-const SearchField = () => {
-  const map = useMap();
-
-  useEffect(() => {
-    const customControl = L.Control.extend({
-      options: {
-        position: "topright",
-        style:
-          "width: 100px; height: 34px; left: 0; margin-top: 0; display: flex; cursor: pointer; justify-content: center; font-size: 2rem;",
-      },
-
-      onAdd: function (map) {
-        const search = L.DomUtil.create("select");
-        search.appendChild({value: "bruh", text: "bruh"})
-        return search;
-      }
-    });
-    map.addControl(new customControl());
-  }, [map])
-}
-
 // Add location button
 const LocationButton = () => {
   const map = useMap();
@@ -231,8 +209,8 @@ function Map () {
   };
 
   const BusStops = () => {
-    const map = useMap();
-    console.log(map);
+    // const map = useMap();
+    // console.log(map);
   
     return zkmBusStops.map((busStop) => (
       <Marker
@@ -326,7 +304,7 @@ function Map () {
       />
       <LocationButton />
 
-      <BusStops map={map} />
+      <BusStops />
 
       {/* <LocationMarker /> */}
     </MapContainer>
