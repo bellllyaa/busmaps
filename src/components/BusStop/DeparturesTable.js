@@ -13,9 +13,9 @@ function DeparturesTable(props) {
 
   const convertArrivingTime = (status, estimatedTime, theoreticalTime, headsign) => {
     const timeNow = new Date();
-    let timeTomorrow = new Date();
+    const timeTomorrow = new Date();
     timeTomorrow.setDate(timeTomorrow.getDate() + 1);
-    let timeYesterday = new Date();
+    const timeYesterday = new Date();
     timeYesterday.setDate(timeNow.getDate() - 1);
 
     // console.log(timeNow);
@@ -140,11 +140,18 @@ function DeparturesTable(props) {
   const createTable = (busStop) => {
     if (busStop) {
         console.log("createTable(): " + props.busStopId);
+
         let busStopDepartures = [];
+
         const timeNow = new Date();
         const timeTomorrow = new Date();
-        timeTomorrow.setDate(timeTomorrow.getDate() + 1)
-        console.log(timeTomorrow);
+        timeTomorrow.setDate(timeTomorrow.getDate() + 1);
+        const timeYesterday = new Date();
+        timeYesterday.setDate(timeNow.getDate() - 1);
+        // console.log("Time:")
+        // console.log(timeNow);
+        // console.log(timeTomorrow);
+        // console.log(timeYesterday);
 
         console.log(props.busStopStatic)
 
@@ -206,9 +213,19 @@ function DeparturesTable(props) {
             }
 
             if (countDynamic != busStop.delay.length) {
-              busStopDepartures.push(busStop.delay[countDynamic]);
-            } else {
-              console.log();
+              let busRealTime;
+              if ((timeNow.getHours() == "22" || timeNow.getHours() == "23") && (busStop.delay[countDynamic].estimatedTime.slice(0, 2) == "00" || busStop.delay[countDynamic].estimatedTime.slice(0, 2) == "01")) {
+                busRealTime = new Date(timeTomorrow.getFullYear(), timeTomorrow.getMonth(), timeTomorrow.getDate(), busStop.delay[countDynamic].estimatedTime.slice(0, 2), busStop.delay[countDynamic].estimatedTime.slice(3, 5));
+              } else if ((timeNow.getHours() == "00" || timeNow.getHours() == "01") && (busStop.delay[countDynamic].estimatedTime.slice(0, 2) == "22" || busStop.delay[countDynamic].estimatedTime.slice(0, 2) == "23")) {
+                busRealTime = new Date(timeYesterday.getFullYear(), timeYesterday.getMonth(), timeYesterday.getDate(), busStop.delay[countDynamic].estimatedTime.slice(0, 2), busStop.delay[countDynamic].estimatedTime.slice(3, 5));
+              } else {
+                busRealTime = new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), busStop.delay[countDynamic].estimatedTime.slice(0, 2), busStop.delay[countDynamic].estimatedTime.slice(3, 5));
+              }
+              const differenceRealNow = Math.floor((busRealTime - timeNow)/1000/60)
+              // console.log("Difference: " + differenceRealNow);
+              if (differenceRealNow >=  -1) {
+                busStopDepartures.push(busStop.delay[countDynamic]);
+              }
             }
 
           }
