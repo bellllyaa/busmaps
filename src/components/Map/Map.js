@@ -183,7 +183,9 @@ function Map () {
     setToggleDrawer(value);
     setBusStop(busStop);
 
-    document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
+    // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
+    document.getElementById("bus-stop__select__dropdown").style.display = "none";
+    // document.getElementById("bus-stop__select__dropdown").style.opacity = 0.5;
     // document.querySelector('#bus-stop__select__dropdown').value = busStop.stopId;
     // document.querySelector('#bus-stop__select__dropdown').selectedIndex = 2;
 

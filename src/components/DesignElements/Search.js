@@ -27,7 +27,8 @@ function Search () {
     console.log(e.label);
     console.log(e.value);
     setToggleDrawer(true);
-    document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
+    // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
+    document.getElementById("bus-stop__select__dropdown").style.display = "none";
     setBusStop({stopId: e.value, stopName: e.label});
 
     localStorage.setItem("lastOpenedStopId", e.value);
