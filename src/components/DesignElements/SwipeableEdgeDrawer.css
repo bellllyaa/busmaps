@@ -6,3 +6,15 @@ h2 {
   margin-left: 15px;
   margin-right: 15px;
 }
+
+/* @keyframes example {
+  from {margin-top: 30px;}
+  to {margin-top: -15px;}
+} */
+
+/* #bus-stop__select__dropdown {
+  z-index: 2000;
+  margin-top: -30px;
+  padding-left: 15px;
+  padding-right: 15px;
+} */

@@ -1,0 +1,25 @@
+#bus-stop__select__dropdown {
+  z-index: 2000;
+  position: fixed;
+  top: 10px;
+  left: 15px;
+  width: 80%;
+  margin-top: 0;
+  pointer-events: none;
+  /* padding-left: 15px; */
+  /* padding-right: 15px; */
+  /* animation-name: example;
+  animation-duration: 4s; */
+}
+
+#options {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgb(231, 230, 230);
+  border: 0;
+  z-index: 2000;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}

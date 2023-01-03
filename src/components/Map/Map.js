@@ -183,6 +183,10 @@ function Map () {
     setToggleDrawer(value);
     setBusStop(busStop);
 
+    document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
+    // document.querySelector('#bus-stop__select__dropdown').value = busStop.stopId;
+    // document.querySelector('#bus-stop__select__dropdown').selectedIndex = 2;
+
     localStorage.setItem("lastOpenedStopId", busStop.stopId);
     localStorage.setItem("lastOpenedStopName", busStop.stopName);
 

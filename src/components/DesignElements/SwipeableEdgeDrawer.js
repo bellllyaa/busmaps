@@ -14,26 +14,9 @@ import { useToggleDrawer, useBusStop } from "../../pages/Home";
 import { useWindowDimensions } from '../../App';
 // import DeparturesTable from "../BusStop/DeparturesTable";
 import CallDeparturesTable from './CallDeparturesTable';
-//import BusStop from '../BusStops/BusStop';
-// import routes from "../../data/routes.json";
 // import Select from "react-select";
 import "./SwipeableEdgeDrawer.css";
 // import zkmBusStops from "../Map/data/zkm-bus-stops.json";
-
-// function CallDeparturesTable (props) {
-//   // console.log(props.busStopId)
-//   // console.log(props.busStopName)
-//   // console.log(props.busStopStatic)
-//   return (
-//     <DeparturesTable
-//       key={props.busStopId}
-//       busStopId={props.busStopId}
-//       busStopName={props.busStopName}
-//       routes={routes}
-//       busStopStatic={props.busStopStatic}
-//     />
-//   )
-// }
 
 // const createRoutesDropdown = () => {
 //   if (zkmBusStops) {
@@ -81,18 +64,7 @@ function SwipeableEdgeDrawer(props) {
   const {toggleDrawer, setToggleDrawer} = useToggleDrawer();
   const {busStop, setBusStop} = useBusStop();
   const windowDimensions = useWindowDimensions();
-
-  // const [busStopsStatic, setBusStopsStatic] = React.useState(null);
-
-  // Getting busStopsStatic
-  // fetch("http://api.zdiz.gdynia.pl/pt/stop_times")
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         console.log(data);
-  //         setBusStopsStatic(data);
-  //       })
-
-  console.log(useWindowDimensions());
+  console.log(windowDimensions);
 
   const swipableEdgeDrawerStyleHorizontal = () => {
     return ({
@@ -119,12 +91,25 @@ function SwipeableEdgeDrawer(props) {
   const { window } = props;
 
   const setToggleDrawerFunc = (value) => () => {
+    if (value === true) {
+      document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
+    } else {
+      document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "auto";
+    }
+    
     setToggleDrawer(value);
   };
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  React.useEffect(() => {
+    // $('#bus-stop__select__dropdown').animate({...}, function () {
+    //   $('#bus-stop__select__dropdown').css({marginTop: '-=15px'});
+    // });
+    // document.getElementById('#bus-stop__select__dropdown').animate({marginTop: '-=15px'});
+  }, [])
+  
   return (
     <div className="swipable-edge-drawer">
       <Root>
@@ -158,20 +143,19 @@ function SwipeableEdgeDrawer(props) {
               left: 0,
               // top: (windowDimensions.width <= 600 ? -75 : -76),
               top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -75.5,
-              // top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -105.5,
+              // top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -144,
             }}
           >
             <Puller />
             {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>Bus stop</Typography> */}
-            {/* <BusStop /> */}
-            {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop.stopName}</h2> : <h2>Bus stop</h2>}
-            {/* <div className="bus-stop__select__dropdown">
+            {/* <div id="bus-stop__select__dropdown">
               <Select
-                options={createRoutesDropdown()}
+                options={{}}
                 onChange={console.log}
                 placeholder="Bus stop"
               />
             </div> */}
+            {busStop ? <h2 styles={{"text-overflow": "ellipsis"}}>{busStop.stopName}</h2> : <h2>Bus stop</h2>}
           </StyledBox>
           <StyledBox
             sx={{

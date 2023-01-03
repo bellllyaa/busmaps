@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 import Map from "../components/Map/Map";
 import SwipeableEdgeDrawer from "../components/DesignElements/SwipeableEdgeDrawer";
+import Search from "../components/DesignElements/Search";
 
 import "./Home.css";
 
@@ -19,6 +20,7 @@ function Home () {
         <BusStopContext.Provider value={{busStop, setBusStop}}>
           <Map />
           <SwipeableEdgeDrawer />
+          <Search />
         </BusStopContext.Provider>
       </ToggleDrawerContext.Provider>
     </div>
