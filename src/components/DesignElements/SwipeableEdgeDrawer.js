@@ -142,7 +142,7 @@ function SwipeableEdgeDrawer(props) {
               top: -drawerBleeding,
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
-              visibility: 'invisible',
+              visibility: 'visible',
               right: 0,
               left: 0,
               // top: (windowDimensions.width <= 600 ? -75 : -76),
