@@ -18,9 +18,9 @@ function Home () {
     <div>
       <ToggleDrawerContext.Provider value={{toggleDrawer, setToggleDrawer}}>
         <BusStopContext.Provider value={{busStop, setBusStop}}>
+          <Search />
           <Map />
           <SwipeableEdgeDrawer />
-          <Search />
         </BusStopContext.Provider>
       </ToggleDrawerContext.Provider>
     </div>
