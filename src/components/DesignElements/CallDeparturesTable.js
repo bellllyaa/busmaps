@@ -40,7 +40,7 @@ function CallDeparturesTable(props) {
         busStopName={props.busStopName}
         routes={routes}
         busStopStatic={busStopStatic}
-      /> : <><Loading /><Loading /><Loading /><Loading /><Loading /><Loading /></>}
+      /> : <><Loading /><Loading /><Loading /><Loading /><Loading /></>}
     </>
   )
 }

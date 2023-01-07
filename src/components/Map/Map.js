@@ -247,6 +247,11 @@ function Map () {
     if (localStorage.getItem("lastOpenedStopId") != null) {
       setToggleDrawerFunc(true, {stopId: Number(localStorage.getItem("lastOpenedStopId")), stopName: localStorage.getItem("lastOpenedStopName")})
     }
+    if (window.navigator.userAgent.slice(13, 19) === "iPhone") {
+      // console.log("iPhone")
+      document.getElementsByClassName("leaflet-container")[0].style.height = "calc(100vh - 20px)";
+      // console.log(document.getElementsByClassName("leaflet-container"));
+    }
   }, [])
 
   // Get user's location
@@ -292,28 +297,31 @@ function Map () {
   //}
 
   return (
-    <MapContainer
-      whenCreated={setMap}
-      center={center}
-      zoom={16}
-      maxZoom={18}
-      scrollWheelZoom={true}
-      zoomSnap={0.5}
-      zoomControl={false}
-      doubleClickZoom={true}
-      // style={{height: "80vh"}}
-    >
-      <ZoomControl position={'topright'} />
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <LocationButton />
+    <div className="map-container">
+      <MapContainer
+        whenCreated={setMap}
+        center={center}
+        zoom={16}
+        maxZoom={18}
+        scrollWheelZoom={true}
+        zoomSnap={0.5}
+        zoomControl={false}
+        doubleClickZoom={true}
+        // style={{height: "100px"}}
+      >
+        <ZoomControl position={'topright'} />
+        <TileLayer
+          attribution='&copy;'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <LocationButton />
 
-      <BusStops />
+        <BusStops />
 
-      {/* <LocationMarker /> */}
-    </MapContainer>
+        {/* <LocationMarker /> */}
+      </MapContainer>
+      {window.navigator.userAgent.slice(13, 19) === "iPhone" ? <p style={{height: "20px", backgroundColor: "#2a2826", margin: 0}}></p> : null}
+    </div>
   )
 }
 

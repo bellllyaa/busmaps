@@ -13,6 +13,8 @@ function Home () {
 
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [busStop, setBusStop] = useState(null);
+  // console.log(window.navigator.userAgent.indexOf("iPhone"))
+  // console.log(window.navigator.userAgent.slice(13, 19))
 
   return (
     <div>
