@@ -320,7 +320,7 @@ function Map () {
 
         {/* <LocationMarker /> */}
       </MapContainer>
-      {window.navigator.userAgent.slice(13, 19) === "iPhone" ? <p style={{height: "20px", backgroundColor: "#2a2826", margin: 0}}></p> : null}
+      {window.navigator.userAgent.slice(13, 19) === "iPhone" ? <p style={{height: "20px", backgroundColor: "#2a2826", margin: 0, zIndex: "2147483647"}}></p> : null}
     </div>
   )
 }

@@ -146,8 +146,8 @@ function SwipeableEdgeDrawer(props) {
           open={toggleDrawer}
           onClose={setToggleDrawerFunc(false)}
           onOpen={setToggleDrawerFunc(true)}
-          swipeAreaWidth={drawerBleeding}
-          disableSwipeToOpen={false}
+          swipeAreaWidth={100}
+          disableSwipeToOpen={true}
           ModalProps={{
             keepMounted: true,
           }}
@@ -161,7 +161,6 @@ function SwipeableEdgeDrawer(props) {
               visibility: 'visible',
               right: 0,
               left: 0,
-              // top: (windowDimensions.width <= 600 ? -75 : -76),
               top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 29  ? (toggleDrawer === false && isIPhone() ? -131.5 :  -111.5) : (toggleDrawer === false && isIPhone() ? -95.5 : -75.5),
               // top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -144,
             }}
@@ -176,7 +175,7 @@ function SwipeableEdgeDrawer(props) {
               />
             </div> */}
             {busStop ?
-              <div className="swipable-edge-drawer__close-button">
+              <div>
                 <h2>{busStop.stopName}</h2>
                 <button onClick={setToggleDrawerFunc(false)}><p style={{fontFamily: "sans-serif", fontSize: "25px", color: "gray", margin: 0, marginLeft: "-2px", marginTop: "-2px"}}>x</p></button>
               </div>
@@ -190,6 +189,7 @@ function SwipeableEdgeDrawer(props) {
               overflow: 'auto',
             }}
           >
+            {/* <p style={{marginTop: "20px"}}></p> */}
             {busStop != null ? <CallDeparturesTable key={busStop.stopId} busStopId={busStop.stopId} busStopName={busStop.stopName} /> : <></>}
             {/* <div className="bus-stop__select__dropdown">
               <Select
