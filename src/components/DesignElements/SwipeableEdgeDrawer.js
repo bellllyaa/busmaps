@@ -1,22 +1,23 @@
-import * as React from 'react';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Button from '@mui/material/Button'
-import PropTypes from 'prop-types';
-import { Global } from '@emotion/react';
-import { styled } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { grey } from '@mui/material/colors';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
+import { Global } from "@emotion/react";
+import { styled } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { grey } from "@mui/material/colors";
+import Box from "@mui/material/Box";
 // import Skeleton from '@mui/material/Skeleton';
 // import Typography from '@mui/material/Typography';
 
 import { useToggleDrawer, useBusStop } from "../../pages/Home";
-import { useWindowDimensions } from '../../App';
+import { useWindowDimensions } from "../../App";
 // import DeparturesTable from "../BusStop/DeparturesTable";
-import CallDeparturesTable from './CallDeparturesTable';
+import CallDeparturesTable from "./CallDeparturesTable";
 // import Select from "react-select";
 import "./SwipeableEdgeDrawer.css";
 // import zkmBusStops from "../Map/data/zkm-bus-stops.json";
+import XSymbol from "../../assets/x-symbol.svg";
 
 // const createRoutesDropdown = () => {
 //   if (zkmBusStops) {
@@ -39,9 +40,9 @@ import "./SwipeableEdgeDrawer.css";
 
 const isIPhone = () => {
   // console.log("is")
-  
+
   let response;
-  try{
+  try {
     // console.log(window.navigator.userAgent.slice(13, 19) === "iPhone");
     response = window.navigator.userAgent.slice(13, 19) === "iPhone";
   } catch {
@@ -49,70 +50,74 @@ const isIPhone = () => {
     response = false;
   }
   return response;
-}
+};
 
 const drawerBleeding = 76;
 
-const Root = styled('div')(({ theme }) => ({
-  height: '100%',
+const Root = styled("div")(({ theme }) => ({
+  height: "100%",
   backgroundColor:
-    theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
+    theme.palette.mode === "light"
+      ? grey[100]
+      : theme.palette.background.default,
 }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
+  backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
 }));
 
 const Puller = styled(Box)(({ theme }) => ({
   width: 40,
   height: 6,
-  backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
+  backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[900],
   borderRadius: 3,
-  position: 'absolute',
+  position: "absolute",
   top: 8,
-  left: 'calc(50% - 20px)',
+  left: "calc(50% - 20px)",
 }));
 
 function SwipeableEdgeDrawer(props) {
   // Variables
-  const {toggleDrawer, setToggleDrawer} = useToggleDrawer();
-  const {busStop, setBusStop} = useBusStop();
+  const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
+  const { busStop, setBusStop } = useBusStop();
   const windowDimensions = useWindowDimensions();
   console.log(windowDimensions);
 
   const swipableEdgeDrawerStyleHorizontal = () => {
-    return ({
-      '.MuiDrawer-root > .MuiPaper-root': {
+    return {
+      ".MuiDrawer-root > .MuiPaper-root": {
         height: `calc(80% - ${drawerBleeding}px)`,
-        left: windowDimensions.width/2-300,
-        right: windowDimensions.width/2-300,
-        overflow: 'visible',
+        left: windowDimensions.width / 2 - 300,
+        right: windowDimensions.width / 2 - 300,
+        overflow: "visible",
       },
-    })
-  }
+    };
+  };
 
   const swipableEdgeDrawerStyleVertical = () => {
-    return ({
-      '.MuiDrawer-root > .MuiPaper-root': {
+    return {
+      ".MuiDrawer-root > .MuiPaper-root": {
         height: `calc(80% - ${drawerBleeding}px)`,
         left: 0,
         right: 0,
-        overflow: 'visible',
+        overflow: "visible",
       },
-    })
-  }
+    };
+  };
 
   const { window } = props;
 
   const setToggleDrawerFunc = (value) => () => {
     if (value === true) {
       // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
-      document.getElementById("bus-stop__select__dropdown").style.display = "none";
+      document.getElementById("bus-stop__select__dropdown").style.display =
+        "none";
       // document.getElementById("swipable-edge-drawer__close-button").style.display = "block";
       // document.getElementById("bus-stop__select__dropdown").style.opacity = 0.5;
     } else {
       // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "auto";
-      document.getElementById("bus-stop__select__dropdown").style.display = "block";
+      document.getElementById("bus-stop__select__dropdown").style.display =
+        "block";
       // document.getElementById("swipable-edge-drawer__close-button").style.display = "none";
       // document.getElementById("bus-stop__select__dropdown").style.opacity = 1;
     }
@@ -121,21 +126,27 @@ function SwipeableEdgeDrawer(props) {
   };
 
   // This is used only for the example
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   React.useEffect(() => {
     // $('#bus-stop__select__dropdown').animate({...}, function () {
     //   $('#bus-stop__select__dropdown').css({marginTop: '-=15px'});
     // });
     // document.getElementById('#bus-stop__select__dropdown').animate({marginTop: '-=15px'});
-  }, [])
-  
+  }, []);
+
   return (
     <div className="swipable-edge-drawer">
       <Root>
         <CssBaseline />
         <Global
-          styles={windowDimensions.height > windowDimensions.width && windowDimensions.width <= 600 ? swipableEdgeDrawerStyleVertical() : swipableEdgeDrawerStyleHorizontal()}
+          styles={
+            windowDimensions.height > windowDimensions.width &&
+            windowDimensions.width <= 600
+              ? swipableEdgeDrawerStyleVertical()
+              : swipableEdgeDrawerStyleHorizontal()
+          }
         />
         {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
           <Button onClick={setToggleDrawerFunc(true)}>Open</Button>
@@ -154,14 +165,29 @@ function SwipeableEdgeDrawer(props) {
         >
           <StyledBox
             sx={{
-              position: 'absolute',
+              position: "absolute",
               top: -drawerBleeding,
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
-              visibility: 'visible',
+              visibility: "visible",
               right: 0,
               left: 0,
-              top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 29  ? (toggleDrawer === false && isIPhone() ? -131.5 :  -111.5) : (toggleDrawer === false && isIPhone() ? -95.5 : -75.5),
+              top:
+                busStop && windowDimensions.width <= 421
+                  ? busStop.stopName.length > 38
+                    ? toggleDrawer === false && isIPhone()
+                      ? -167.5
+                      : -147.5
+                    : busStop.stopName.length > 24
+                      ? toggleDrawer === false && isIPhone()
+                        ? -131.5
+                        : -111.5
+                      : toggleDrawer === false && isIPhone()
+                        ? -95.5
+                        : -75.5
+                  : toggleDrawer === false && isIPhone()
+                    ? -95.5
+                    : -75.5,
               // top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -144,
             }}
           >
@@ -174,23 +200,37 @@ function SwipeableEdgeDrawer(props) {
                 placeholder="Bus stop"
               />
             </div> */}
-            {busStop ?
+            {busStop ? (
               <div>
                 <h2>{busStop.stopName}</h2>
-                <button onClick={setToggleDrawerFunc(false)}><p style={{fontFamily: "sans-serif", fontSize: "25px", color: "gray", margin: 0, marginLeft: "-2px", marginTop: "-2px"}}>x</p></button>
+                <div className="close-button__container">
+                  <button onClick={setToggleDrawerFunc(false)}>
+                    <img src={XSymbol} alt="Close button" style={{width: "13px", marginTop: "3px"}} />
+                  </button>
+                </div>
               </div>
-            : <h2>Bus stop</h2>}
+            ) : (
+              <h2>Bus stop</h2>
+            )}
           </StyledBox>
           <StyledBox
             sx={{
               px: 0,
               pb: 0,
-              height: '100%',
-              overflow: 'auto',
+              height: "100%",
+              overflow: "auto",
             }}
           >
             {/* <p style={{marginTop: "20px"}}></p> */}
-            {busStop != null ? <CallDeparturesTable key={busStop.stopId} busStopId={busStop.stopId} busStopName={busStop.stopName} /> : <></>}
+            {busStop != null ? (
+              <CallDeparturesTable
+                key={busStop.stopId}
+                busStopId={busStop.stopId}
+                busStopName={busStop.stopName}
+              />
+            ) : (
+              <></>
+            )}
             {/* <div className="bus-stop__select__dropdown">
               <Select
                 options={createRoutesDropdown()}

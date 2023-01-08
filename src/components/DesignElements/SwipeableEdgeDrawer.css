@@ -11,13 +11,24 @@ h2 {
   /* padding-bottom: 20px; */
 }
 
+.close-button__container {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+}
+
 button  {
   width: 30px;
   height: 30px;
-  display: inline-block;
   border-radius: 50%;
   border: 0;
-  /* margin-right: 15px; */
+  padding: 0;
 }
 
 /* @keyframes example {
