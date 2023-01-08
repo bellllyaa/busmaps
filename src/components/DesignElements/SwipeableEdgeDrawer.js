@@ -204,7 +204,7 @@ function SwipeableEdgeDrawer(props) {
               <div>
                 <h2>{busStop.stopName}</h2>
                 <div className="close-button__container">
-                  <button onClick={setToggleDrawerFunc(false)}>
+                  <button className="close-button" onClick={setToggleDrawerFunc(false)}>
                     <img src={XSymbol} alt="Close button" style={{width: "12px", marginTop: "3px"}} />
                   </button>
                 </div>
