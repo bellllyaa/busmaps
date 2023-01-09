@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap, circle, ZoomControl } from "react-leaflet";
-import L from 'leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  useMapEvents,
+  Marker,
+  Popup,
+  useMap,
+  circle,
+  ZoomControl,
+} from "react-leaflet";
+import L from "leaflet";
 import { Button } from "@mui/material";
 
 import "./Map.css";
 import styles from "./location-button.module.css";
-import { useToggleDrawer, useBusStop } from "../../pages/Home";
+import {
+  useToggleDrawer,
+  useBusStop,
+  useLastOpenedStops,
+} from "../../pages/Home";
 import Select from "react-select";
 
 import zkmBusStops from "./data/zkm-bus-stops.json";
@@ -170,30 +183,77 @@ const LocationButton = () => {
   return null;
 };
 
-function Map () {
-  const {toggleDrawer, setToggleDrawer} = useToggleDrawer();
-  const {busStop, setBusStop} = useBusStop();
+function Map() {
+  const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
+  const { busStop, setBusStop } = useBusStop();
+  // const { lastOpenedStops, setLastOpenedStops } = useLastOpenedStops();
   // console.log(toggleDrawer);
   // console.log(busStop);
 
   const [map, setMap] = useState();
 
   const setToggleDrawerFunc = (value, busStop) => {
-
-    setToggleDrawer(value);
-    setBusStop(busStop);
-
     // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
-    document.getElementById("bus-stop__select__dropdown").style.display = "none";
+    document.getElementById("bus-stop__select__dropdown").style.display =
+      "none";
     // document.getElementById("bus-stop__select__dropdown").style.opacity = 0.5;
     // document.querySelector('#bus-stop__select__dropdown').value = busStop.stopId;
     // document.querySelector('#bus-stop__select__dropdown').selectedIndex = 2;
 
-    localStorage.setItem("lastOpenedStopId", busStop.stopId);
-    localStorage.setItem("lastOpenedStopName", busStop.stopName);
+    // if (false && lastOpenedStops[1].lastOpenedStopId != null) {
+    //   for (let i = lastOpenedStops.length; i < lastOpenedStops.length; i++) {
+    //     console.log(i);
+    //   }
+    // } else if (lastOpenedStops[0].lastOpenedStopId != null) {
+    //   if (lastOpenedStops[0].lastOpenedStopId != busStop.stopId) {
+    //     lastOpenedStops[1].lastOpenedStopId = lastOpenedStops[0].lastOpenedStopId
+    //     lastOpenedStops[1].lastOpenedStopName = lastOpenedStops[0].lastOpenedStopName
+    //     lastOpenedStops[0].lastOpenedStopId = busStop.stopId;
+    //     lastOpenedStops[0].lastOpenedStopName = busStop.stopName;
+    //   }
+    // } else {
+    //   setLastOpenedStops([
+    //     { lastOpenedStopId: busStop.stopId, lastOpenedStopName: busStop.stopName },
+    //     lastOpenedStops[1],
+    //     lastOpenedStops[2],
+    //   ]);
+    // }
+
+    // if (false && localStorage.getItem("lastOpenedStopId") != null) {
+    //   if (localStorage.getItem("lastOpenedStopId2") != null) {
+    //     localStorage.setItem(
+    //       "lastOpenedStopId3",
+    //       localStorage.getItem("lastOpenedStopId2")
+    //     );
+    //     localStorage.setItem(
+    //       "lastOpenedStopName3",
+    //       localStorage.getItem("lastOpenedStopName2")
+    //     );
+    //   }
+    //   localStorage.setItem(
+    //     "lastOpenedStopId2",
+    //     localStorage.getItem("lastOpenedStopId")
+    //   );
+    //   localStorage.setItem(
+    //     "lastOpenedStopName2",
+    //     localStorage.getItem("lastOpenedStopName")
+    //   );
+    // }
+    localStorage.setItem("lastOpenedStopId0", busStop.stopId);
+    localStorage.setItem("lastOpenedStopName0", busStop.stopName);
+
+    // console.log(lastOpenedStops);
+    console.log(localStorage.getItem("lastOpenedStopId0"));
+    // console.log(localStorage.getItem("lastOpenedStopId1"));
+    // console.log(localStorage.getItem("lastOpenedStopId2"));
+
+    setBusStop(busStop);
+    setToggleDrawer(value);
+
+    console.log(busStop);
 
     // const timeNow = new Date();
-  
+
     // const convertToDate = (departureTime) => {
     //   return new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), departureTime.slice(0,2), departureTime.slice(3, 5))
     // }
@@ -217,7 +277,7 @@ function Map () {
   const BusStops = () => {
     // const map = useMap();
     // console.log(map);
-  
+
     return zkmBusStops.map((busStop) => (
       <Marker
         key={busStop.stopId}
@@ -228,31 +288,39 @@ function Map () {
             // const location = e.target.getLatLng();
             // map.flyTo(location, 16);
             setToggleDrawerFunc(true, busStop);
-          }
+          },
         }}
       />
-    ))
-  }
+    ));
+  };
 
-  let center;
-  if (localStorage.getItem("lastUserLocationLat") != null) {
-    // console.log(localStorage.getItem("lastUserLocationLat"))
-    // console.log(localStorage.getItem("lastUserLocationLon"))
-    center = [Number(localStorage.getItem("lastUserLocationLat")), Number(localStorage.getItem("lastUserLocationLon"))];
-  } else {
-    center = [54.5176944, 18.5387945];
+  const center = () => {
+    if (localStorage.getItem("lastUserLocationLat") != null) {
+      // console.log(localStorage.getItem("lastUserLocationLat"))
+      // console.log(localStorage.getItem("lastUserLocationLon"))
+      return [
+        Number(localStorage.getItem("lastUserLocationLat")),
+        Number(localStorage.getItem("lastUserLocationLon")),
+      ];
+    } else {
+      return [54.5176944, 18.5387945];
+    }
   }
 
   useEffect(() => {
-    if (localStorage.getItem("lastOpenedStopId") != null) {
-      setToggleDrawerFunc(true, {stopId: Number(localStorage.getItem("lastOpenedStopId")), stopName: localStorage.getItem("lastOpenedStopName")})
+    if (localStorage.getItem("lastOpenedStopId0") != null) {
+      setToggleDrawerFunc(true, {
+        stopId: Number(localStorage.getItem("lastOpenedStopId0")),
+        stopName: localStorage.getItem("lastOpenedStopName0"),
+      });
     }
     if (window.navigator.userAgent.slice(13, 19) === "iPhone") {
       // console.log("iPhone")
-      document.getElementsByClassName("leaflet-container")[0].style.height = "calc(100vh - 20px)";
+      document.getElementsByClassName("leaflet-container")[0].style.height =
+        "calc(100vh - 20px)";
       // console.log(document.getElementsByClassName("leaflet-container"));
     }
-  }, [])
+  }, []);
 
   // Get user's location
   // function LocationMarker() {
@@ -271,36 +339,36 @@ function Map () {
   //     setBbox(e.bounds.toBBoxString().split(","));
   //   });
 
-    // useEffect(() => {
-    //   map.locate().on("locationfound", function (e) {
-    //     setPosition(e.latlng);
-    //     map.flyTo(e.latlng, map.getZoom());
-    //     const radius = e.accuracy;
-    //     const circle = L.circle(e.latlng, radius);
-    //     circle.addTo(map);
-    //     setBbox(e.bounds.toBBoxString().split(","));
-    //   });
-    // }, [map]);
+  // useEffect(() => {
+  //   map.locate().on("locationfound", function (e) {
+  //     setPosition(e.latlng);
+  //     map.flyTo(e.latlng, map.getZoom());
+  //     const radius = e.accuracy;
+  //     const circle = L.circle(e.latlng, radius);
+  //     circle.addTo(map);
+  //     setBbox(e.bounds.toBBoxString().split(","));
+  //   });
+  // }, [map]);
 
-    // return position === null ? null : (
-    //   <Marker position={position}>
-    //     <Popup>
-    //       You are here. <br />
-    //       Map bbox: <br />
-    //       <b>Southwest lng</b>: {bbox[0]} <br />
-    //       <b>Southwest lat</b>: {bbox[1]} <br />
-    //       <b>Northeast lng</b>: {bbox[2]} <br />
-    //       <b>Northeast lat</b>: {bbox[3]}
-    //     </Popup>
-    //   </Marker>
-    // );
+  // return position === null ? null : (
+  //   <Marker position={position}>
+  //     <Popup>
+  //       You are here. <br />
+  //       Map bbox: <br />
+  //       <b>Southwest lng</b>: {bbox[0]} <br />
+  //       <b>Southwest lat</b>: {bbox[1]} <br />
+  //       <b>Northeast lng</b>: {bbox[2]} <br />
+  //       <b>Northeast lat</b>: {bbox[3]}
+  //     </Popup>
+  //   </Marker>
+  // );
   //}
 
   return (
     <div className="map-container">
       <MapContainer
         whenCreated={setMap}
-        center={center}
+        center={center()}
         zoom={16}
         maxZoom={18}
         scrollWheelZoom={true}
@@ -309,9 +377,9 @@ function Map () {
         doubleClickZoom={true}
         // style={{height: "100px"}}
       >
-        <ZoomControl position={'topright'} />
+        <ZoomControl position={"topright"} />
         <TileLayer
-          attribution='&copy;'
+          attribution="&copy;"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LocationButton />
@@ -320,9 +388,18 @@ function Map () {
 
         {/* <LocationMarker /> */}
       </MapContainer>
-      {window.navigator.userAgent.slice(13, 19) === "iPhone" ? <p style={{height: "20px", backgroundColor: "#2a2826", margin: 0, zIndex: "2147483647"}}></p> : null}
+      {window.navigator.userAgent.slice(13, 19) === "iPhone" ? (
+        <p
+          style={{
+            height: "20px",
+            backgroundColor: "#ffffff",
+            margin: 0,
+            zIndex: "2147483647",
+          }}
+        ></p>
+      ) : null}
     </div>
-  )
+  );
 }
 
 export default Map;
