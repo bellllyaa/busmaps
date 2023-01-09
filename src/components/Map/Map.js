@@ -316,8 +316,8 @@ function Map() {
     }
     if (window.navigator.userAgent.slice(13, 19) === "iPhone") {
       // console.log("iPhone")
-      document.getElementsByClassName("leaflet-container")[0].style.height =
-        "calc(100vh - 20px)";
+      // document.getElementsByClassName("leaflet-container")[0].style.height =
+      //   "calc(100vh - 20px)";
       // console.log(document.getElementsByClassName("leaflet-container"));
     }
   }, []);

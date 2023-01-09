@@ -1,6 +1,6 @@
 .leaflet-container {
   width: 100vw;
-  height: calc(100% - env(safe-area-inset-bottom));
+  height: calc(100vh - env(safe-area-inset-bottom) - 20px);
   background-color: #dfdfdf;
   margin: 0;
   padding: 0;
