@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 // import Typography from '@mui/material/Typography';
 
 import { useToggleDrawer, useBusStop } from "../../pages/Home";
-import { useWindowDimensions } from "../../App";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 // import DeparturesTable from "../BusStop/DeparturesTable";
 import CallDeparturesTable from "./CallDeparturesTable";
 // import Select from "react-select";
@@ -64,6 +64,7 @@ const Root = styled("div")(({ theme }) => ({
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
+  marginTop: "-20px",
 }));
 
 const Puller = styled(Box)(({ theme }) => ({
@@ -110,14 +111,12 @@ function SwipeableEdgeDrawer(props) {
   const setToggleDrawerFunc = (value) => () => {
     if (value === true) {
       // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
-      document.getElementById("bus-stop__select__dropdown").style.display =
-        "none";
+      document.getElementById("bus-stop__select__dropdown").style.display = "none";
       // document.getElementById("swipable-edge-drawer__close-button").style.display = "block";
       // document.getElementById("bus-stop__select__dropdown").style.opacity = 0.5;
     } else {
       // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "auto";
-      document.getElementById("bus-stop__select__dropdown").style.display =
-        "block";
+      document.getElementById("bus-stop__select__dropdown").style.display = "block";
       // document.getElementById("swipable-edge-drawer__close-button").style.display = "none";
       // document.getElementById("bus-stop__select__dropdown").style.opacity = 1;
     }
@@ -158,7 +157,7 @@ function SwipeableEdgeDrawer(props) {
           onClose={setToggleDrawerFunc(false)}
           onOpen={setToggleDrawerFunc(true)}
           swipeAreaWidth={100}
-          disableSwipeToOpen={true}
+          disableSwipeToOpen={false}
           ModalProps={{
             keepMounted: true,
           }}
@@ -166,7 +165,7 @@ function SwipeableEdgeDrawer(props) {
           <StyledBox
             sx={{
               position: "absolute",
-              top: -drawerBleeding,
+              // top: -drawerBleeding,
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
               visibility: "visible",
@@ -175,20 +174,20 @@ function SwipeableEdgeDrawer(props) {
               top:
                 busStop && windowDimensions.width <= 421
                   ? busStop.stopName.length > 38
-                    ? toggleDrawer === false && isIPhone()
+                    ? toggleDrawer === false && isIPhone() && false
                       ? -167.5
                       : -147.5
                     : busStop.stopName.length > 24
-                      ? toggleDrawer === false && isIPhone()
+                      ? toggleDrawer === false && isIPhone() && false
                         ? -131.5
                         : -111.5
-                      : toggleDrawer === false && isIPhone()
+                      : toggleDrawer === false && isIPhone() && false
                         ? -95.5
                         : -75.5
-                  : toggleDrawer === false && isIPhone()
+                  : toggleDrawer === false && isIPhone() && false
                     ? -95.5
                     : -75.5,
-              // top: busStop && windowDimensions.width <= 421 && (busStop.stopName).length > 30  ? -111.5 : -144,
+              bottom: "calc( - env(safe-area-inset-bottom))"
             }}
           >
             <Puller />

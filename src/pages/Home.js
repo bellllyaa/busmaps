@@ -13,21 +13,15 @@ const LastOpenedStopsContext = createContext(null);
 function Home() {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [busStop, setBusStop] = useState(null);
-  const [lastOpenedStops, setLastOpenedStops] = useState([
-    {
-      lastOpenedStopId: localStorage.getItem("lastOpenedStopId0"),
-      lastOpenedStopName: localStorage.getItem("lastOpenedStopName0"),
-    },
-    {
-      lastOpenedStopId: localStorage.getItem("lastOpenedStopId1"),
-      lastOpenedStopName: localStorage.getItem("lastOpenedStopName2"),
-    },
-    {
-      lastOpenedStopId: localStorage.getItem("lastOpenedStopId2"),
-      lastOpenedStopName: localStorage.getItem("lastOpenedStopName3"),
-    },
-  ]);
-  // console.log(lastOpenedStops);
+
+  const [lastOpenedStops, setLastOpenedStops] = useState(
+    [...Array(3).keys()].map((index) => ({
+      lastOpenedStopId: localStorage.getItem("lastOpenedStopId" + index),
+      lastOpenedStopName: localStorage.getItem("lastOpenedStopName" + index),
+    }))
+  );
+  console.log(lastOpenedStops);
+
   // console.log(window.navigator.userAgent.indexOf("iPhone"))
   // console.log(window.navigator.userAgent.slice(13, 19))
 
@@ -38,9 +32,11 @@ function Home() {
           <LastOpenedStopsContext.Provider
             value={{ lastOpenedStops, setLastOpenedStops }}
           >
-            <Search />
-            <Map />
-            <SwipeableEdgeDrawer />
+            <div style={{height: "80vh"}}>
+              <Search />
+              <Map />
+              <SwipeableEdgeDrawer />
+            </div>
           </LastOpenedStopsContext.Provider>
         </BusStopContext.Provider>
       </ToggleDrawerContext.Provider>

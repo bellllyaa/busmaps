@@ -1,8 +1,12 @@
 .leaflet-container {
   width: 100vw;
-  height: calc(100vh - 0px);
+  height: calc(100% - env(safe-area-inset-bottom));
   background-color: #dfdfdf;
   margin: 0;
+  padding: 0;
+  padding-top: env(safe-area-inset-top, 20px);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  /* padding-bottom: calc(.5rem + env(safe-area-inset-top)); */
 }
 
 @media screen and (prefers-color-scheme: dark) {

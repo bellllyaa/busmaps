@@ -388,7 +388,7 @@ function Map() {
 
         {/* <LocationMarker /> */}
       </MapContainer>
-      {window.navigator.userAgent.slice(13, 19) === "iPhone" ? (
+      {/* {window.navigator.userAgent.slice(13, 19) === "iPhone" ? (
         <p
           style={{
             height: "20px",
@@ -397,7 +397,15 @@ function Map() {
             zIndex: "2147483647",
           }}
         ></p>
-      ) : null}
+      ) : null} */}
+      {/* <div
+        style={{
+          height: "2000px",
+          backgroundColor: "#ffffff",
+          margin: 0,
+          zIndex: "2147483647",
+        }}
+      ></div> */}
     </div>
   );
 }
