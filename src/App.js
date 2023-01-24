@@ -1,11 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Home from "./pages/Home";
+import Settings from "./pages/Settings";
+import ReportAProblem from "./pages/ReportAProblem";
+import About from "./pages/About";
 
 import trips from "./data/trips.json";
 import routes from "./data/routes.json";
 
 function App() {
+
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  );
+
+  console.log(theme);
+
+  if (localStorage.getItem("lastUserLocationLat") != null) {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
   // let busStopAllDepartures = [];
   // fetch("http://api.zdiz.gdynia.pl/pt/stop_times")
   //       .then(response => response.json())
@@ -29,9 +55,18 @@ function App() {
   //   .then(data => console.log(data))
   
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <div className="App-content" >
+          <Routes>
+            <Route path="/" element={<Home key={theme.palette.mode}/>} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/report-a-problem" element={<ReportAProblem />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

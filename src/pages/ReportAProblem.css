@@ -1,0 +1,205 @@
+.report-a-problem__container {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+.report-a-problem__container-theme-dark {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+.report-a-problem__nav {
+  height: 70px;
+  width: 100vw;
+  position: relative;
+  top: 10px;
+  left: 0;
+  display: inline-flex;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 10px 0;
+}
+
+.report-a-problem__container-theme-dark .report-a-problem__nav {
+  border-bottom: 1px solid #45484c;
+}
+
+.report-a-problem-return-button {
+  /* position: absolute; */
+  /* left: 0; */
+  /* top: 0; */
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 50%;
+  /* background-color: #e9e9e9; */
+  background-color: inherit;
+  transform: translateY(10px);
+  /* vertical-align: middle; */
+}
+
+.report-a-problem-return-button:active {
+  background-color: #bbbbbb;
+}
+
+.report-a-problem__container-theme-dark .report-a-problem-return-button:active {
+  background-color: #1c1c1f;
+}
+
+.report-a-problem-return-button img {
+  height: 25px;
+  width: 25px;
+  transform: translateY(1px);
+}
+
+.report-a-problem__container h1 {
+  margin: 0;
+  padding: 10px 0 20px 0;
+  color: black;
+  /* text-align: center; */
+}
+
+.report-a-problem__container-theme-dark h1 {
+  margin: 0;
+  padding: 10px 0 20px 0;
+  color: white;
+}
+
+.report-a-problem__attach-data {
+  width: 100vw;
+}
+
+.report-a-problem__attach-data h3 {
+  margin: 20px 0 0px 20px;
+  color: black;
+}
+
+.report-a-problem__container-theme-dark .report-a-problem__attach-data h3 {
+  color: white;
+}
+
+#report-a-problem-input-text {
+  color: black;
+  width: calc(100% - 40px);
+  height: 50px;
+  /* margin: 10px; */
+  margin: 10px 10px 0 10px;
+  border-radius: 15px;
+  border: none;
+  background-color: inherit;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 10px 0px rgba(100, 100, 111, 0.2);
+
+  padding: 0 10px 0 10px;
+  font-size: 15px;
+}
+
+.report-a-problem__container-theme-dark #report-a-problem-input-text {
+  color: white;
+  box-shadow: 0px 0px 10px 0px rgba(139, 139, 152, 0.3);
+}
+
+#report-a-problem-input-text:focus {
+  outline: none;
+  border: 1px solid #e9eaec;
+  box-shadow: none;
+}
+
+.report-a-problem__container-theme-dark #report-a-problem-input-text:focus {
+  border: 1px solid #45484c;
+}
+
+.report-a-problem-input-photo__container div {
+  background-color: #e9e9e9;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(100, 100, 111, 0.2);
+  /* display: block; */
+  margin: 10px;
+  width: 95vw;
+  height: 200px;
+}
+
+.report-a-problem__container-theme-dark .report-a-problem-input-photo__container div {
+  background-color: #45484c;
+}
+
+#report-a-problem-input-photo {
+  margin: 10px 0 10px 10px;
+  position: absolute;
+  top: 240px;
+  color: black;
+  /* padding: 10px 0 0 10px; */
+  /* height: 50px; */
+  /* width: 92vw; */
+  /* border: none; */
+  /* background-color: #e9e9e9; */
+  /* -webkit-appearance: none; */
+  /* box-shadow: 0px 0px 10px 0px rgba(100, 100, 111, 0.2); */
+  /* border-radius: 8px; */
+  /* position: relative;
+  top: 10px; */
+}
+
+.report-a-problem__container-theme-dark #report-a-problem-input-photo {
+  color: white;
+}
+
+#report-a-problem-chosen-photo {
+  /* height: 200px; */
+  height: 37vw;
+  margin: 0 0 0 10px;
+  border-radius: 15px;
+  position: absolute;
+  top: 280px;
+  left: 10px;
+}
+
+#report-a-problem-send-button {
+  border: none;
+  background-color: #e9e9e9;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 20px 0px rgba(100, 100, 111, 0.2);
+  height: 40px;
+  width: 50vw;
+  border-radius: 20px;
+  margin: 30px 0 0 0;
+  padding: 0;
+  position: relative;
+  left: 25vw;
+}
+
+.report-a-problem__container-theme-dark #report-a-problem-send-button {
+  background-color: #2f3033;
+}
+
+#report-a-problem-send-button:active {
+  /* background-color: #bbbbbb; */
+  outline: none;
+  border: 1px solid #e9eaec;
+  box-shadow: none;
+}
+
+.report-a-problem__container-theme-dark #report-a-problem-send-button:active {
+  border: 1px solid #45484c;
+}
+
+#report-a-problem-send-button h3 {
+  font-size: 15px;
+  color: black;
+  padding: 0;
+  margin: 0;
+}
+
+.report-a-problem__container-theme-dark #report-a-problem-send-button h3 {
+  color: white;
+}
+
+#report-a-problem-send-button .lds-spinner {
+  transform: translateY(-19px) translateX(-20px);
+}

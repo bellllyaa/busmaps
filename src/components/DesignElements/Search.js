@@ -63,6 +63,7 @@ function Search () {
           options={createRoutesDropdown()}
           onChange={onChangeStop}
           placeholder="Szukaj..."
+          value="Szukaj..."
         />
       </div>
       {/* <GetLastOpenedStops key={lastOpenedStops[0].lastOpenedStopId} /> */}

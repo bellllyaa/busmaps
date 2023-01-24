@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import * as MdDirections from "react-icons/md"
+import { useTheme } from '@mui/material/styles';
+import * as MdDirections from "react-icons/md";
 
 import './DeparturesTable.css';
+import { useToggleDrawer } from "../../pages/Home";
+import arrowLeftIcon from "../../assets/arrow-left.svg";
+// import bossOfThisGymGif from "../../assets/goofy-ahh/boss-of-this-gym.gif";
+import goofyAhh from "../../data/goofy_ahh.json";
 
 const LOCAL_URL = "http://localhost:8080";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
@@ -9,7 +14,11 @@ const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
 const PROXY_URL = GOOGLE_PROXY_URL;
 
 function DeparturesTable(props) {
+  const theme = useTheme();
   const [busStop, setBusStop] = useState();
+  const [displayBusesNum, setDisplayBusesNum] = useState(10);
+  const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
+  const [goofyAhhNum, setGoofyAhhNum] = useState(Math.floor(Math.random() * goofyAhh.fullHeight.length));
 
   const convertArrivingTime = (status, estimatedTime, theoreticalTime, headsign) => {
     const timeNow = new Date();
@@ -87,7 +96,7 @@ function DeparturesTable(props) {
         <>
           <td>
             <div className="bus__direction">
-              <MdDirections.MdDirectionsBus id="bus-icon" />
+              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />}
               <p id="headsign">{headsign}</p>
               {arriving_status == "bus-delayed" ? <p className={arriving_status}>Opóźnienie o {differenceRealNow - differencePlanNow} min • {<s>{theoreticalTime}</s>}</p> : (arriving_status == "bus-early" ? <p className={arriving_status}>Wcześniej o {differencePlanNow - differenceRealNow} min • {<s>{theoreticalTime}</s>}</p> : <p className={arriving_status}>Na czas • {estimatedTime}</p>)}
             </div>
@@ -116,7 +125,7 @@ function DeparturesTable(props) {
         <>
           <td>
             <div className="bus__direction">
-              <MdDirections.MdDirectionsBus id="bus-icon" />
+              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />}
               <p id="headsign">{headsign}</p>
               <p className={arriving_status}>Rozkładowo • {theoreticalTime}</p>
             </div>
@@ -135,6 +144,25 @@ function DeparturesTable(props) {
 
   const convertToDate = (departureTime, timeNow) => {
     return new Date(timeNow.getFullYear(), timeNow.getMonth(), timeNow.getDate(), departureTime.slice(0,2), departureTime.slice(3, 5))
+  }
+
+  const handleClick = (num, action) => {
+
+    const el = document.querySelector(theme.palette.mode === "light" ? ".css-1wr8kee" : ".css-1wk78lo");
+
+    if (action === "to top") {
+      el.scroll(0, 0);
+      return;
+    } else if (action === "to top and roll up") {
+      el.scroll(0, 0);
+    }
+
+    console.log(num);
+    setDisplayBusesNum(num);
+    
+    // console.log(el.scrollTop);
+    // const maxElScrollTop = el.scrollHeight - el.clientHeight - 0.5;
+    // console.log(maxElScrollTop);
   }
   
   const createTable = (busStop) => {
@@ -246,23 +274,101 @@ function DeparturesTable(props) {
         console.log(busStopDepartures);
         console.log("");
 
+        let busStopDeparturesCut = [];
+
+        for (let i = 0; i < displayBusesNum && i < busStopDepartures.length; i++) {
+          busStopDeparturesCut.push(busStopDepartures[i])
+        }
+        console.log(busStopDeparturesCut);
+
+        sessionStorage.setItem("stop_info_logs", JSON.stringify([
+          new Date(),
+          props.busStopId,
+          props.busStopName,
+          busStop
+        ]))
+
         return (
-          busStopDepartures.map((b) => (
-            <tr key={b.status === "REALTIME" ? b.trip : b.status + b.departureTime + b.tripId}>
-              <td>
-                <div className={"bus-short-name__" + b.status}>
-                  <p>{b.routeShortName}</p>
-                </div>
-              </td>
-              {convertArrivingTime(b.status, b.status === "REALTIME" ? b.estimatedTime : null, b.status === "REALTIME" ? b.theoreticalTime : b.departureTime, b.status === "REALTIME" ? b.headsign : b.stopHeadsign)}
-            </tr>
-          ))
+          <div>
+
+            <table id="departures-table">
+              <tbody>
+                {busStopDeparturesCut.map((b) => (
+                  <tr key={b.status === "REALTIME" ? b.trip : b.status + b.departureTime + b.tripId}>
+                    <td>
+                      <div className={"bus-short-name__" + b.status}>
+                        <p>{b.routeShortName}</p>
+                      </div>
+                    </td>
+                    {convertArrivingTime(b.status, b.status === "REALTIME" ? b.estimatedTime : null, b.status === "REALTIME" ? b.theoreticalTime : b.departureTime, b.status === "REALTIME" ? b.headsign : b.stopHeadsign)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {/* <div className="free-space"></div> */}
+            {
+              displayBusesNum < busStopDepartures.length
+                ? displayBusesNum <= 30
+                    ? <div>
+                        <button className="departures-list-control-button show-down" onClick={() => {handleClick(displayBusesNum + 10)}} >
+                          <img src={arrowLeftIcon} alt="To top button" />
+                          Więcej
+                        </button>
+                        <button className="departures-list-control-button" onClick={() => {handleClick(0, "to top")}}>
+                          <img src={arrowLeftIcon} alt="To top button" />
+                          Do góry
+                        </button>
+                        <button className="departures-list-go-to-top-button-floating" onClick={() => {handleClick(0, "to top")}}>
+                          <img src={arrowLeftIcon} alt="To top button" />
+                        </button>
+                      </div>
+                    : <div>
+                        <button className="departures-list-control-button show-down" onClick={() => {handleClick(busStopDepartures.length)}} >
+                          <img src={arrowLeftIcon} alt="To top button" />
+                          Wszystkie
+                        </button>
+                        <button className="departures-list-control-button" onClick={() => {handleClick(10, "to top and roll up")}}>
+                          <img src={arrowLeftIcon} alt="To top button" />
+                          Do góry
+                        </button>
+                        <button className="departures-list-go-to-top-button-floating" onClick={() => {handleClick(10, "to top and roll up")}}>
+                          <img src={arrowLeftIcon} alt="To top button" />
+                        </button>
+                      </div>
+                : <button className="departures-list-go-to-top-button-floating" onClick={() => {handleClick(10, "to top and roll up")}}>
+                    <img src={arrowLeftIcon} alt="To top button" />
+                  </button>
+            }
+
+            <div id="departures-table__information">
+              <p>Informacje o przyjazdach dostarczone są przez <a href="https://zkmgdynia.pl" target="_blank">ZKM Gdynia</a></p>
+            </div>
+
+            {localStorage.getItem("mode") === "ohio" ? (
+              <img
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  left: "0",
+                  top: "0",
+                  zIndex: "1",
+                  opacity: theme.palette.mode === "light" ? "0.2" : "0.1",
+                  pointerEvents: "none"
+                }}
+                src={goofyAhh.fullHeight[goofyAhhNum]}
+                // alt="Goofy ahh image"
+              ></img>
+            ) : null}
+
+          </div>
         )
     }
   }
 
   // Updating every x seconds
   useEffect(() => {
+
     function loadBusStopInfo() {
       console.log("loadBusStopInfo(): " + props.busStopId);
       fetch(PROXY_URL + "/redirect?url=" + `http://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
@@ -292,6 +398,38 @@ function DeparturesTable(props) {
     console.log("busStopStatic:")
     console.log(props.busStopStatic)
 
+    let lastOpenedStops = JSON.parse(localStorage.getItem("lastOpenedStops"));
+    const zkmBusStops = JSON.parse(sessionStorage.getItem("zkmBusStops"));
+    let stopLocation = {lng: null, lat: null, zoneName: null};
+    if (zkmBusStops != null && zkmBusStops[0]) {
+      for (const stop of zkmBusStops) {
+        if (Number(stop.stopId) === Number(props.busStopId) && stop.stopName === props.busStopName) {
+          stopLocation = {lng: stop.stopLon, lat: stop.stopLat, zoneName: stop.zoneId};
+          break;
+        }
+      }
+    }
+    // console.log({...stopLocation});
+    // console.log(lastOpenedStops);
+    if (lastOpenedStops === null) {
+      lastOpenedStops = [{stopId: props.busStopId, stopName: props.busStopName, stopProvider: "ZKM Gdynia", ...stopLocation}];
+      localStorage.setItem("lastOpenedStops", JSON.stringify(lastOpenedStops));
+    } else {
+      // localStorage.removeItem("lastOpenedStops");
+      for (const stop of lastOpenedStops) {
+        // console.log(stop.stopName);
+        if (Number(props.busStopId) === Number(stop.stopId)) {
+          let index = lastOpenedStops.indexOf(stop);
+          if (index !== -1) {
+            lastOpenedStops.splice(index, 1);
+          }
+        }
+      }
+      lastOpenedStops.unshift({stopId: props.busStopId, stopName: props.busStopName, stopProvider: "ZKM Gdynia", ...stopLocation});
+      localStorage.setItem("lastOpenedStops", JSON.stringify(lastOpenedStops.slice(0, 5)));
+    }
+    console.log(JSON.parse(localStorage.getItem("lastOpenedStops")));
+
     if (props.busStopId && props.routes) {
       loadBusStopInfo();
       const interval = setInterval(() => loadBusStopInfo(), 10000)
@@ -299,18 +437,55 @@ function DeparturesTable(props) {
         clearInterval(interval);
       }
     }
+
+  }, [])
+
+  useEffect(() => {
+    if (toggleDrawer === false && displayBusesNum > 20) {
+      setDisplayBusesNum(10);
+    }
+  }, [toggleDrawer])
+
+  useEffect(() => {
+
+    // console.log("•")
+    // console.log("•")
+    // console.log("•")
+    // console.log(goofyAhhNum)
+    // console.log(goofyAhh.fullHeight.length)
+    // console.log("•")
+    // console.log("•")
+    // console.log("•")
+
+    try {
+      const el = document.querySelector(theme.palette.mode === "light" ? ".css-1wr8kee" : ".css-1wk78lo");
+
+      el.addEventListener("scroll", () => {
+        const maxElScrollTop = el.scrollHeight - el.clientHeight - 0.5;
+
+        if (el.scrollTop >= maxElScrollTop - 150) {
+          try {
+            document.getElementsByClassName("departures-list-go-to-top-button-floating")[0].style.display = "none";
+          } catch {}
+        } else if (el.scrollTop <= 30) {
+          try {
+            document.getElementsByClassName("departures-list-go-to-top-button-floating")[0].style.display = "none";
+          } catch {}
+        } else {
+          try {
+            document.getElementsByClassName("departures-list-go-to-top-button-floating")[0].style.display = "block";
+          } catch {}
+        }
+      })
+    } catch {}
   }, [])
 
   return (
-    <div>
+    <div className={theme.palette.mode === "light" ? "" : "departures-table__container-theme-dark"}>
       {/* <div className="bus-stop__name">
         <p>{props.busStopName ? <h2>{props.busStopName}:</h2> : null}</p>
       </div> */}
-      <table id="departures-table">
-        <tbody>
-          {createTable(busStop)}
-        </tbody>
-      </table>
+      {createTable(busStop)}
     </div>
   )
 }

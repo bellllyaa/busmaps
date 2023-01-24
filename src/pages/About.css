@@ -1,0 +1,98 @@
+.about__container {
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  /* position: absolute;
+  top: 0; */
+}
+
+.about__container-theme-dark {
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  /* position: absolute;
+  top: 0; */
+}
+
+.about__nav {
+  height: 70px;
+  width: 100vw;
+  position: relative;
+  top: 10px;
+  left: 0;
+  display: inline-flex;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 10px 0;
+}
+
+.about__container-theme-dark .about__nav {
+  border-bottom: 1px solid #45484c;
+}
+
+.about-return-button {
+  /* position: absolute; */
+  /* left: 0; */
+  /* top: 0; */
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 50%;
+  /* background-color: #e9e9e9; */
+  background-color: inherit;
+  transform: translateY(10px);
+  /* vertical-align: middle; */
+}
+
+.about-return-button:active {
+  background-color: #bbbbbb;
+}
+
+.about__container-theme-dark .about-return-button:active {
+  background-color: #1c1c1f;
+}
+
+.about-return-button img {
+  height: 25px;
+  width: 25px;
+  transform: translateY(1px);
+}
+
+.about__container h1 {
+  margin: 0;
+  padding: 10px 0 20px 0;
+  color: black;
+  /* text-align: center; */
+}
+
+.about__container-theme-dark h1 {
+  margin: 0;
+  padding: 10px 0 20px 0;
+  color: white;
+}
+
+.about-element h3 {
+  color: black;
+  margin: 20px 0 0px 20px;
+}
+
+.about__container-theme-dark .about-element h3 {
+  color: white;
+}
+
+.about-element h3 a {
+  text-decoration: none;
+  color: #0a84fe;
+}
+
+.small-screen {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .large-screen {
+    display: none;
+  }
+  .small-screen {
+    display: block;
+  }
+}

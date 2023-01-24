@@ -1,0 +1,185 @@
+.map-container {
+  height: calc(100vh - 0px);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #ece7e4;
+}
+/* env(safe-area-inset-bottom)  */
+
+.sidebar {
+  background-color: rgba(35, 55, 75, 0.9);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: monospace;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  border-radius: 4px;
+}
+
+.mapboxgl-ctrl-top-right {
+  position: fixed;
+  top: 45vh;
+  /* top: 100%; */
+  /* right: 0; */
+  /* top: 100px; */
+  /* background-color: black; */
+  /* z-index: 1; */
+}
+
+/*  */
+
+/* button[aria-label="Find my location"] {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgb(0 0 0/0);
+  pointer-events: auto;
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 29px;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  width: 29px;
+  border-radius: inherit;
+  background-color: black;
+  fill: black;
+}
+
+span[title="Find my location"] {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: #ffffff;
+  cursor: pointer;
+  box-sizing: inherit;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2729%27 height=%2729%27 viewBox=%270 0 20 20%27 xmlns=%27http://www.w3.org/2000/svg%27 fill=%27%23333%27%3E%3Cpath d=%27M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1zm0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7z%27/%3E%3Ccircle id=%27dot%27 cx=%2710%27 cy=%2710%27 r=%272%27/%3E%3Cpath id=%27stroke%27 d=%27M14 5l1 1-9 9-1-1 9-9z%27 display=%27none%27/%3E%3C/svg%3E");
+  background-color: black;
+}
+
+button[aria-label="Zoom in"] {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgb(0 0 0/0);
+  pointer-events: auto;
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 29px;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  width: 29px;
+  border-radius: 4px 4px 0 0;
+}
+
+span[title="Zoom in"] {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: #ffffff;
+  cursor: pointer;
+  box-sizing: inherit;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2729%27 height=%2729%27 viewBox=%270 0 29 29%27 xmlns=%27http://www.w3.org/2000/svg%27 fill=%27%23333%27%3E%3Cpath d=%27M14.5 8.5c-.75 0-1.5.75-1.5 1.5v3h-3c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h3v3c0 .75.75 1.5 1.5 1.5S16 19.75 16 19v-3h3c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-3v-3c0-.75-.75-1.5-1.5-1.5z%27/%3E%3C/svg%3E");
+  background-color: black;
+}
+
+button[aria-label="Zoom out"] {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgb(0 0 0/0);
+  pointer-events: auto;
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 29px;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  width: 29px;
+  border-top: 1px solid #ddd;
+}
+
+span[title="Zoom out"] {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: #ffffff;
+  cursor: pointer;
+  box-sizing: inherit;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2729%27 height=%2729%27 viewBox=%270 0 29 29%27 xmlns=%27http://www.w3.org/2000/svg%27 fill=%27%23333%27%3E%3Cpath d=%27M10 13c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h9c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-9z%27/%3E%3C/svg%3E");
+  background-color: black;
+}
+
+button[aria-label="Reset bearing to north"] {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgb(0 0 0/0);
+  pointer-events: auto;
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  display: block;
+  height: 29px;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  width: 29px;
+  border-top: 1px solid #ddd;
+  cursor: grab;
+  user-select: none;
+  border-radius: 0 0 4px 4px;
+}
+
+span[title="Reset bearing to north"] {
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: #ffffff;
+  cursor: pointer;
+  box-sizing: inherit;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2729%27 height=%2729%27 viewBox=%270 0 29 29%27 xmlns=%27http://www.w3.org/2000/svg%27 fill=%27%23333%27%3E%3Cpath d=%27M10.5 14l4-8 4 8h-8z%27/%3E%3Cpath id=%27south%27 d=%27M10.5 16l4 8 4-8h-8z%27 fill=%27%23ccc%27/%3E%3C/svg%3E");
+  transform: rotate(0deg);
+
+  background-color: black;
+} */
+
+@media screen and (prefers-color-scheme: dark) {
+  .map-container {
+    background-color: #343332;
+  }
+}
+
+/* <div class="mapboxgl-ctrl-bottom-left"><div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" rel="noopener nofollow" href="https://www.mapbox.com/" aria-label="Mapbox logo"></a></div></div> */
