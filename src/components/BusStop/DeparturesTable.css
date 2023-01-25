@@ -38,22 +38,22 @@
 
 #departures-table .bus-early {
   color: red;
-  margin-left: 18.5px;
+  /* margin-left: 18.5px; */
 }
 
 #departures-table .bus-delayed {
   color: red;
-  margin-left: 18.5px;
+  /* margin-left: 18.5px; */
 }
 
 #departures-table .bus-on_time {
   color: green;
-  margin-left: 18.5px;
+  /* margin-left: 18.5px; */
 }
 
 #departures-table .bus-scheduled {
   color: black;
-  margin-left: 18.5px;
+  /* margin-left: 18.5px; */
 }
 
 .departures-table__container-theme-dark #departures-table .bus-scheduled {
