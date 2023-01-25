@@ -239,7 +239,7 @@ function SwipeableEdgeDrawer(props) {
           open={toggleDrawer}
           onClose={setToggleDrawerFunc(false)}
           onOpen={setToggleDrawerFunc(true)}
-          swipeAreaWidth={150}
+          swipeAreaWidth={-stopNameHeight + 10}
           disableSwipeToOpen={false}
           ModalProps={{
             keepMounted: true,
