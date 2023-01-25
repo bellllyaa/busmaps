@@ -130,6 +130,22 @@ function SearchBar() {
             </table>
           </div>
         </div>
+        {localStorage.getItem("mode") === "ohio" ? (
+              <img
+                style={{
+                  width: "100%",
+                  height: "calc(100% + 30px)",
+                  position: "absolute",
+                  left: "0",
+                  top: "-20px",
+                  zIndex: "1",
+                  opacity: theme.palette.mode === "light" ? "0.2" : "0.1",
+                  pointerEvents: "none"
+                }}
+                src={goofyAhh.fullHeight[2]}
+                // alt="Goofy ahh image"
+              ></img>
+            ) : null}
       </>
     )
   }

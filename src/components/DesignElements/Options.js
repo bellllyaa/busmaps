@@ -67,7 +67,7 @@ const Options = () => {
               navigateTo("/settings");
             }}
           >
-            <p>Ustawienia</p>
+            <p>{localStorage.getItem("mode") === "ohio" ? "sustawienia" : "Ustawienia"}</p>
             <img
               src={
                 theme.palette.mode === "light" ? settingsIcon : settingsDarkIcon

@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 
 import "./About.css";
 import arrowLeftIcon from "../assets/arrow-left.svg";
+import goofyAhh from "../data/goofy_ahh.json";
 
 function About () {
 
@@ -41,6 +42,23 @@ function About () {
           <h3>Email: busmaps.pl@gmail.com</h3>
         </div>
       </div>
+
+      {localStorage.getItem("mode") === "ohio" ? (
+              <img
+                style={{
+                  width: "100%",
+                  height: "calc(100% + 30px)",
+                  position: "absolute",
+                  left: "0",
+                  top: "-20px",
+                  zIndex: "1",
+                  opacity: theme.palette.mode === "light" ? "0.2" : "0.2",
+                  pointerEvents: "none"
+                }}
+                src={goofyAhh.fullHeight[Math.floor(Math.random() * 2)+24]}
+                // alt="Goofy ahh image"
+              ></img>
+            ) : null}
     </div>
   )
 }

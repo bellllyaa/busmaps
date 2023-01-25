@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 
 import "./Settings.css";
 import arrowLeftIcon from "../assets/arrow-left.svg";
+import goofyAhh from "../data/goofy_ahh.json";
 
 const Settings = () => {
 
@@ -57,6 +58,22 @@ const Settings = () => {
           </div>
         ) : null}
       </div>
+      {localStorage.getItem("mode") === "ohio" ? (
+              <img
+                style={{
+                  width: "100%",
+                  height: "calc(100% + 30px)",
+                  position: "absolute",
+                  left: "0",
+                  top: "-20px",
+                  zIndex: "1",
+                  opacity: theme.palette.mode === "light" ? "0.2" : "0.2",
+                  pointerEvents: "none"
+                }}
+                src={goofyAhh.fullHeight[2]}
+                // alt="Goofy ahh image"
+              ></img>
+            ) : null}
     </div>
   );
 }
