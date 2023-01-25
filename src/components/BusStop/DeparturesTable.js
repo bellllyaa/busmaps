@@ -5,7 +5,8 @@ import * as MdDirections from "react-icons/md";
 import './DeparturesTable.css';
 import { useToggleDrawer } from "../../pages/Home";
 import arrowLeftIcon from "../../assets/arrow-left.svg";
-// import bossOfThisGymGif from "../../assets/goofy-ahh/boss-of-this-gym.gif";
+import busIcon from "../../assets/bus.svg";
+import busDarkIcon from "../../assets/bus-dark.svg";
 import goofyAhh from "../../data/goofy_ahh.json";
 
 const LOCAL_URL = "http://localhost:8080";
@@ -96,7 +97,8 @@ function DeparturesTable(props) {
         <>
           <td>
             <div className="bus__direction">
-              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />}
+              {/* {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />} */}
+              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>}
               <p id="headsign">{headsign}</p>
               {arriving_status == "bus-delayed" ? <p className={arriving_status}>Opóźnienie o {differenceRealNow - differencePlanNow} min • {<s>{theoreticalTime}</s>}</p> : (arriving_status == "bus-early" ? <p className={arriving_status}>Wcześniej o {differencePlanNow - differenceRealNow} min • {<s>{theoreticalTime}</s>}</p> : <p className={arriving_status}>Na czas • {estimatedTime}</p>)}
             </div>
@@ -125,7 +127,8 @@ function DeparturesTable(props) {
         <>
           <td>
             <div className="bus__direction">
-              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />}
+              {/* {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />} */}
+              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>}
               <p id="headsign">{headsign}</p>
               <p className={arriving_status}>Rozkładowo • {theoreticalTime}</p>
             </div>
@@ -353,7 +356,7 @@ function DeparturesTable(props) {
                   left: "0",
                   top: "0",
                   zIndex: "1",
-                  opacity: theme.palette.mode === "light" ? "0.2" : "0.1",
+                  opacity: theme.palette.mode === "light" ? "0.2" : "0.15",
                   pointerEvents: "none"
                 }}
                 src={goofyAhh.fullHeight[goofyAhhNum]}
