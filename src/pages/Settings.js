@@ -70,7 +70,7 @@ const Settings = () => {
                   opacity: theme.palette.mode === "light" ? "0.2" : "0.2",
                   pointerEvents: "none"
                 }}
-                src={goofyAhh.fullHeight[2]}
+                src={goofyAhh.fullHeight[1]}
                 // alt="Goofy ahh image"
               ></img>
             ) : null}

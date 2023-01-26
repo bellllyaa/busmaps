@@ -12,36 +12,36 @@ import IPhoneInstructions from "./Instructions/IPhoneInstructions";
 // window.alert(window.matchMedia('(display-mode: standalone)').matches)
 // console.log(window.navigator)
 
+const isIPhone = () => {
+  if (window.navigator.userAgent.indexOf('iPhone') != -1 || window.navigator.userAgent.indexOf('iPad') != -1) {
+    // window.alert("true")
+    return true
+  } else {
+    return false
+  }
+}
+
+const isSafari = () => {
+  return /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+}
+
+const isOpera = () => {
+  return typeof window.opr !== "undefined";
+}
+
+const isIOSChrome = () => {
+  return window.navigator.userAgent.match("CriOS") !== null;
+}
+
+const isChrome = () => {
+  return window.chrome !== null && window.chrome !== undefined && window.navigator.vendor === "Google Inc." && !isOpera();
+}
+
 function DownloadBanner() {
 
   const theme = useTheme();
-  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!(window.navigator.standalone === true || (window && window.matchMedia('(display-mode: standalone)').matches)) && sessionStorage.getItem("downloadBannerVisibility") !== "false");
+  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!(window.navigator.standalone === true || (window && window.matchMedia('(display-mode: standalone)').matches)) && sessionStorage.getItem("downloadBannerVisibility") !== "false" && isIPhone());
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-
-  const isIPhone = () => {
-    if (window.navigator.userAgent.indexOf('iPhone') != -1 || window.navigator.userAgent.indexOf('iPad') != -1) {
-      // window.alert("true")
-      return true
-    } else {
-      return false
-    }
-  }
-
-  const isSafari = () => {
-    return /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-  }
-
-  const isOpera = () => {
-    return typeof window.opr !== "undefined";
-  }
-
-  const isIOSChrome = () => {
-    return window.navigator.userAgent.match("CriOS") !== null;
-  }
-
-  const isChrome = () => {
-    return window.chrome !== null && window.chrome !== undefined && window.navigator.vendor === "Google Inc." && !isOpera();
-  }
   
   // const isChrome = () => {
   //   return !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
@@ -74,18 +74,20 @@ function DownloadBanner() {
   }
 
   useEffect(() => {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent the mini-infobar from appearing on mobile
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      setDeferredPrompt(e);
-      localStorage.setItem("beforeinstallprompt", JSON.stringify(e));
-      // Update UI notify the user they can install the PWA
-      // showInstallPromotion();
-      // Optionally, send analytics event that PWA install promo was shown.
-      // console.log(`'beforeinstallprompt' event was fired.`);
-      window.alert(`'beforeinstallprompt' event was fired.`);
-    });
+    if (downloadBannerVisibility && false) {
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        setDeferredPrompt(e);
+        localStorage.setItem("beforeinstallprompt", JSON.stringify(e));
+        // Update UI notify the user they can install the PWA
+        // showInstallPromotion();
+        // Optionally, send analytics event that PWA install promo was shown.
+        // console.log(`'beforeinstallprompt' event was fired.`);
+        window.alert(`'beforeinstallprompt' event was fired.`);
+      });
+    }
   }, [])
 
   useEffect(() => {

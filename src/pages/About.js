@@ -55,7 +55,7 @@ function About () {
                   opacity: theme.palette.mode === "light" ? "0.2" : "0.2",
                   pointerEvents: "none"
                 }}
-                src={goofyAhh.fullHeight[Math.floor(Math.random() * 2)+24]}
+                src={goofyAhh.sky[Math.floor(Math.random() * 2)]}
                 // alt="Goofy ahh image"
               ></img>
             ) : null}

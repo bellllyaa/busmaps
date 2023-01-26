@@ -163,7 +163,7 @@ function SearchBar() {
                   opacity: theme.palette.mode === "light" ? "0.2" : "0.1",
                   pointerEvents: "none"
                 }}
-                src={goofyAhh.fullHeight[2]}
+                src={goofyAhh.fullHeight[1]}
                 // alt="Goofy ahh image"
               ></img>
             ) : null}
@@ -222,7 +222,7 @@ function SearchBar() {
                   opacity: theme.palette.mode === "light" ? "0.2" : "0.1",
                   pointerEvents: "none"
                 }}
-                src={goofyAhh.fullHeight[2]}
+                src={goofyAhh.fullHeight[1]}
                 // alt="Goofy ahh image"
               ></img>
             ) : null}
@@ -310,7 +310,7 @@ function SearchBar() {
                   opacity: theme.palette.mode === "light" ? "0.2" : "0.1",
                   pointerEvents: "none"
                 }}
-                src={goofyAhh.fullHeight[2]}
+                src={goofyAhh.fullHeight[1]}
                 // alt="Goofy ahh image"
               ></img>
             ) : null}
@@ -463,7 +463,7 @@ function SearchBar() {
 
   useEffect(() => {
     if (searchShow === true) {
-      if (sessionStorage.getItem("downloadBannerVisibility") === "false" || (window.navigator && window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches) {
+      if (sessionStorage.getItem("downloadBannerVisibility") === "false") {
         try {
           if (theme.palette.mode === "light") {
             document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ffffff");
@@ -474,7 +474,7 @@ function SearchBar() {
         } catch {}
       }
     } else {
-      if (sessionStorage.getItem("downloadBannerVisibility") === "false" || (window.navigator && window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches) {
+      if (sessionStorage.getItem("downloadBannerVisibility") === "false") {
         try {
           if (theme.palette.mode === "light") {
             document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ece7e4");

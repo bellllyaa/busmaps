@@ -156,7 +156,7 @@ function SwipeableEdgeDrawer(props) {
 
   React.useEffect(() => {
     if (toggleDrawer === false) {
-      if (sessionStorage.getItem("downloadBannerVisibility") !== "false" && !(window && (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches))) {
+      if (sessionStorage.getItem("downloadBannerVisibility") !== "false") {
         try {
           if (theme.palette.mode === "light") {
             document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#f2f2f2");
@@ -178,7 +178,7 @@ function SwipeableEdgeDrawer(props) {
         document.getElementsByClassName("buttons__container")[0].style.display = "none";
       } catch {}
     } else if (toggleDrawer === true) {
-      if (sessionStorage.getItem("downloadBannerVisibility") !== "false" && !(window && (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches))) {
+      if (sessionStorage.getItem("downloadBannerVisibility") !== "false") {
         try {
           if (theme.palette.mode === "light") {
             document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#787878");

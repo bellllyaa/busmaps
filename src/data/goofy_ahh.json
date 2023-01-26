@@ -1,9 +1,12 @@
 {
   "fullHeight": [
     "https://www.dropbox.com/s/6vg6uocr12y7m4f/goofy-ahh-0.jpeg?raw=1",
-    "https://www.dropbox.com/s/h016e6gordsbw58/boss-of-this-gym.gif?raw=1",
     "https://lastfm.freetls.fastly.net/i/u/300x300/4f0142df0c13c78492f5550ef490ba2b.jpg",
+    "https://www.dropbox.com/s/h016e6gordsbw58/boss-of-this-gym.gif?raw=1",
+    "https://www.dropbox.com/s/aodogmf5aprovxd/boss-of-this-gym-1.gif?raw=1",
     "https://www.dropbox.com/s/qixr54owo3f2xbl/mike.jpg?raw=1",
+    "https://www.dropbox.com/s/4atyqbdbrkbtoc8/gachi-15.gif?raw=1",
+    "https://www.dropbox.com/s/k7udxgnqbll4ygb/gachi-16.gif?raw=1",
     "https://is5-ssl.mzstatic.com/image/thumb/Music112/v4/69/3c/b1/693cb1b4-bd42-91fc-dffe-5fcdea05261a/artwork.jpg/400x400cc.jpg",
     "https://us-tuna-sounds-images.voicemod.net/0e0a24b2-06c6-4bff-8333-dd70d689c459-1664082368847.jpg",
     "https://media.tenor.com/Oa6IuoT90hQAAAAd/breaking-bad-mike-ehrmantraut.gif",
@@ -24,11 +27,13 @@
     "https://media.tenor.com/sjvFUn5VE8UAAAAd/gachimuchi-gachi.gif",
     "https://media.tenor.com/wAHH2_8ezeoAAAAd/billy-gachi.gif",
     "https://media.tenor.com/n9Hl8cEdNV4AAAAC/ricardo-milos.gif",
-    "https://media.tenor.com/uZ7aKCnXS50AAAAC/sky-night.gif",
-    "https://media.tenor.com/eSK4SyEXPr4AAAAC/anime-himmel.gif",
     "https://i.pinimg.com/550x/43/32/cc/4332ccd3c8af6cf27cf301de4fb42b43.jpg",
     "https://i.pinimg.com/originals/3b/17/43/3b17433858ef237bdb8f14cf76988ba6.jpg",
     "https://steamuserimages-a.akamaihd.net/ugc/793108063928764886/AE038BCB7FCA649DC4A718EFE80C400EA761EC4F/?imw=1024&imh=640&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
     "http://pm1.narvii.com/7244/a86c281e0c38f362a030f50ea19284fd7f52e891r1-338-420v2_00.jpg"
+  ],
+  "sky": [
+    "https://media.tenor.com/uZ7aKCnXS50AAAAC/sky-night.gif",
+    "https://media.tenor.com/eSK4SyEXPr4AAAAC/anime-himmel.gif"
   ]
 }

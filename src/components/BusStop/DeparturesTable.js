@@ -8,6 +8,8 @@ import arrowLeftIcon from "../../assets/arrow-left.svg";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
 import goofyAhh from "../../data/goofy_ahh.json";
+import impostorIcon from "../../assets/impostor.svg";
+import impostorDarkIcon from "../../assets/impostor-dark.svg";
 
 const LOCAL_URL = "http://localhost:8080";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
@@ -98,7 +100,8 @@ function DeparturesTable(props) {
           <td>
             <div className="bus__direction">
               {/* {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />} */}
-              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>}
+              {/* {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>} */}
+              {localStorage.getItem("mode") === "ohio" ? <img id="bus-icon" src={theme.palette.mode === "light" ? impostorIcon : impostorDarkIcon} alt="Stop icon"></img> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>}
               <p id="headsign">{headsign}</p>
               {arriving_status == "bus-delayed" ? <p className={arriving_status}>Opóźnienie o {differenceRealNow - differencePlanNow} min • {<s>{theoreticalTime}</s>}</p> : (arriving_status == "bus-early" ? <p className={arriving_status}>Wcześniej o {differencePlanNow - differenceRealNow} min • {<s>{theoreticalTime}</s>}</p> : <p className={arriving_status}>Na czas • {estimatedTime}</p>)}
             </div>
@@ -128,7 +131,8 @@ function DeparturesTable(props) {
           <td>
             <div className="bus__direction">
               {/* {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <MdDirections.MdDirectionsBus id="bus-icon" />} */}
-              {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>}
+              {/* {localStorage.getItem("mode") === "ohio" ? <p style={{display: "inline-block", marginRight: "5px"}}>ඞ</p> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>} */}
+              {localStorage.getItem("mode") === "ohio" ? <img id="bus-icon" src={theme.palette.mode === "light" ? impostorIcon : impostorDarkIcon} alt="Stop icon"></img> : <img id="bus-icon" src={theme.palette.mode === "light" ? busDarkIcon : busIcon} alt="Stop icon"></img>}
               <p id="headsign">{headsign}</p>
               <p className={arriving_status}>Rozkładowo • {theoreticalTime}</p>
             </div>
