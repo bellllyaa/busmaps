@@ -40,7 +40,7 @@ const isChrome = () => {
 function DownloadBanner() {
 
   const theme = useTheme();
-  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!(window.navigator.standalone === true || (window && window.matchMedia('(display-mode: standalone)').matches)) && sessionStorage.getItem("downloadBannerVisibility") !== "false" && isIPhone() || true);
+  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!(window.navigator.standalone === true || (window && window.matchMedia('(display-mode: standalone)').matches)) && sessionStorage.getItem("downloadBannerVisibility") !== "false" && isIPhone());
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   
   // const isChrome = () => {
