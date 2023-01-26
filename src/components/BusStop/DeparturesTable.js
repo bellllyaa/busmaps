@@ -105,7 +105,7 @@ function DeparturesTable(props) {
           </td>
           <td>
             <div className="bus__arriving-time">
-              <p>{differenceRealNow >= 1 ? <span className={arriving_status}>{differenceRealNow} min</span> : <span className={arriving_status}>{'Teraz'}</span>}</p>
+              <p>{differenceRealNow >= 1 ? <span className={arriving_status}>{differenceRealNow}<br/>min</span> : <span className={arriving_status}>{'Teraz'}</span>}</p>
               {/* {((differencePlanNow != differenceRealNow) && (differenceRealNow > 1) && (differencePlanNow > 0)) ? <span><s>{differencePlanNow + " min"}</s></span> : <></>} */}
             </div>
             {/* <div>
@@ -135,7 +135,7 @@ function DeparturesTable(props) {
           </td>
           <td>
             <div className="bus__arriving-time">
-              <p>{differencePlanNow >= 1 || differencePlanNow < 0 ? differencePlanNow <= 30 && differencePlanNow >= 0  ? <span className={arriving_status}>{differencePlanNow} min</span> : <span className={arriving_status}>{theoreticalTime}</span> : <span className={arriving_status}>{'Teraz'}</span>}</p>
+              <p>{differencePlanNow >= 1 || differencePlanNow < 0 ? differencePlanNow <= 30 && differencePlanNow >= 0  ? <span className={arriving_status}>{differencePlanNow}<br/>min</span> : <span className={arriving_status}>{theoreticalTime}</span> : <span className={arriving_status}>{'Teraz'}</span>}</p>
             </div>
           </td>
         </>
@@ -170,7 +170,7 @@ function DeparturesTable(props) {
   
   const createTable = (busStop) => {
     if (busStop) {
-        console.log("createTable(): " + props.busStopId);
+        // console.log("createTable(): " + props.busStopId);
 
         let busStopDepartures = [];
 
@@ -184,7 +184,7 @@ function DeparturesTable(props) {
         // console.log(timeTomorrow);
         // console.log(timeYesterday);
 
-        console.log(props.busStopStatic)
+        // console.log(props.busStopStatic)
 
         // for (const busStatic in props.busStopStatic[0]) {
         //   for (countToday; countToday < busStop.delay.length; countToday++) {
@@ -274,15 +274,15 @@ function DeparturesTable(props) {
         }
 
         // console.log(countDynamic);
-        console.log(busStopDepartures);
-        console.log("");
+        // console.log(busStopDepartures);
+        // console.log("");
 
         let busStopDeparturesCut = [];
 
         for (let i = 0; i < displayBusesNum && i < busStopDepartures.length; i++) {
           busStopDeparturesCut.push(busStopDepartures[i])
         }
-        console.log(busStopDeparturesCut);
+        // console.log(busStopDeparturesCut);
 
         sessionStorage.setItem("stop_info_logs", JSON.stringify([
           new Date(),
@@ -373,7 +373,7 @@ function DeparturesTable(props) {
   useEffect(() => {
 
     function loadBusStopInfo() {
-      console.log("loadBusStopInfo(): " + props.busStopId);
+      // console.log("loadBusStopInfo(): " + props.busStopId);
       fetch(PROXY_URL + "/redirect?url=" + `http://api.zdiz.gdynia.pl/pt/delays?stopId=${props.busStopId}`)
         .then(response => response.json())
         .then(data => {
@@ -381,25 +381,24 @@ function DeparturesTable(props) {
             e.routeShortName = getRouteShortName(e.routeId)
           })
 
-          console.log(data)
+          // console.log(data)
           setBusStop(data);
           // setBusStop({lastUpdate: "Bruh", delay: [{"id": "T401R10029", "delayInSeconds": 47, "estimatedTime": "03:17", "headsign": "Oksywie Dolne 01", "routeId": 10029, "routeShortName": "N10", "tripId":  401, "status":  "REALTIME", "theoreticalTime": "03:17", "timestamp": "18:25:14", "trip": 4746564, "vehicleCode":3091,  "vehicleId": 143601}]})
         })
     }
 
-    function loadZKMBusStopInfo() {
-      console.log("")
-      fetch(PROXY_URL + "/trojmiasto?url=" + `https://zkmgdynia.pl/stopsAPI/getDisplay/${props.busStopId}`)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          setBusStop(data);
-        })
-    }
+    // function loadZKMBusStopInfo() {
+    //   fetch(PROXY_URL + "/trojmiasto?url=" + `https://zkmgdynia.pl/stopsAPI/getDisplay/${props.busStopId}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       console.log(data);
+    //       setBusStop(data);
+    //     })
+    // }
 
     console.log("First loading: " + props.busStopId);
-    console.log("busStopStatic:")
-    console.log(props.busStopStatic)
+    // console.log("busStopStatic:")
+    // console.log(props.busStopStatic)
 
     let lastOpenedStops = JSON.parse(localStorage.getItem("lastOpenedStops"));
     const zkmBusStops = JSON.parse(sessionStorage.getItem("zkmBusStops"));

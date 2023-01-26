@@ -9,7 +9,8 @@ import searchIcon from "../../assets/search.svg";
 import xSymbolIcon from "../../assets/x-symbol.svg";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
-// import goofyAhhImg from "../../assets/goofy-ahh/goofy-ahh-1.jpeg";
+import enterIcon from "../../assets/enter.svg";
+import enterDarkIcon from "../../assets/enter-dark.svg";
 import goofyAhh from "../../data/goofy_ahh.json";
 
 const LOCAL_URL = "http://localhost:8080";
@@ -52,6 +53,7 @@ function SearchBar() {
 
   const convertToEnglishAlfabet = (str) => {
     return str
+      .trim()
       .toLowerCase()
       .replaceAll('"', "")
       .replaceAll("'", "")
@@ -73,11 +75,21 @@ function SearchBar() {
 
     let resultList = [];
     for (const stop of stopsList) {
-      // console.log(convertToEnglishAlfabet(stop.stopName).search(searchField));
-      if (convertToEnglishAlfabet(stop.stopName).search(searchField) != -1) {
-        // console.log(convertToEnglishAlfabet(stop.stopName));
+      let isFound = true;
+      const convertedStopName = convertToEnglishAlfabet(stop.stopName);
+      for (const word of searchField.split(" ")) {
+        if (convertedStopName.search(word) === -1) {
+          isFound = false;
+          break;
+        }
+      }
+      if (isFound) {
         resultList.push(stop);
       }
+      // if (convertToEnglishAlfabet(stop.stopName).search(searchField) != -1) {
+      //   // console.log(convertToEnglishAlfabet(stop.stopName));
+      //   resultList.push(stop);
+      // }
     }
 
     return resultList;
@@ -110,7 +122,8 @@ function SearchBar() {
                       key={stop.stopName + stop.stopId}
                       className="search-result-item"
                       onClick={() => {
-                        console.log("clicked");
+                        // console.log("clicked");
+                        sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
                         setToggleDrawerFunc(true, {
@@ -122,7 +135,15 @@ function SearchBar() {
                       <td>
                         <img src={theme.palette.mode === "light" ? busIcon : busDarkIcon} alt="Stop icon"></img>
                       </td>
-                      <td className="search-result-item-stop-name">{stop.stopName}</td>
+                      <td className="search-result-item-stop">
+                        <div id="stop-name">{stop.stopName}</div>
+                        <div id="stop-zone-id">{stop.zoneId}</div>
+                      </td>
+                      {searchResultListCut.indexOf(stop) === 0 ? (
+                        <td>
+                          <img id="enter-icon" src={theme.palette.mode === "light" ? enterIcon : enterDarkIcon} alt="Enter icon"></img>
+                        </td>
+                      ) : null}
                     </tr>
                   );
                 })}
@@ -254,7 +275,8 @@ function SearchBar() {
                       key={stop.stopName + stop.stopId}
                       className="search-result-item"
                       onClick={() => {
-                        console.log("clicked");
+                        // console.log("clicked");
+                        sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
                         setToggleDrawerFunc(true, {
@@ -266,7 +288,9 @@ function SearchBar() {
                       <td>
                         <img src={theme.palette.mode === "light" ? busIcon : busDarkIcon} alt="Stop icon"></img>
                       </td>
-                      <td className="search-result-item-stop-name">{stop.stopName}</td>
+                      <td className="search-result-item-stop">
+                        <div id="stop-name">{stop.stopName}</div>
+                      </td>
                     </tr>
                   );
                 })}
@@ -439,23 +463,27 @@ function SearchBar() {
 
   useEffect(() => {
     if (searchShow === true) {
-      try {
-        if (theme.palette.mode === "light") {
-          document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ffffff");
-        } else {
-          document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#232527");
-          document.querySelector(".search-bar__container").querySelector(".search-bar__container-input-theme-dark").style.boxShadow = "";
-        }
-      } catch {}
+      if (sessionStorage.getItem("downloadBannerVisibility") === "false" || (window.navigator && window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches) {
+        try {
+          if (theme.palette.mode === "light") {
+            document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ffffff");
+          } else {
+            document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#232527");
+            document.querySelector(".search-bar__container").querySelector(".search-bar__container-input-theme-dark").style.boxShadow = "";
+          }
+        } catch {}
+      }
     } else {
-      try {
-        if (theme.palette.mode === "light") {
-          document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ece7e4");
-        } else {
-          document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#343332");
-          document.querySelector(".search-bar__container").querySelector(".search-bar__container-input-theme-dark").style.boxShadow = "none";
-        }
-      } catch {}
+      if (sessionStorage.getItem("downloadBannerVisibility") === "false" || (window.navigator && window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches) {
+        try {
+          if (theme.palette.mode === "light") {
+            document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ece7e4");
+          } else {
+            document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#343332");
+            document.querySelector(".search-bar__container").querySelector(".search-bar__container-input-theme-dark").style.boxShadow = "none";
+          }
+        } catch {}
+      }
     }
   }, [searchShow])
 

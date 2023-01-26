@@ -341,6 +341,10 @@ const ReportAProblem = () => {
       listOfLogs.push(JSON.parse(localStorage.getItem("lastOpenedStops")));
     }
 
+    if (localStorage.getItem("beforeinstallprompt")) {
+      listOfLogs.push(JSON.parse(localStorage.getItem("beforeinstallprompt")));
+    }
+
     // setLogsList(listOfLogs);
 
     const listOfLogsBlob = new Blob([JSON.stringify(listOfLogs)], {type: "application/json"});

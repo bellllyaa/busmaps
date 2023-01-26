@@ -98,7 +98,7 @@ function SwipeableEdgeDrawer(props) {
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
   const { busStop, setBusStop } = useBusStop();
   const windowDimensions = useWindowDimensions();
-  console.log(windowDimensions);
+  // console.log(windowDimensions);
   const [optionsVisibility, setOptionsVisibility] = React.useState(false);
   const stopName = React.createRef();
   const [stopNameHeight, setStopNameHeight] = React.useState(-95.5);
@@ -156,26 +156,45 @@ function SwipeableEdgeDrawer(props) {
 
   React.useEffect(() => {
     if (toggleDrawer === false) {
-      // setOptionsVisibility(false);
-      try {
-        if (theme.palette.mode === "light") {
-          document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ece7e4");
-        } else {
-          document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#343332");
-        }
-      } catch {}
+      if (sessionStorage.getItem("downloadBannerVisibility") !== "false" && !(window && (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches))) {
+        try {
+          if (theme.palette.mode === "light") {
+            document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#f2f2f2");
+          } else {
+            document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#1c1c1e");
+          }
+        } catch {}
+      } else {
+        try {
+          if (theme.palette.mode === "light") {
+            document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#ece7e4");
+          } else {
+            document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#343332");
+          }
+        } catch {}
+      }
 
       try {
         document.getElementsByClassName("buttons__container")[0].style.display = "none";
       } catch {}
     } else if (toggleDrawer === true) {
-      try {
-        if (theme.palette.mode === "light") {
-          document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#757371");
-        } else {
-          document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#1a1919");
-        }
-      } catch {}
+      if (sessionStorage.getItem("downloadBannerVisibility") !== "false" && !(window && (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches))) {
+        try {
+          if (theme.palette.mode === "light") {
+            document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#787878");
+          } else {
+            document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#0e0e0f");
+          }
+        } catch {}
+      } else {
+        try {
+          if (theme.palette.mode === "light") {
+            document.querySelectorAll('meta[name="theme-color"]')[0].setAttribute('content', "#757371");
+          } else {
+            document.querySelectorAll('meta[name="theme-color"]')[1].setAttribute('content', "#1a1919");
+          }
+        } catch {}
+      }
 
       try {
         document.getElementsByClassName("buttons__container")[0].style.display = "block";
@@ -218,7 +237,8 @@ function SwipeableEdgeDrawer(props) {
 
   return (
     <div className="swipable-edge-drawer">
-      {optionsVisibility && <Options />}
+      {/* {optionsVisibility && <Options />} */}
+      <Options />
       <Root>
         <div className="safe-area"></div>
         <CssBaseline />
@@ -271,10 +291,10 @@ function SwipeableEdgeDrawer(props) {
                 <h2 ref={stopName}>{busStop.stopName}</h2>
                 <div className="buttons__container">
                   <button id="show-options-button" onClick={() => {
-                    document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#bbbbbb" : "#1c1c1f";
-                    setTimeout(() => {
-                      document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#e9e9e9" : "#37383d";
-                    }, 70);
+                    // document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#bbbbbb" : "#1c1c1f";
+                    // setTimeout(() => {
+                    //   document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#e9e9e9" : "#37383d";
+                    // }, 70);
                     // e.target.style.backgroundColor = "black";
                     setOptionsVisibility(!optionsVisibility)
                   }}>

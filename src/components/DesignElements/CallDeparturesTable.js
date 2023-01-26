@@ -21,13 +21,13 @@ function CallDeparturesTable(props) {
   }
 
   useEffect(() => {
-    console.log("fetch")
-    console.log(new Date());
+    // console.log("fetch")
+    // console.log(new Date());
 
     fetch(PROXY_URL + `/trojmiasto?bus-stop-id-static=${props.busStopId}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         setBusStopStatic(data);
       })
   }, [])

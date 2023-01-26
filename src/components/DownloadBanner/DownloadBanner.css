@@ -1,0 +1,111 @@
+.download-banner__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100vw;
+  background-color: #f2f2f2;
+  z-index: 1;
+  border-bottom: 1px solid #e3e3e3;
+  display: flex;
+}
+
+.download-banner__container-theme-dark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100vw;
+  background-color: #1c1c1e;
+  z-index: 1;
+  border-bottom: 1px solid #45484c;
+  display: flex;
+}
+
+.download-banner-close-button button {
+  position: relative;
+  top: 0;
+  height: 50px;
+  width: 20px;
+  background-color: inherit;
+  padding: 0;
+  margin: 0 0 0 5px;
+  border: none;
+}
+
+.download-banner-close-button button:active {
+  background-color: #bbbbbb;
+}
+
+.download-banner__container-theme-dark .download-banner-close-button button:active {
+  background-color: #121213;
+}
+
+.download-banner-close-button img {
+  height: 8px;
+  vertical-align: middle;
+  transform: translateY(-0.5px);
+}
+
+/*  */
+
+.download-banner-app-icon img {
+  /* position: relative; */
+  height: 30px;
+  background-color: #3b92f2;
+  padding: 4px;
+  border-radius: 7px;
+  margin: 9.5px 0 0 5px;
+}
+
+.download-banner-app-name {
+  color: black;
+  margin: 5px 0 0 10px;
+  transform: translateY(0.5px);
+}
+
+.download-banner__container-theme-dark .download-banner-app-name {
+  color: white;
+}
+
+.download-banner-app-name div:first-child {
+  font-size: 14px;
+  transform: translateY(1.5px);
+}
+
+.download-banner-app-name div:last-child {
+  font-size: 11px;
+  color: gray;
+  transform: translateY(-1.5px);
+}
+
+/*  */
+
+
+.download-banner-install-button button {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  height: 28px;
+  /* top: 10px; */
+  vertical-align: middle;
+  color: #0e81fe;
+  background-color: #e9e9e9;
+  border: none;
+  padding: 0 15px 0 15px;
+  margin: 10.5px 0 0 0;
+  border-radius: 14px;
+  font-size: 12px;
+}
+
+.download-banner__container-theme-dark .download-banner-install-button button {
+  background-color: #2f3033;
+}
+
+.download-banner-install-button button:active {
+  background-color: #bbbbbb;
+}
+
+.download-banner__container-theme-dark .download-banner-install-button button:active {
+  background-color: #1c1c1f;
+}

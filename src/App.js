@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -14,7 +14,6 @@ import routes from "./data/routes.json";
 function App() {
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
   const theme = useMemo(
     () =>
       createTheme({
@@ -24,13 +23,47 @@ function App() {
       }),
     [prefersDarkMode],
   );
-
   console.log(theme);
 
   if (localStorage.getItem("lastUserLocationLat") != null) {
     localStorage.clear();
     sessionStorage.clear();
   }
+
+  useEffect(() => {
+
+    window.addEventListener('orientationchange', (event) => {
+      if (
+        window.navigator.userAgent.match(/iPhone/i) //||
+        //window.navigator.userAgent.match(/iPad/i)
+      ) {
+        if (window.innerHeight <= 600) {
+          document.querySelector(".MuiPaper-root").style.width = "100vw";
+          document.querySelector(".MuiPaper-root").style.left = "0";
+        } /*else {
+          document.querySelector(".MuiPaper-root").style.width = "600px";
+          document.querySelector(".MuiPaper-root").style.left = "calc(50vw - 300px)";
+        }*/
+        
+        // console.log(window.innerHeight);
+        // var viewportmeta = document.querySelector('meta[name="viewport"]');
+        // if (viewportmeta) {
+          // window.location.reload();
+          // document.querySelector("html").style.transformOrigin = "0% 0% 0px";
+          // viewportmeta.content =
+          //   "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
+          // document.body.addEventListener(
+          //   "gesturestart",
+          //   function () {
+          //     viewportmeta.content =
+          //       "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
+          //   },
+          //   false
+          // );
+        // }
+      }
+    });
+  }, [])
 
   // let busStopAllDepartures = [];
   // fetch("http://api.zdiz.gdynia.pl/pt/stop_times")

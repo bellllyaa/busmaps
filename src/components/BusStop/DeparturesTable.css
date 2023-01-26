@@ -127,15 +127,18 @@
   margin-left: 25px;
 }
 
+.bus__arriving-time {
+  text-align: center;
+}
+
 .bus__arriving-time p {
   display: inline-block;
   /* width: 5px; */
-  /* text-align: center; */
-  /* background-color: aqua; */
   margin: 0;
   padding: 0;
   position: relative;
   right: 15px;
+  /* text-align: center; */
   /* position: center; */
 }
 

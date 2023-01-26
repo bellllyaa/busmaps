@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState } from "react";
 
 import MapboxMap from "../components/Map/MapboxMap";
 import SwipeableEdgeDrawer from "../components/DesignElements/SwipeableEdgeDrawer";
-// import Search from "../components/DesignElements/Search";
 
 import "./Home.css";
 
@@ -32,7 +31,6 @@ function Home() {
       <ToggleDrawerContext.Provider value={{ toggleDrawer, setToggleDrawer }}>
         <BusStopContext.Provider value={{ busStop, setBusStop }}>
           <div style={{ height: "100vh" }}>
-            {/* <Search /> */}
             <MapboxMap />
             <SwipeableEdgeDrawer />
           </div>

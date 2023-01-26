@@ -36,7 +36,7 @@ function About () {
       <div className="about">
         <div className="about-element">
           <h3 className="large-screen">Autor: <a href="https://www.facebook.com/bellllyaa" target="_blank">Artem Balianowski</a></h3>
-          <h3 className="small-screen">Autor: <a href="fb://profile/100010477600577" target="_blank">Artem Balianowski</a></h3>
+          <h3 className="small-screen">Autor: <a href="https://openinapp.co/3sx99" target="_blank">Artem Balianowski</a></h3>
         </div>
         <div className="about-element">
           <h3>Email: busmaps.pl@gmail.com</h3>

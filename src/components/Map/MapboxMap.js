@@ -11,6 +11,7 @@ import {
 } from "../../pages/Home";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
+import DownloadBanner from "../DownloadBanner/DownloadBanner";
 import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 
@@ -58,7 +59,7 @@ function MapboxMap() {
     setBusStop(busStop);
     setToggleDrawer(value);
 
-    console.log(busStop);
+    // console.log(busStop);
   };
 
   // const setCurrentMarkersFunc = (value) => {
@@ -74,13 +75,13 @@ function MapboxMap() {
     if (currentMapCenter.zoom >= 14.00 && currentMarkers.status === "created") {
 
       currentMarkers.status = "changed";
-      console.log(".");
-      console.log(currentMapCenter.zoom);
-      console.log(currentMarkers);
+      // console.log(".");
+      // console.log(currentMapCenter.zoom);
+      // console.log(currentMarkers);
 
     } else if (currentMapCenter.zoom >= 14.00 && currentMarkers.lng === null && currentMarkers.status === "changed") {
 
-      console.log(".");
+      // console.log(".");
 
     } else if (currentMapCenter.zoom >= 14.00 && currentMarkers.lng != null && (Math.abs(currentMarkers.lng - currentMapCenter.lng) > 0.005 || Math.abs(currentMarkers.lat - currentMapCenter.lat)) > 0.005) {
       
@@ -88,7 +89,7 @@ function MapboxMap() {
         marker.remove();
       }
       currentMarkers = {lng: null, lat: null, zoom: null, markers: null, status: "changed"};
-      console.log(currentMarkers);
+      // console.log(currentMarkers);
 
       return;
 
@@ -98,7 +99,7 @@ function MapboxMap() {
         marker.remove();
       }
       currentMarkers = {lng: null, lat: null, zoom: null, markers: null, status: "changed"};
-      console.log(currentMarkers);
+      // console.log(currentMarkers);
       return;
 
     } else {
@@ -157,8 +158,8 @@ function MapboxMap() {
         .addTo(map.current);
         currentMarkersList.push(marker);
     }
-    console.log(".");
-    console.log(currentMarkers);
+    // console.log(".");
+    // console.log(currentMarkers);
     // console.log({lng: currentMapCenter.lng, lat: currentMapCenter.lat, zoom: currentMapCenter.zoom, markers: currentMarkersList});
     //setCurrentMarkers({lng: currentMapCenter.lng, lat: currentMapCenter.lat, zoom: currentMapCenter.zoom, markers: currentMarkersList});
     // setCurrentMarkersFunc("bruh");
@@ -166,8 +167,8 @@ function MapboxMap() {
     currentMarkers.lat = currentMapCenter.lat;
     currentMarkers.zoom = currentMapCenter.zoom;
     currentMarkers.markers = currentMarkersList;
-    console.log(currentMarkers);
-    console.log(".");
+    // console.log(currentMarkers);
+    // console.log(".");
   };
 
   useEffect(() => {
@@ -216,7 +217,7 @@ function MapboxMap() {
 
       zkmBusStops = sortStopsByLocation(zkmBusStops, {lon: Number(lastUserLocation.lng), lat: Number(lastUserLocation.lat)})
 
-      console.log(zkmBusStops);
+      // console.log(zkmBusStops);
     }
     sessionStorage.setItem("zkmBusStops", JSON.stringify(zkmBusStops));
 
@@ -226,12 +227,6 @@ function MapboxMap() {
         stopId: Number(lastOpenedStop.stopId),
         stopName: lastOpenedStop.stopName,
       });
-    }
-    if (window.navigator.userAgent.slice(13, 19) === "iPhone" && false) {
-      // console.log("iPhone")
-      // document.getElementsByClassName("leaflet-container")[0].style.height =
-      //   "calc(100vh - 20px)";
-      // console.log(document.getElementsByClassName("leaflet-container"));
     }
   }, []);
 
@@ -305,7 +300,7 @@ function MapboxMap() {
   });
 
   useEffect(() => {
-    if (toggleDrawer === true) {
+    if (toggleDrawer === true && sessionStorage.getItem("mapFlyToStop") === "true") {
       const interval = setInterval(() => {
         if (document.querySelector("#departures-table") != null) {
           // console.log(document.querySelector("#departures-table"));
@@ -313,11 +308,9 @@ function MapboxMap() {
           if (localStorage.getItem("lastOpenedStops") != null) {
             let lastOpenedStop = JSON.parse(localStorage.getItem("lastOpenedStops"))[0];
             map.current.flyTo({center: [lastOpenedStop.lng, lastOpenedStop.lat], zoom: 15});
-            // console.log("Clearing interval...");
+            sessionStorage.removeItem("mapFlyToStop");
             clearInterval(interval);
           }
-        } else {
-          // console.log("Failed to display element");
         }
       }, 200);
     }
@@ -328,6 +321,7 @@ function MapboxMap() {
       {/* <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div> */}
+      <DownloadBanner />
       <SearchBar />
       <div ref={mapContainer} className="map-container" />
       {/* <button class="mapboxgl-ctrl-geolocate mapboxgl-ctrl-geolocate-active" type="button" aria-label="Find my location" aria-pressed="true"><span class="mapboxgl-ctrl-icon" aria-hidden="true" title="Find my location"></span></button> */}
