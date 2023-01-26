@@ -26,7 +26,7 @@ function IPhoneInstructions () {
         }}
       ></div>
       <div className="iphone-install-instructions">
-        <h3>Dodaj do ekranu początkującego</h3>
+        <h3>Dodaj do ekranu początkowego</h3>
         <div className="iphone-install-instructions-share-button-pic">
           <img
             src={iosShareButtonPic}

@@ -124,7 +124,7 @@ function DownloadBanner() {
           </div>
           <div className="download-banner-app-name">
             <div>BusMaps</div>
-            <div>Dodaj do ekranu głównego</div>
+            <div>Dodaj do ekranu początkowego</div>
           </div>
           <div className="download-banner-install-button">
             <button

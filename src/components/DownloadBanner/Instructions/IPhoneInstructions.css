@@ -50,4 +50,5 @@
 .iphone-install-instructions-share-button-pic img {
   width: 50vw;
   margin-left: calc(15vw - 20px);
+  border-radius: 18px;
 }
