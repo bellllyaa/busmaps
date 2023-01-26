@@ -36,7 +36,7 @@ function IPhoneInstructions () {
         {isSafari() ? null : (
           <>
             <h3>Krok 1</h3>
-            <p>Odtwórz <a href="safari-https://busmaps.pl">busmaps.pl</a> w Safari</p>
+            <p>Odtwórz <a href="https://busmaps.pl" target="_blank">busmaps.pl</a> w Safari</p>
             <div className="iphone-install-instructions-lauch-safari-pic">
               <img
                 src={iosLaunchSafariButtonPic}
