@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from '@mui/material/styles';
 
+import isIPhone from "../../hooks/isIPhone";
+import isSafari from "../../hooks/isSafari";
+import isOpera from "../../hooks/isOpera";
+
 import "./DownloadBanner.css";
 import xSymbolIcon from "../../assets/x-symbol.svg";
 import busIcon from "../../assets/bus.svg";
@@ -12,26 +16,22 @@ import IPhoneInstructions from "./Instructions/IPhoneInstructions";
 // window.alert(window.matchMedia('(display-mode: standalone)').matches)
 // console.log(window.navigator)
 
-const isIPhone = () => {
-  if (window.navigator.userAgent.indexOf('iPhone') != -1 || window.navigator.userAgent.indexOf('iPad') != -1) {
-    // window.alert("true")
-    return true
-  } else {
-    return false
-  }
-}
+// const isIPhone = () => {
+//   if (window.navigator.userAgent.indexOf('iPhone') != -1 || window.navigator.userAgent.indexOf('iPad') != -1) {
+//     // window.alert("true")
+//     return true
+//   } else {
+//     return false
+//   }
+// }
 
-const isSafari = () => {
-  return /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-}
+// const isSafari = () => {
+//   return /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+// }
 
-const isOpera = () => {
-  return typeof window.opr !== "undefined";
-}
-
-const isIOSChrome = () => {
-  return window.navigator.userAgent.match("CriOS") !== null;
-}
+// const isOpera = () => {
+//   return typeof window.opr !== "undefined";
+// }
 
 const isChrome = () => {
   return window.chrome !== null && window.chrome !== undefined && window.navigator.vendor === "Google Inc." && !isOpera();
@@ -40,7 +40,7 @@ const isChrome = () => {
 function DownloadBanner() {
 
   const theme = useTheme();
-  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!(window.navigator.standalone === true || (window && window.matchMedia('(display-mode: standalone)').matches)) && sessionStorage.getItem("downloadBannerVisibility") !== "false" && isIPhone());
+  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!(window.navigator.standalone === true || (window && window.matchMedia('(display-mode: standalone)').matches)) && sessionStorage.getItem("downloadBannerVisibility") !== "false" && isIPhone() || true);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   
   // const isChrome = () => {
