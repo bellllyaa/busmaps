@@ -263,7 +263,7 @@ function MapboxMap() {
     }
     sessionStorage.setItem("zkmBusStops", JSON.stringify(zkmBusStops));
 
-    if (localStorage.getItem("lastOpenedStops") != null && false) {
+    if (localStorage.getItem("lastOpenedStops") != null) {
       let lastOpenedStop = JSON.parse(localStorage.getItem("lastOpenedStops"))[0];
       setToggleDrawerFunc(true, {
         stopId: Number(lastOpenedStop.stopId),
