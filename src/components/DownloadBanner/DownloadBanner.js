@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from '@mui/material/styles';
 
+import isStandalone from "../../hooks/isStandalone";
 import isIPhone from "../../hooks/isIPhone";
-import isSafari from "../../hooks/isSafari";
-import isOpera from "../../hooks/isOpera";
+import isAndroid from "../../hooks/isAndroid";
 
 import "./DownloadBanner.css";
 import xSymbolIcon from "../../assets/x-symbol.svg";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
-import IPhoneInstructions from "./Instructions/IPhoneInstructions";
+import InstructionsCard from "./InstructionsCard";
 
 // sessionStorage.removeItem("downloadBannerVisibility");
 
@@ -33,14 +33,14 @@ import IPhoneInstructions from "./Instructions/IPhoneInstructions";
 //   return typeof window.opr !== "undefined";
 // }
 
-const isChrome = () => {
-  return window.chrome !== null && window.chrome !== undefined && window.navigator.vendor === "Google Inc." && !isOpera();
-}
+// const isChrome = () => {
+//   return window.chrome !== null && window.chrome !== undefined && window.navigator.vendor === "Google Inc." && !isIOSOpera();
+// }
 
 function DownloadBanner() {
 
   const theme = useTheme();
-  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!(window.navigator.standalone === true || (window && window.matchMedia('(display-mode: standalone)').matches)) && sessionStorage.getItem("downloadBannerVisibility") !== "false" && isIPhone());
+  const [downloadBannerVisibility, setDownloadBannerVisibility] = useState(!isStandalone() && sessionStorage.getItem("downloadBannerVisibility") !== "false" && (isIPhone() || isAndroid()));
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   
   // const isChrome = () => {
@@ -63,32 +63,29 @@ function DownloadBanner() {
         window.alert("Failed to install through deferredPrompt");
         window.alert(err);
       }
-    } else if (isIPhone() && isSafari()) {
-      // window.alert(isChrome());
-      document.querySelector(`.iphone-install-instructions__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.display = "block";
-      // document.querySelector(`.iphone-install-instructions__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.visibility = "visible";
-    } else {
-      document.querySelector(`.iphone-install-instructions__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.display = "block";
-      // document.querySelector(`.iphone-install-instructions__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.visibility = "visible";
+    } else if (isIPhone()) {
+      document.querySelector(`.install-instructions__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.display = "block";
+    } else if (isAndroid()) {
+      document.querySelector(`.install-instructions__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.display = "block";
     }
   }
 
-  useEffect(() => {
-    if (downloadBannerVisibility && false) {
-      window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent the mini-infobar from appearing on mobile
-        e.preventDefault();
-        // Stash the event so it can be triggered later.
-        setDeferredPrompt(e);
-        localStorage.setItem("beforeinstallprompt", JSON.stringify(e));
-        // Update UI notify the user they can install the PWA
-        // showInstallPromotion();
-        // Optionally, send analytics event that PWA install promo was shown.
-        // console.log(`'beforeinstallprompt' event was fired.`);
-        window.alert(`'beforeinstallprompt' event was fired.`);
-      });
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (downloadBannerVisibility) {
+  //     window.addEventListener('beforeinstallprompt', (e) => {
+  //       // Prevent the mini-infobar from appearing on mobile
+  //       e.preventDefault();
+  //       // Stash the event so it can be triggered later.
+  //       setDeferredPrompt(e);
+  //       localStorage.setItem("beforeinstallprompt", JSON.stringify(e));
+  //       // Update UI notify the user they can install the PWA
+  //       // showInstallPromotion();
+  //       // Optionally, send analytics event that PWA install promo was shown.
+  //       // console.log(`'beforeinstallprompt' event was fired.`);
+  //       window.alert(`'beforeinstallprompt' event was fired.`);
+  //     });
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (downloadBannerVisibility) {
@@ -134,12 +131,12 @@ function DownloadBanner() {
                 installApp();
               }}
             >
-              ZAINSTALUJ
+              <b>ZAINSTALUJ</b>
             </button>
           </div>
         </div>
       ) : null}
-      <IPhoneInstructions />
+      <InstructionsCard />
     </>
   );
 }

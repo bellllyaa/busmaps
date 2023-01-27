@@ -1,55 +1,10 @@
-.iphone-install-instructions__container {
-  z-index: 10000;
-  display: none;
-  /* opacity: 0; */
-  /* visibility: hidden; */
-  /* transition: visibility 1s ease; */
-}
-
-.iphone-install-instructions__container-theme-dark {
-  z-index: 10000;
-  display: none;
-  /* opacity: 0; */
-  /* visibility: hidden; */
-  /* transition: visibility 1s ease; */
-}
-
-.iphone-install-instructions__background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  opacity: 0.5;
-  z-index: 10000;
-}
-
-.iphone-install-instructions {
-  position: fixed;
-  top: 10vh;
-  left: 10vw;
-  /* height: 60vh; */
-  width: 80vw;
-  /* background-color: aqua; */
-  background-color: #f2f2f2;
-  z-index: 10001;
-  border-radius: 20px;
-  padding: 20px 20px 50px 20px;
-  /* transition: opacity 1s ease; */
-}
-
-.iphone-install-instructions__container-theme-dark .iphone-install-instructions {
-  background-color: #1c1c1e;
-}
-
 .iphone-install-instructions h3 {
   font-size: 17px;
   text-align: center;
   color: black;
 }
 
-.iphone-install-instructions__container-theme-dark .iphone-install-instructions h3 {
+.install-instructions__container-theme-dark .iphone-install-instructions h3 {
   color: white;
 }
 
@@ -60,7 +15,7 @@
   color: black;
 }
 
-.iphone-install-instructions__container-theme-dark .iphone-install-instructions p {
+.install-instructions__container-theme-dark .iphone-install-instructions p {
   color: white;
 }
 

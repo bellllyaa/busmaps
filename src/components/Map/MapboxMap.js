@@ -11,6 +11,8 @@ import {
 } from "../../pages/Home";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
+import impostorIcon from "../../assets/impostor.svg";
+import impostorDarkIcon from "../../assets/impostor-dark.svg";
 import DownloadBanner from "../DownloadBanner/DownloadBanner";
 import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
@@ -135,7 +137,16 @@ function MapboxMap() {
       el.className = "marker";
 
       const elIcon = document.createElement("img");
-      elIcon.setAttribute("src", theme.palette.mode === "light" ? busIcon : busDarkIcon);
+      elIcon.setAttribute(
+        "src",
+        theme.palette.mode === "light"
+          ? localStorage.getItem("mode") === "ohio"
+            ? impostorDarkIcon
+            : busIcon
+          : localStorage.getItem("mode") === "ohio"
+          ? impostorIcon
+          : busDarkIcon
+      );
       elIcon.setAttribute("alt", "Stop button");
       elIcon.style.height = `${height}px`;
       elIcon.style.width = `${width}px`;

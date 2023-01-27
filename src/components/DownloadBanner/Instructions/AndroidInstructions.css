@@ -1,0 +1,41 @@
+.android-install-instructions h3 {
+  font-size: 17px;
+  text-align: center;
+  color: black;
+}
+
+.install-instructions__container-theme-dark .android-install-instructions h3 {
+  color: white;
+}
+
+.android-install-instructions p {
+  font-size: 13px;
+  text-align: center;
+  margin: -7px 0 10px 0;
+  color: black;
+}
+
+.install-instructions__container-theme-dark .android-install-instructions p {
+  color: white;
+}
+
+.android-install-instructions a {
+  text-decoration: none;
+  color: #0a84fe;
+}
+
+.android-install-instructions-options-pic img {
+  width: 50vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 18px;
+}
+
+.android-install-instructions-install-app-pic img {
+  width: 50vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 18px;
+}
