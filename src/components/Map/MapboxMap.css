@@ -31,6 +31,12 @@
   /* z-index: 1; */
 }
 
+#map-update-button {
+  position: fixed;
+  z-index: -1;
+  /* left: 200vw; */
+}
+
 /*  */
 
 /* button[aria-label="Find my location"] {

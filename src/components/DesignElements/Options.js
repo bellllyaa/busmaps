@@ -130,7 +130,9 @@ const Options = () => {
                 )
                 .querySelector("#show-options-button")
                 .click();
-              // window.alert("Dodano")
+              try {
+                document.querySelector("#map-update-button").click();
+              } catch {}
             }}
           >
             <p>Usunąć z polubionych</p>
@@ -172,7 +174,9 @@ const Options = () => {
                   )
                   .querySelector("#show-options-button")
                   .click();
-                // window.alert("Dodano")
+                try {
+                  document.querySelector("#map-update-button").click();
+                } catch {}
               }}
             >
               <p>Dodać do polubionych</p>

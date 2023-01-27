@@ -69,7 +69,7 @@ function MapboxMap() {
   //   setCurrentMarkers(value);
   // }
 
-  const addBusStops = (currentMapCenter) => {
+  const addBusStops = (currentMapCenter, force) => {
 
     // console.log(Math.abs(currentMarkers.lng - currentMapCenter.lng))
     // console.log(Math.abs(currentMarkers.lat - currentMapCenter.lat))
@@ -81,7 +81,7 @@ function MapboxMap() {
       // console.log(currentMapCenter.zoom);
       // console.log(currentMarkers);
 
-    } else if (currentMapCenter.zoom >= 14.00 && currentMarkers.lng === null && currentMarkers.status === "changed") {
+    } else if (force || currentMapCenter.zoom >= 14.00 && currentMarkers.lng === null && currentMarkers.status === "changed") {
 
       // console.log(".");
 
@@ -334,6 +334,13 @@ function MapboxMap() {
       </div> */}
       <DownloadBanner />
       <SearchBar />
+      <button id="map-update-button" onClick={() => {
+        addBusStops({
+          lng: map.current.getCenter().lng.toFixed(4),
+          lat: map.current.getCenter().lat.toFixed(4),
+          zoom: map.current.getZoom().toFixed(2),
+        }, true);
+      }}></button>
       <div ref={mapContainer} className="map-container" />
       {/* <button class="mapboxgl-ctrl-geolocate mapboxgl-ctrl-geolocate-active" type="button" aria-label="Find my location" aria-pressed="true"><span class="mapboxgl-ctrl-icon" aria-hidden="true" title="Find my location"></span></button> */}
     </div>

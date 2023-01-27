@@ -344,12 +344,22 @@ function SearchBar() {
         if (searchField === "/mode default") {
           localStorage.removeItem("mode");
           setTimeout(() => { window.alert("You entered default mode!") }, 100);
-          setTimeout(() => { setSearchField("") }, 200);
+          setTimeout(() => {
+            setSearchField("");
+            try {
+              document.querySelector("#map-update-button").click();
+            } catch {}
+          }, 200);
           return <h1>Bruh</h1>;
         } else if (searchField === "/mode ohio") {
           localStorage.setItem("mode", "ohio");
-          setTimeout(() => { setSearchField("") }, 2000);
           setTimeout(() => { window.alert("u entered ohio mode") }, 500);
+          setTimeout(() => {
+            setSearchField("");
+            try {
+              document.querySelector("#map-update-button").click();
+            } catch {}
+          }, 2000);
           return (
             <img
               style={{

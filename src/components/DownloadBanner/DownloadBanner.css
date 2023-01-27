@@ -52,6 +52,7 @@
 .download-banner-app-icon img {
   /* position: relative; */
   height: 30px;
+  width: 30px;
   background-color: #3b92f2;
   padding: 4px;
   border-radius: 7px;
