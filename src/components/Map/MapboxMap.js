@@ -69,6 +69,22 @@ function MapboxMap() {
   //   setCurrentMarkers(value);
   // }
 
+  const isFavorite = (currentStop) => {
+    const favoriteStops = JSON.parse(localStorage.getItem("favoriteStops"));
+
+    if (favoriteStops === null) {
+      return false;
+    }
+
+    for (const stop of favoriteStops) {
+      if (stop.stopId === currentStop.stopId && stop.stopName === currentStop.stopName) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   const addBusStops = (currentMapCenter, force) => {
 
     // console.log(Math.abs(currentMarkers.lng - currentMapCenter.lng))
@@ -150,7 +166,7 @@ function MapboxMap() {
       elIcon.setAttribute("alt", "Stop button");
       elIcon.style.height = `${height}px`;
       elIcon.style.width = `${width}px`;
-      elIcon.style.backgroundColor = "#3b92f2";
+      elIcon.style.backgroundColor = isFavorite(stop) ? "#ffbc2e" : "#3b92f2";
       elIcon.style.padding = "4px";
       elIcon.style.margin = "10px";
       elIcon.style.borderRadius = "4px";
