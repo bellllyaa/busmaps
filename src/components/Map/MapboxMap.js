@@ -13,6 +13,7 @@ import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
 import impostorIcon from "../../assets/impostor.svg";
 import impostorDarkIcon from "../../assets/impostor-dark.svg";
+import starIcon from "../../assets/star1.svg";
 import DownloadBanner from "../DownloadBanner/DownloadBanner";
 import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
@@ -97,11 +98,11 @@ function MapboxMap() {
       // console.log(currentMapCenter.zoom);
       // console.log(currentMarkers);
 
-    } else if (force || currentMapCenter.zoom >= 14.00 && currentMarkers.lng === null && currentMarkers.status === "changed") {
+    } else if (currentMapCenter.zoom >= 14.00 && currentMarkers.lng === null && currentMarkers.status === "changed") {
 
       // console.log(".");
 
-    } else if (currentMapCenter.zoom >= 14.00 && currentMarkers.lng != null && (Math.abs(currentMarkers.lng - currentMapCenter.lng) > 0.005 || Math.abs(currentMarkers.lat - currentMapCenter.lat)) > 0.005) {
+    } else if ((force && currentMapCenter.zoom >= 14.00) || currentMapCenter.zoom >= 14.00 && currentMarkers.lng != null && (Math.abs(currentMarkers.lng - currentMapCenter.lng) > 0.005 || Math.abs(currentMarkers.lat - currentMapCenter.lat)) > 0.005) {
       
       for (const marker of currentMarkers.markers) {
         marker.remove();
@@ -109,7 +110,7 @@ function MapboxMap() {
       currentMarkers = {lng: null, lat: null, zoom: null, markers: null, status: "changed"};
       // console.log(currentMarkers);
 
-      return;
+      // return;
 
     } else if (currentMarkers.lng != null && currentMapCenter.zoom < 14.00) {
       
@@ -166,12 +167,26 @@ function MapboxMap() {
       elIcon.setAttribute("alt", "Stop button");
       elIcon.style.height = `${height}px`;
       elIcon.style.width = `${width}px`;
-      elIcon.style.backgroundColor = isFavorite(stop) ? "#ffbc2e" : "#3b92f2";
+      // elIcon.style.backgroundColor = isFavorite(stop) ? "#ffbc2e" : "#3b92f2";
+      elIcon.style.backgroundColor = "#3b92f2";
       elIcon.style.padding = "4px";
       elIcon.style.margin = "10px";
       elIcon.style.borderRadius = "4px";
       // elIcon.style.fill = "#ffffff";
       el.appendChild(elIcon);
+
+      if (isFavorite(stop)) {
+        const elStarIcon = document.createElement("img");
+        elStarIcon.setAttribute(
+          "src", starIcon);
+        elStarIcon.setAttribute("alt", "Favorite");
+        elStarIcon.style.height = "15px";
+        elStarIcon.style.width = "15px";
+        elStarIcon.style.backgroundColor = theme.palette.mode === "light" ? "#ffffff" : "#232527";
+        elStarIcon.style.borderRadius = "50%";
+        elStarIcon.style.transform = "translateY(-20px) translateX(-20px)"
+        el.appendChild(elStarIcon);
+      }
 
       el.addEventListener("click", () => {
         setToggleDrawerFunc(true, stop);
@@ -248,7 +263,7 @@ function MapboxMap() {
     }
     sessionStorage.setItem("zkmBusStops", JSON.stringify(zkmBusStops));
 
-    if (localStorage.getItem("lastOpenedStops") != null) {
+    if (localStorage.getItem("lastOpenedStops") != null && false) {
       let lastOpenedStop = JSON.parse(localStorage.getItem("lastOpenedStops"))[0];
       setToggleDrawerFunc(true, {
         stopId: Number(lastOpenedStop.stopId),
@@ -352,9 +367,9 @@ function MapboxMap() {
       <SearchBar />
       <button id="map-update-button" onClick={() => {
         addBusStops({
-          lng: map.current.getCenter().lng.toFixed(4),
-          lat: map.current.getCenter().lat.toFixed(4),
-          zoom: map.current.getZoom().toFixed(2),
+          lng: lng,
+          lat: lat,
+          zoom: zoom,
         }, true);
       }}></button>
       <div ref={mapContainer} className="map-container" />
