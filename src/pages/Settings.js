@@ -38,7 +38,7 @@ const Settings = () => {
         >
           <img src={arrowLeftIcon} alt="Close menu button" />
         </button>
-        <h1>Ustawienia</h1>
+        <h1>{localStorage.getItem("mode") === "ohio" ? "sUstawienia" : "Ustawienia"}</h1>
       </div>
       
       <div className="settings">
@@ -54,7 +54,7 @@ const Settings = () => {
         </div>
         {localStorage.getItem("mode") === "ohio" ? (
           <div className="settings-element">
-            <h3 onClick={() => {localStorage.removeItem("mode"); navigateTo("/settings");}}>Wyłączyć tryb Ohio</h3>
+            <h3 onClick={() => {localStorage.removeItem("mode"); navigateTo("/settings");}}>Wyłącz tryb Ohio</h3>
           </div>
         ) : null}
       </div>
@@ -71,7 +71,7 @@ const Settings = () => {
                   pointerEvents: "none"
                 }}
                 src={goofyAhh.fullHeight[1]}
-                // alt="Goofy ahh image"
+                alt=""
               ></img>
             ) : null}
     </div>

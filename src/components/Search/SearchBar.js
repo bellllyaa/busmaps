@@ -12,6 +12,7 @@ import busDarkIcon from "../../assets/bus-dark.svg";
 import enterIcon from "../../assets/enter.svg";
 import enterDarkIcon from "../../assets/enter-dark.svg";
 import goofyAhh from "../../data/goofy_ahh.json";
+import ohioModeIntro from "../../assets/ohio-mode-intro.gif";
 
 const LOCAL_URL = "http://localhost:8080";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
@@ -353,13 +354,14 @@ function SearchBar() {
           return <h1>Bruh</h1>;
         } else if (searchField === "/mode ohio") {
           localStorage.setItem("mode", "ohio");
-          setTimeout(() => { window.alert("u entered ohio mode") }, 500);
+          // setTimeout(() => { window.alert("u entered ohio mode") }, 500);
+          document.querySelector(".search-bar__container").querySelector("[type=search]").blur();
           setTimeout(() => {
             setSearchField("");
             try {
               document.querySelector("#map-update-button").click();
             } catch {}
-          }, 2000);
+          }, 10200);
           return (
             <img
               style={{
@@ -370,7 +372,7 @@ function SearchBar() {
                 top: "0",
                 zIndex: "-1",
               }}
-              src={goofyAhh.fullHeight[0]}
+              src={ohioModeIntro}
               // alt="Goofy ahh image"
             ></img>
           );

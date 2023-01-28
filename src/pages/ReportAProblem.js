@@ -127,6 +127,10 @@ const ReportAProblem = () => {
           return false;
     }
 
+    try {
+      document.querySelector("#report-a-problem-chosen-photo").style.display = "block";
+    } catch {}
+
     let reader = new FileReader();
     console.log(image);
 
@@ -369,30 +373,33 @@ const ReportAProblem = () => {
             alt="Close menu button"
           />
         </button>
-        <h1>Zgłosić błąd</h1>
+        <h1>Zgłoś błąd</h1>
       </div>
 
       <div className="report-a-problem__attach-data">
         <div>
-          <h3>Szczegóły:</h3>
+          <h3>Opisz błąd:</h3>
           <input
             id="report-a-problem-input-text"
             type="text"
-            placeholder='Np: "zbugowała się lista odjazdów"'
+            placeholder='Np: "wyświetlają się złe godziny przyjazdów"'
             value={logsDescription}
             onChange={handleTextInputChange}
           ></input>
         </div>
         <div className="report-a-problem-input-photo__container">
           <h3>Masz zrzut ekranu?</h3>
-          <div>
+          <img id="report-a-problem-chosen-photo" src="" />
+          <button onClick={() => {
+            document.querySelector(".report-a-problem-input-photo__container").querySelector("input").click();
+          }} >
+            Wybierz
             <input
               id="report-a-problem-input-photo"
               type="file" accept="image/png, image/jpeg" //accept="image/*"
               onChange={handleImageUpload}
             />
-            <img id="report-a-problem-chosen-photo" src="" />
-          </div>
+          </button>
         </div>
         <button
           id="report-a-problem-send-button"
@@ -401,7 +408,7 @@ const ReportAProblem = () => {
             setReportStatus("sending");
           }}
         >
-          {reportStatus === "sending" ? <><div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></> : <h3>Wysłać</h3>}
+          {reportStatus === "sending" ? <><div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></> : <h3>Wyślij</h3>}
         </button>
       </div>
     </div>

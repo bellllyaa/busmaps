@@ -78,8 +78,9 @@
 }
 
 .report-a-problem__attach-data h3 {
-  margin: 20px 0 0px 20px;
+  margin: 30px 0 0 0;
   color: black;
+  text-align: center;
 }
 
 .report-a-problem__container-theme-dark .report-a-problem__attach-data h3 {
@@ -88,10 +89,12 @@
 
 #report-a-problem-input-text {
   color: black;
-  width: calc(100% - 40px);
+  width: 90vw;
   height: 50px;
   /* margin: 10px; */
-  margin: 10px 10px 0 10px;
+  display: block;
+  margin: 15px auto 0 auto;
+  /* margin: 15px 10px 0 10px; */
   border-radius: 15px;
   border: none;
   background-color: inherit;
@@ -117,64 +120,70 @@
   border: 1px solid #45484c;
 }
 
-.report-a-problem-input-photo__container div {
+.report-a-problem-input-photo__container button {
   background-color: #e9e9e9;
   border: none;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px 0px rgba(100, 100, 111, 0.2);
-  /* display: block; */
-  margin: 10px;
-  width: 95vw;
-  height: 200px;
-}
-
-.report-a-problem__container-theme-dark .report-a-problem-input-photo__container div {
-  background-color: #45484c;
-}
-
-#report-a-problem-input-photo {
-  margin: 10px 0 10px 10px;
-  position: absolute;
-  top: 240px;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 20px 0px rgba(100, 100, 111, 0.1);
+  border-radius: 20px;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 15px;
+  font-size: 13px;
   color: black;
-  /* padding: 10px 0 0 10px; */
-  /* height: 50px; */
-  /* width: 92vw; */
-  /* border: none; */
-  /* background-color: #e9e9e9; */
-  /* -webkit-appearance: none; */
-  /* box-shadow: 0px 0px 10px 0px rgba(100, 100, 111, 0.2); */
-  /* border-radius: 8px; */
-  /* position: relative;
-  top: 10px; */
 }
 
-.report-a-problem__container-theme-dark #report-a-problem-input-photo {
+.report-a-problem__container-theme-dark .report-a-problem-input-photo__container button {
+  background-color: #2f3033;
   color: white;
 }
 
-#report-a-problem-chosen-photo {
-  /* height: 200px; */
-  height: 37vw;
-  margin: 0 0 0 10px;
-  border-radius: 15px;
-  position: absolute;
-  top: 280px;
-  left: 10px;
+.report-a-problem-input-photo__container button:active {
+  outline: none;
+  border: 1px solid #e9eaec;
+  box-shadow: none;
 }
+
+.report-a-problem__container-theme-dark .report-a-problem-input-photo__container button:active {
+  border: 1px solid #45484c;
+}
+
+#report-a-problem-input-photo {
+  display: none;
+}
+
+.report-a-problem-input-photo__container #report-a-problem-chosen-photo {
+  background-color: #e9e9e9;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 0px rgba(100, 100, 111, 0.2);
+  display: none;
+  margin: 15px auto -10px auto;
+  padding: 10px;
+  max-height: 30vh;
+  max-width: 60vw;
+}
+
+.report-a-problem__container-theme-dark .report-a-problem-input-photo__container #report-a-problem-chosen-photo {
+  background-color: #45484c;
+}
+
+/*  */
 
 #report-a-problem-send-button {
   border: none;
   background-color: #e9e9e9;
   -webkit-appearance: none;
   box-shadow: 0px 0px 20px 0px rgba(100, 100, 111, 0.2);
-  height: 40px;
-  width: 50vw;
   border-radius: 20px;
-  margin: 30px 0 0 0;
-  padding: 0;
-  position: relative;
-  left: 25vw;
+  padding: 0 70px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -70px);
 }
 
 .report-a-problem__container-theme-dark #report-a-problem-send-button {
@@ -184,7 +193,7 @@
 #report-a-problem-send-button:active {
   /* background-color: #bbbbbb; */
   outline: none;
-  border: 1px solid #e9eaec;
+  border: 2px solid #e9eaec;
   box-shadow: none;
 }
 
@@ -204,5 +213,5 @@
 }
 
 #report-a-problem-send-button .lds-spinner {
-  transform: translateY(-19px) translateX(-20px);
+  transform: translateY(-19px) translateX(-18px);
 }

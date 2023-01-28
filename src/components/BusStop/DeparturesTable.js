@@ -348,7 +348,7 @@ function DeparturesTable(props) {
             }
 
             <div id="departures-table__information">
-              <p>Informacje o przyjazdach dostarczone są przez <a href="https://zkmgdynia.pl" target="_blank">ZKM Gdynia</a></p>
+              <p>Informacje o przyjazdach są dostarczane przez <a href="https://zkmgdynia.pl" target="_blank">ZKM Gdynia</a></p>
             </div>
 
             {localStorage.getItem("mode") === "ohio" ? (

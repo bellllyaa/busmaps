@@ -67,7 +67,7 @@ const Options = () => {
               navigateTo("/settings");
             }}
           >
-            <p>{localStorage.getItem("mode") === "ohio" ? "sustawienia" : "Ustawienia"}</p>
+            <p>{localStorage.getItem("mode") === "ohio" ? "sUstawienia" : "Ustawienia"}</p>
             <img
               src={
                 theme.palette.mode === "light" ? settingsIcon : settingsDarkIcon
@@ -83,7 +83,7 @@ const Options = () => {
               navigateTo("/report-a-problem");
             }}
           >
-            <p>Zgłosić błąd</p>
+            <p>Zgłoś błąd</p>
             <img
               src={
                 theme.palette.mode === "light"
@@ -135,7 +135,7 @@ const Options = () => {
               } catch {}
             }}
           >
-            <p>Usunąć z polubionych</p>
+            <p>Usuń z ulubionych</p>
             <img
               src={theme.palette.mode === "light" ? starCrossedIcon : starCrossedDarkIcon}
               alt="Remove from favorites button"
@@ -179,7 +179,7 @@ const Options = () => {
                 } catch {}
               }}
             >
-              <p>Dodać do polubionych</p>
+              <p>Dodaj do ulubionych</p>
               <img
                 src={theme.palette.mode === "light" ? starIcon : starDarkIcon}
                 alt="Add to favorites button"
