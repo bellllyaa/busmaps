@@ -361,7 +361,7 @@ function SearchBar() {
             try {
               document.querySelector("#map-update-button").click();
             } catch {}
-          }, 10200);
+          }, 10500);
           return (
             <img
               style={{
