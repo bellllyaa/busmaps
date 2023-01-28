@@ -385,6 +385,14 @@ const ReportAProblem = () => {
             placeholder='Np: "wyświetlają się złe godziny przyjazdów"'
             value={logsDescription}
             onChange={handleTextInputChange}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                try {
+                  document.querySelector("#report-a-problem-input-text").blur();
+                } catch {}
+              }
+            }}
           ></input>
         </div>
         <div className="report-a-problem-input-photo__container">
