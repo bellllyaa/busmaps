@@ -128,18 +128,6 @@ function SwipeableEdgeDrawer(props) {
   const { window } = props;
 
   const setToggleDrawerFunc = (value) => () => {
-    if (value === true) {
-      // document.getElementById("bus-stop__select__dropdown").style.display = "none";
-      // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "none";
-      // document.getElementById("swipable-edge-drawer__close-button").style.display = "block";
-      // document.getElementById("bus-stop__select__dropdown").style.opacity = 0.5;
-    } else {
-      // document.getElementById("bus-stop__select__dropdown").style.display = "block";
-      // document.getElementById("bus-stop__select__dropdown").style.pointerEvents = "auto";
-      // document.getElementById("swipable-edge-drawer__close-button").style.display = "none";
-      // document.getElementById("bus-stop__select__dropdown").style.opacity = 1;
-    }
-
     setToggleDrawer(value);
   };
 
@@ -237,7 +225,6 @@ function SwipeableEdgeDrawer(props) {
 
   return (
     <div className="swipable-edge-drawer">
-      {/* {optionsVisibility && <Options />} */}
       <Options />
       <Root>
         <div className="safe-area"></div>

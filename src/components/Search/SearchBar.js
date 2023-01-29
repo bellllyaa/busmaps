@@ -112,7 +112,7 @@ function SearchBar() {
     return (
       <>
         <div className="search-result-divider"></div>
-        <div className="search-result-element" style={{height: `calc(${searchResultListCut.length * 68}px + 7px + 43px)`}}>
+        <div className="search-result-element">
           <p>Wyniki wyszukiwania:</p>
           <div>
             <table id="search-result-list-table">
@@ -344,13 +344,13 @@ function SearchBar() {
         // Search bar commands
         if (searchField === "/mode default") {
           localStorage.removeItem("mode");
-          setTimeout(() => { window.alert("You entered default mode!") }, 100);
           setTimeout(() => {
+            window.alert("You entered default mode!");
             setSearchField("");
             try {
               document.querySelector("#map-update-button").click();
             } catch {}
-          }, 200);
+          }, 100);
           return <h1>Bruh</h1>;
         } else if (searchField === "/mode ohio") {
           localStorage.setItem("mode", "ohio");
@@ -367,10 +367,10 @@ function SearchBar() {
               style={{
                 width: "100%",
                 height: "100vh",
-                position: "absolute",
+                position: "fixed",
                 left: "0",
                 top: "0",
-                zIndex: "-1",
+                zIndex: "1",
               }}
               src={ohioModeIntro}
               // alt="Goofy ahh image"
