@@ -200,7 +200,10 @@ function MapboxMap() {
         elStarIcon.style.width = "15px";
         elStarIcon.style.backgroundColor = theme.palette.mode === "light" ? "#ffffff" : "#232527";
         elStarIcon.style.borderRadius = "50%";
-        elStarIcon.style.transform = "translateY(-20px) translateX(-20px)"
+        elStarIcon.style.transform = "translateY(-20px) translateX(-20px)";
+        if (isStopSelected && theme.palette.mode === "light") {
+          elStarIcon.style.boxShadow = "0px 0px 5px 0px rgba(17, 17, 17, 0.1)"
+        }
         el.appendChild(elStarIcon);
       }
 
