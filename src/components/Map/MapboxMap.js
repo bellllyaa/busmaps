@@ -22,15 +22,16 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
 
 const getLastUserLocation = (par) => {
+  const lastMapCenter = JSON.parse(localStorage.getItem("mapCenter"));
   if (par === "Lng") {
-    if (localStorage.getItem("userLocation") != null) {
-      return Number(JSON.parse(localStorage.getItem("userLocation")).lng);
+    if (lastMapCenter != null) {
+      return Number(lastMapCenter.lng);
     } else {
       return 18.5387945;
     }
   } else if (par === "Lat") {
-    if (localStorage.getItem("userLocation") != null) {
-      return Number(JSON.parse(localStorage.getItem("userLocation")).lat);
+    if (lastMapCenter != null) {
+      return Number(lastMapCenter.lat);
     } else {
       return 54.5176944;
     }
@@ -338,6 +339,7 @@ function MapboxMap() {
     });
 
     map.current.on("moveend", () => {
+      localStorage.setItem("mapCenter", JSON.stringify({lng: lng, lat: lat}));
       if (document.getElementsByClassName("mapboxgl-ctrl-geolocate-active").length === 1) {
         // localStorage.setItem("lastUserLocationLon", lng);
         // localStorage.setItem("lastUserLocationLat", lat);
