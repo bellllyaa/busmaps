@@ -86,6 +86,20 @@ function MapboxMap() {
     return false;
   }
 
+  const isSelected = (currentStop) => {
+    const lastOpenedStops = JSON.parse(localStorage.getItem("lastOpenedStops"));
+
+    if (lastOpenedStops === null) {
+      return false;
+    }
+
+    if (currentStop.stopId === lastOpenedStops[0].stopId && currentStop.stopName === lastOpenedStops[0].stopName) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const addBusStops = (currentMapCenter, force) => {
 
     // console.log(Math.abs(currentMarkers.lng - currentMapCenter.lng))
@@ -156,7 +170,7 @@ function MapboxMap() {
       const elIcon = document.createElement("img");
       elIcon.setAttribute(
         "src",
-        theme.palette.mode === "light"
+        theme.palette.mode === "light" && !isSelected(stop)
           ? localStorage.getItem("mode") === "ohio"
             ? impostorDarkIcon
             : busIcon
@@ -167,12 +181,10 @@ function MapboxMap() {
       elIcon.setAttribute("alt", "Stop button");
       elIcon.style.height = `${height}px`;
       elIcon.style.width = `${width}px`;
-      // elIcon.style.backgroundColor = isFavorite(stop) ? "#ffbc2e" : "#3b92f2";
-      elIcon.style.backgroundColor = "#3b92f2";
+      elIcon.style.backgroundColor = isSelected(stop) ? "#ffffff" : "#3b92f2";
       elIcon.style.padding = "4px";
       elIcon.style.margin = "10px";
       elIcon.style.borderRadius = "4px";
-      // elIcon.style.fill = "#ffffff";
       el.appendChild(elIcon);
 
       if (isFavorite(stop)) {

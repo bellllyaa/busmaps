@@ -435,6 +435,7 @@ function DeparturesTable(props) {
       localStorage.setItem("lastOpenedStops", JSON.stringify(lastOpenedStops.slice(0, 5)));
     }
     console.log(JSON.parse(localStorage.getItem("lastOpenedStops")));
+    document.querySelector("#map-update-button").click();
 
     if (props.busStopId && props.routes) {
       loadBusStopInfo();

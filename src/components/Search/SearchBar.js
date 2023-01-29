@@ -172,6 +172,56 @@ function SearchBar() {
     )
   }
 
+  const SearchHistoryList = () => {
+    const lastOpenedStops = JSON.parse(localStorage.getItem("lastOpenedStops"));
+
+    if (lastOpenedStops === null && lastOpenedStops.length <= 1) {
+      return;
+    }
+
+    const lastOpenedStopsCut = lastOpenedStops.slice(0, 3);
+
+    return (
+      <>
+        <div className="search-result-divider"></div>
+        <div className="search-result-element">
+          <p>Historia wyszukiwania:</p>
+          <div>
+            <table id="search-result-closest-stops-table">
+              <tbody>
+                {lastOpenedStopsCut.map((stop) => {
+                  return (
+                    <tr
+                      key={stop.stopName + stop.stopId}
+                      className="search-result-item"
+                      onClick={() => {
+                        // console.log("clicked");
+                        sessionStorage.setItem("mapFlyToStop", "true");
+                        setSearchShow(false);
+                        setSearchField("");
+                        setToggleDrawerFunc(true, {
+                          stopId: stop.stopId,
+                          stopName: stop.stopName,
+                        });
+                      }}
+                    >
+                      <td>
+                        <img src={theme.palette.mode === "light" ? busIcon : busDarkIcon} alt="Stop icon"></img>
+                      </td>
+                      <td className="search-result-item-stop">
+                        <div id="stop-name">{stop.stopName}</div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   const ClosestStopsList = () => {
     // setTimeout(() => {setClosestStopsList(JSON.parse(sessionStorage.getItem("zkmBusStops")))}, 10);
 
@@ -451,6 +501,7 @@ function SearchBar() {
 
         return (
           <div className={`search-result__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`}>
+            <SearchHistoryList />
             <ClosestStopsList />
           </div>
         );
