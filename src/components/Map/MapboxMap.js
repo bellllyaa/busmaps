@@ -181,7 +181,7 @@ function MapboxMap() {
       elIcon.setAttribute("alt", "Stop button");
       elIcon.style.height = `${height}px`;
       elIcon.style.width = `${width}px`;
-      elIcon.style.backgroundColor = isSelected(stop) ? "#ffffff" : "#3b92f2";
+      elIcon.style.backgroundColor = isSelected(stop) ? "#dddddd" : "#3b92f2";
       elIcon.style.padding = "4px";
       elIcon.style.margin = "10px";
       elIcon.style.borderRadius = "4px";
