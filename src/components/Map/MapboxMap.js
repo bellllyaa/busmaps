@@ -162,6 +162,7 @@ function MapboxMap() {
       // console.log(Math.abs(stop.stopLon - currentMapCenter.lng).toFixed(5));
       // console.log(Math.abs(stop.stopLat - currentMapCenter.lat));
 
+      const isStopSelected = isSelected(stop);
       const el = document.createElement("div");
       const width = 20;
       const height = 20;
@@ -170,7 +171,7 @@ function MapboxMap() {
       const elIcon = document.createElement("img");
       elIcon.setAttribute(
         "src",
-        theme.palette.mode === "light" && !isSelected(stop)
+        theme.palette.mode === "light" && !isStopSelected
           ? localStorage.getItem("mode") === "ohio"
             ? impostorDarkIcon
             : busIcon
@@ -181,7 +182,10 @@ function MapboxMap() {
       elIcon.setAttribute("alt", "Stop button");
       elIcon.style.height = `${height}px`;
       elIcon.style.width = `${width}px`;
-      elIcon.style.backgroundColor = isSelected(stop) ? "#dddddd" : "#3b92f2";
+      elIcon.style.backgroundColor = isStopSelected ? "#ffffff" : "#3b92f2";
+      if (isStopSelected && theme.palette.mode === "light") {
+        elIcon.style.boxShadow = "0px 0px 5px 0px rgba(17, 17, 17, 0.3)"
+      }
       elIcon.style.padding = "4px";
       elIcon.style.margin = "10px";
       elIcon.style.borderRadius = "4px";
