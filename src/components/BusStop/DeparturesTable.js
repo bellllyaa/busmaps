@@ -305,7 +305,7 @@ function DeparturesTable(props) {
                     <td>
                       <div className={"bus-short-name__" + b.status}>
                         {localStorage.getItem("mode") === "ohio" && b.routeShortName === "191" ? (
-                          <p style={{fontSize: "10px", padding: "5px 0 5px 0"}}>stodziwka</p>
+                          <p style={{fontSize: "11px", padding: "6px 2px", marginLeft: "0", transform: "translateX(15px)"}}>stodziwka</p>
                         ) : (
                           <p>{b.routeShortName}</p>
                         )}

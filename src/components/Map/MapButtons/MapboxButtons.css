@@ -1,14 +1,14 @@
 .mapboxgl-ctrl-geolocate-custom-buttons__container {
   z-index: 1;
   position: fixed;
-  top: 70vh;
+  top: 65vh;
   right: 10px;
 }
 
 .mapboxgl-ctrl-geolocate-custom-buttons__container-theme-dark {
   z-index: 1;
   position: fixed;
-  top: 70vh;
+  top: 65vh;
   right: 10px;
 }
 
@@ -18,7 +18,9 @@
   margin: 0;
   border-radius: 50%;
   border: none;
+  background-color: #ffffff;
   box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.2);
+  display: block;
 }
 
 .mapboxgl-ctrl-geolocate-custom-buttons__container-theme-dark .mapboxgl-ctrl-geolocate-custom-button {
@@ -35,15 +37,45 @@
 }
 
 .mapboxgl-ctrl-geolocate-custom-button img {
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
   margin: 3px 1px 0 0;
 }
 
-/* .mapboxgl-ctrl-geolocate-custom-button .lds-spinner {
-  transform: translateY(0) translateX(0);
-  height: 20px;
-  width: 20px;
-  position: relative;
-  left: 0;
-} */
+/*  */
+
+.mapboxgl-ctrl-compass-custom-button {
+  height: 30px;
+  width: 30px;
+  margin: 0 0 10px 0;
+  border-radius: 50%;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.2);
+  padding: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  visibility: hidden;
+}
+
+.mapboxgl-ctrl-geolocate-custom-buttons__container-theme-dark .mapboxgl-ctrl-compass-custom-button {
+  background-color: #232527;
+  box-shadow: none;
+}
+
+.mapboxgl-ctrl-compass-custom-button:active {
+  background-color: #bbbbbb;
+}
+
+.mapboxgl-ctrl-geolocate-custom-buttons__container-theme-dark .mapboxgl-ctrl-compass-custom-button:active {
+  background-color: #1c1c1f;
+}
+
+.mapboxgl-ctrl-compass-custom-button img {
+  height: 26px;
+  width: 26px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

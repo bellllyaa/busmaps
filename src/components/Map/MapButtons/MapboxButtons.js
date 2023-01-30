@@ -9,6 +9,8 @@ import geolocationControlDarkIcon from "../../../assets/map-custom-controls/geol
 import geolocationControlActiveIcon from "../../../assets/map-custom-controls/geolocation-control-active.svg";
 import geolocationControlDisabledIcon from "../../../assets/map-custom-controls/geolocation-control-disabled.svg";
 import iosSpinnerIcon from "../../../assets/ios-spinner.svg";
+import compassIcon from "../../../assets/map-custom-controls/compass.svg";
+import compassDarkIcon from "../../../assets/map-custom-controls/compass-dark.svg";
 
 function MapboxButtons () {
 
@@ -54,25 +56,77 @@ function MapboxButtons () {
     }, 100);
   }, [])
 
+  useEffect(() => {
+    function callback(mutationList, observer) {
+      mutationList.forEach(function(mutation) {
+        if(mutation.attributeName === 'style'){
+          // console.log("style change");
+          // console.log(mutation.target.style.transform)
+          // console.log(mutation.target.attributes[3].value)
+          // console.log(mutationList);
+
+          const rotateDeg = mutation.target.style.transform;
+          document.querySelector(".mapboxgl-ctrl-compass-custom-button").querySelector("img").style.transform = rotateDeg;
+
+          if (rotateDeg === "rotate(0deg)") {
+            document.querySelector(".mapboxgl-ctrl-compass-custom-button").style.visibility = "hidden";
+          } else {
+            document.querySelector(".mapboxgl-ctrl-compass-custom-button").style.visibility = "visible";
+          }
+        }
+      })
+    }
+
+    const observer = new MutationObserver(callback);
+    const interval = setInterval(() => {
+      console.log("•")
+      if (document.querySelector('button[aria-label="Reset bearing to north"]') !== null) {
+        observer.observe(document.querySelector('button[aria-label="Reset bearing to north"]').querySelector("span"), {attributes: true});
+        clearInterval(interval)
+      } /*else if (document.querySelector('button[aria-label="Location not available"]') !== null) {
+        document.querySelector(".mapboxgl-ctrl-geolocate-custom-button").querySelector("img").setAttribute("src", geolocationControlDisabledIcon);
+        clearInterval(interval);
+      }*/
+    }, 100);
+  }, [])
+
   return (
     <div className={`mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`}>
-        <button
-          className="mapboxgl-ctrl-geolocate-custom-button"
-          onClick={(e) => {
-            if (document.querySelector('button[aria-label="Location not available"]') === null) {
-              const geolocateBtn = document.querySelector('button[aria-label="Find my location"]');
-              geolocateBtn.click();
-            }
-          }}
-        >
-          <img
-              src={
-                theme.palette.mode === "light" ? geolocationControlOffIcon : geolocationControlOffDarkIcon
-              }
-              alt="Find my location"
-            />
-        </button>
-      </div>
+      <button
+        className="mapboxgl-ctrl-compass-custom-button"
+        onClick={(e) => {
+          if (document.querySelector('button[aria-label="Reset bearing to north"]') !== null) {
+            const compassBtn = document.querySelector('button[aria-label="Reset bearing to north"]');
+            compassBtn.click();
+            // console.log(document.querySelector('button[aria-label="Reset bearing to north"]').querySelector("span").style.transform);
+          }
+        }}
+      >
+        <img
+          src={
+            theme.palette.mode === "light" ? compassIcon : compassDarkIcon
+          }
+          alt="Reset bearing to north"
+        />
+      </button>
+
+      <button
+        className="mapboxgl-ctrl-geolocate-custom-button"
+        onClick={(e) => {
+          if (document.querySelector('button[aria-label="Location not available"]') === null) {
+            const geolocateBtn = document.querySelector('button[aria-label="Find my location"]');
+            geolocateBtn.click();
+          }
+        }}
+      >
+        <img
+          src={
+            theme.palette.mode === "light" ? geolocationControlOffIcon : geolocationControlOffDarkIcon
+          }
+          alt="Find my location"
+        />
+      </button>
+    </div>
   )
 }
 
