@@ -86,16 +86,3 @@
   text-decoration: none;
   color: #0a84fe;
 }
-
-.small-screen {
-  display: none;
-}
-
-@media screen and (max-width: 600px) {
-  .large-screen {
-    display: none;
-  }
-  .small-screen {
-    display: block;
-  }
-}

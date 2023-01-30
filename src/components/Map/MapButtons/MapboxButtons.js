@@ -37,8 +37,6 @@ function MapboxButtons () {
           } else if (geolocateBtn.classList[1] === "mapboxgl-ctrl-geolocate-waiting") {
             const btnImg = document.querySelector(".mapboxgl-ctrl-geolocate-custom-button").querySelector("img");
             btnImg.setAttribute("src", iosSpinnerIcon);
-            // btnImg.style.height = "15px";
-            // btnImg.style.width = "15px";
           }
         }
       })
