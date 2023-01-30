@@ -9,6 +9,12 @@ import {
   useBusStop,
   useLastOpenedStops,
 } from "../../pages/Home";
+import MapboxButtons from "./MapButtons/MapboxButtons";
+// import geolocationControlOffIcon from "../../assets/map-custom-controls/geolocation-control-off.svg";
+// import geolocationControlOffDarkIcon from "../../assets/map-custom-controls/geolocation-control-off-dark.svg";
+// import geolocationControlIcon from "../../assets/map-custom-controls/geolocation-control.svg";
+// import geolocationControlDarkIcon from "../../assets/map-custom-controls/geolocation-control-dark.svg";
+// import geolocationControlActiveIcon from "../../assets/map-custom-controls/geolocation-control-active.svg";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
 import impostorIcon from "../../assets/impostor.svg";
@@ -283,7 +289,7 @@ function MapboxMap() {
     }
     sessionStorage.setItem("zkmBusStops", JSON.stringify(zkmBusStops));
 
-    if (localStorage.getItem("lastOpenedStops") != null) {
+    if (localStorage.getItem("lastOpenedStops") != null && false) {
       let lastOpenedStop = JSON.parse(localStorage.getItem("lastOpenedStops"))[0];
       setToggleDrawerFunc(true, {
         stopId: Number(lastOpenedStop.stopId),
@@ -317,11 +323,58 @@ function MapboxMap() {
         trackUserLocation: true,
         // Draw an arrow next to the location dot to indicate which direction the device is heading.
         // showUserHeading: true,
-        screenTop: "right"
+        screenTop: "right",
       })
     );
 
     map.current.addControl(new mapboxgl.NavigationControl());
+
+    // setTimeout(() => {
+    //   const el = document.querySelector('button[aria-label="Find my location"]');
+    //   console.log(el);
+    //   el.addEventListener("load", () => {console.log(el)});
+    // }, 500)
+
+    // class MyCustomControl {
+    //   onAdd(map){
+    //     this.map = map;
+    //     this.container = document.createElement('div');
+    //     // this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+    //     this.container.className = `mapboxgl-ctrl mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`;
+
+    //     // this.geolocationButton = document.createElement('button');
+        
+    //     const locationButton = document.createElement('button');
+    //     locationButton.className = "mapboxgl-ctrl-geolocate-custom-button";
+    //     locationButton.type = "button";
+    //     // locationButton.addEventListener("click", () => {
+    //     //   console.log("clicked")
+    //     // })
+    //     locationButton.onclick = () => {
+    //       console.log("clicked")
+    //     }
+    //     console.log(this.container);
+
+    //     const locationButtonImg = document.createElement("img");
+    //     locationButtonImg.className = "mapboxgl-ctrl-geolocate-custom-button-img";
+    //     locationButtonImg.setAttribute(
+    //       "src", theme.palette.mode === "light" ? geolocationControlOffIcon : geolocationControlOffDarkIcon);
+    //     locationButtonImg.setAttribute("alt", "Find my location");
+    //     locationButton.appendChild(locationButtonImg);
+    //     // locationButton.addEventListener("click", function() {
+    //     //   console.log("clicked");
+    //     // });
+
+    //     this.container.appendChild(locationButton);
+    //     return this.container;
+    //   }
+    //   onRemove(){
+    //     this.container.parentNode.removeChild(this.container);
+    //     this.map = undefined;
+    //   }
+    // }
+    
+    // map.current.addControl(new MyCustomControl());
   });
 
   useEffect(() => {
@@ -393,6 +446,9 @@ function MapboxMap() {
           zoom: zoom,
         }, true);
       }}></button>
+
+      <MapboxButtons />
+
       <div ref={mapContainer} className="map-container" />
       {/* <button class="mapboxgl-ctrl-geolocate mapboxgl-ctrl-geolocate-active" type="button" aria-label="Find my location" aria-pressed="true"><span class="mapboxgl-ctrl-icon" aria-hidden="true" title="Find my location"></span></button> */}
     </div>

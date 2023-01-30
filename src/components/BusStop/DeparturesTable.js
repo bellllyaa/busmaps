@@ -304,7 +304,11 @@ function DeparturesTable(props) {
                   <tr key={b.status === "REALTIME" ? b.trip : b.status + b.departureTime + b.tripId}>
                     <td>
                       <div className={"bus-short-name__" + b.status}>
-                        <p>{b.routeShortName}</p>
+                        {localStorage.getItem("mode") === "ohio" && b.routeShortName === "191" ? (
+                          <p style={{fontSize: "10px", padding: "5px 0 5px 0"}}>stodziwka</p>
+                        ) : (
+                          <p>{b.routeShortName}</p>
+                        )}
                       </div>
                     </td>
                     {convertArrivingTime(b.status, b.status === "REALTIME" ? b.estimatedTime : null, b.status === "REALTIME" ? b.theoreticalTime : b.departureTime, b.status === "REALTIME" ? b.headsign : b.stopHeadsign)}

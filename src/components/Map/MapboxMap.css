@@ -35,6 +35,10 @@
   display: none;
 }
 
+.mapboxgl-ctrl {
+  display: none;
+}
+
 /*  */
 
 /* button[aria-label="Find my location"] {

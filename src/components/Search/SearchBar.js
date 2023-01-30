@@ -175,7 +175,7 @@ function SearchBar() {
   const SearchHistoryList = () => {
     const lastOpenedStops = JSON.parse(localStorage.getItem("lastOpenedStops"));
 
-    if (lastOpenedStops === null && lastOpenedStops.length <= 1) {
+    if (lastOpenedStops === null || lastOpenedStops.length <= 1) {
       return;
     }
 
@@ -406,12 +406,6 @@ function SearchBar() {
           localStorage.setItem("mode", "ohio");
           // setTimeout(() => { window.alert("u entered ohio mode") }, 500);
           document.querySelector(".search-bar__container").querySelector("[type=search]").blur();
-          setTimeout(() => {
-            setSearchField("");
-            try {
-              document.querySelector("#map-update-button").click();
-            } catch {}
-          }, 10500);
           return (
             <img
               style={{
@@ -421,6 +415,14 @@ function SearchBar() {
                 left: "0",
                 top: "0",
                 zIndex: "1",
+              }}
+              onLoad={() => {
+                setTimeout(() => {
+                  setSearchField("");
+                  try {
+                    document.querySelector("#map-update-button").click();
+                  } catch {}
+                }, 10500);
               }}
               src={ohioModeIntro}
               // alt="Goofy ahh image"
