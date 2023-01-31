@@ -286,7 +286,7 @@ function DeparturesTable(props) {
         for (let i = 0; i < displayBusesNum && i < busStopDepartures.length; i++) {
           busStopDeparturesCut.push(busStopDepartures[i])
         }
-        // console.log(busStopDeparturesCut);
+        console.log(busStopDeparturesCut);
 
         sessionStorage.setItem("stop_info_logs", JSON.stringify([
           new Date(),
