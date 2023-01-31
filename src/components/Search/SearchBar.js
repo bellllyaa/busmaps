@@ -582,7 +582,7 @@ function SearchBar() {
 
       <input
         type="search"
-        placeholder="Szukaj"
+        placeholder={localStorage.getItem("mode") === "ohio" ? "sniggers?" : "Szukaj"}
         value={searchField}
         className={theme.palette.mode === "light" ? "" : "search-bar__container-input-theme-dark"}
         style={theme.palette.mode === "light"
