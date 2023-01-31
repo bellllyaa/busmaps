@@ -292,7 +292,7 @@ function DeparturesTable(props) {
           new Date(),
           props.busStopId,
           props.busStopName,
-          busStop
+          busStopDeparturesCut
         ]))
 
         return (
