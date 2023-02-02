@@ -44,12 +44,9 @@ function MapboxButtons () {
 
     const observer = new MutationObserver(callback);
     const interval = setInterval(() => {
-      if (document.querySelector('button[aria-label="Find my location"]') !== null) {
+      if (document.querySelector('button[aria-label="Find my location"]') !== null || document.querySelector('button[aria-label="Location not available"]') !== null) {
         observer.observe(document.querySelector('button[aria-label="Find my location"]'), {attributes: true});
         clearInterval(interval)
-      } else if (document.querySelector('button[aria-label="Location not available"]') !== null) {
-        document.querySelector(".mapboxgl-ctrl-geolocate-custom-button").querySelector("img").setAttribute("src", geolocationControlDisabledIcon);
-        clearInterval(interval);
       }
     }, 100);
   }, [])
@@ -81,10 +78,7 @@ function MapboxButtons () {
       if (document.querySelector('button[aria-label="Reset bearing to north"]') !== null) {
         observer.observe(document.querySelector('button[aria-label="Reset bearing to north"]').querySelector("span"), {attributes: true});
         clearInterval(interval)
-      } /*else if (document.querySelector('button[aria-label="Location not available"]') !== null) {
-        document.querySelector(".mapboxgl-ctrl-geolocate-custom-button").querySelector("img").setAttribute("src", geolocationControlDisabledIcon);
-        clearInterval(interval);
-      }*/
+      }
     }, 100);
   }, [])
 

@@ -256,21 +256,21 @@ function MapboxMap() {
     //   } catch {}
     // }
 
-    if (window.navigator.standalone == true) {
-      const interval = setInterval(() => {
-        try {
-          document.querySelector(".mapboxgl-ctrl-top-right").style.top = "60vh";
-          clearInterval(interval);
-        } catch {}
-      }, 100);
-    } else {
-      const interval = setInterval(() => {
-        try {
-          document.querySelector(".mapboxgl-ctrl-top-right").style.top = "45vh";
-          clearInterval(interval);
-        } catch {}
-      }, 100);
-    }
+    // if (window.navigator.standalone == true) {
+    //   const interval = setInterval(() => {
+    //     try {
+    //       document.querySelector(".mapboxgl-ctrl-top-right").style.top = "60vh";
+    //       clearInterval(interval);
+    //     } catch {}
+    //   }, 100);
+    // } else {
+    //   const interval = setInterval(() => {
+    //     try {
+    //       document.querySelector(".mapboxgl-ctrl-top-right").style.top = "45vh";
+    //       clearInterval(interval);
+    //     } catch {}
+    //   }, 100);
+    // }
 
     // console.log(theme);
     // theme.palette.mode === "light"

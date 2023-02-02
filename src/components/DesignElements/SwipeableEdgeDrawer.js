@@ -209,14 +209,29 @@ function SwipeableEdgeDrawer(props) {
       // console.log(stopName.current.innerText);
 
       if (textHeight >= 200) {
+        try {
+          document.querySelector(`.mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.top = "calc(100% - 339px)";
+        } catch {}
         setStopNameHeight(-239.5);
       } else if (textHeight >= 164) {
+        try {
+          document.querySelector(`.mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.top = "calc(100% - 303px)";
+        } catch {}
         setStopNameHeight(-203.5);
       } else if (textHeight >= 128) {
+        try {
+          document.querySelector(`.mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.top = "calc(100% - 268px)";
+        } catch {}
         setStopNameHeight(-167.5);
       } else if (textHeight >= 92) {
+        try {
+          document.querySelector(`.mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.top = "calc(100% - 231px)";
+        } catch {}
         setStopNameHeight(-131.5);
       } else {
+        try {
+          document.querySelector(`.mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.top = "calc(100% - 196px)";
+        } catch {}
         setStopNameHeight(-95.5);
       }
     }

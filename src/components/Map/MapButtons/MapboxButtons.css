@@ -1,14 +1,14 @@
 .mapboxgl-ctrl-geolocate-custom-buttons__container {
   z-index: 1;
   position: fixed;
-  top: 65vh;
+  top: 50vh;
   right: 10px;
 }
 
 .mapboxgl-ctrl-geolocate-custom-buttons__container-theme-dark {
   z-index: 1;
   position: fixed;
-  top: 65vh;
+  top: 50vh;
   right: 10px;
 }
 

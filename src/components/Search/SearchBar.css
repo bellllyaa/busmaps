@@ -32,6 +32,12 @@
   padding-right: -6px;
 }
 
+@media screen and (min-width: 600px) {
+  .search-bar__container button {
+    left: calc(50vw - 299px);
+  }
+}
+
 .search-bar__container button:active {
   background-color: #bbbbbb;
 }
@@ -54,7 +60,9 @@
 .search-bar__container input {
   height: 50px;
   width: calc(100vw - 20px);
-  margin: 20px 0 20px 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  display: block;
   border-radius: 25px;
   border: none;
   background-color: white;
