@@ -47,8 +47,8 @@
   border-top: 1px solid #ddd;
   background-color: #eeeeee;
   /* opacity: 1; */
-  height: 40px;
-  width: 230px;
+  height: 45px;
+  width: 250px;
 }
 
 .options__container-theme-dark .options li {
@@ -115,7 +115,7 @@
 .option p {
   /* display: inline-block; */
   color: black;
-  font-size: 16px;
+  font-size: 17px;
   margin: 0;
   padding: 0;
   /* text-align: left; */
@@ -130,11 +130,11 @@
 }
 
 .option img {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   position: fixed;
   right: 10px;
-  margin-top: -8px;
+  margin-top: -9px;
   /* display: inline-block; */
 }
 

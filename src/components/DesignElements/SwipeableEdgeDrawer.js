@@ -204,6 +204,7 @@ function SwipeableEdgeDrawer(props) {
   React.useEffect(() => {
 
     if (stopName.current) {
+      // console.log(stopName);
       const textHeight = stopName.current.clientHeight;
       // console.log(textHeight);
       // console.log(stopName.current.innerText);
@@ -291,6 +292,7 @@ function SwipeableEdgeDrawer(props) {
             {busStop ? (
               <div className={`upper-part__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`}>
                 <h2 ref={stopName}>{busStop.stopName}</h2>
+                {toggleDrawer ? <p>Przystanek</p> : null}
                 <div className="buttons__container">
                   <button id="show-options-button" onClick={() => {
                     // document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#bbbbbb" : "#1c1c1f";
