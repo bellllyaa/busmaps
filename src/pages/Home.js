@@ -30,10 +30,8 @@ function Home() {
     <div>
       <ToggleDrawerContext.Provider value={{ toggleDrawer, setToggleDrawer }}>
         <BusStopContext.Provider value={{ busStop, setBusStop }}>
-          <div style={{ height: "100vh" }}>
-            <MapboxMap />
-            <SwipeableEdgeDrawer />
-          </div>
+          <MapboxMap />
+          <SwipeableEdgeDrawer />
         </BusStopContext.Provider>
       </ToggleDrawerContext.Provider>
     </div>

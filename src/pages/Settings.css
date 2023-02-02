@@ -9,15 +9,8 @@
   top: 0; */
 }
 
-.settings__container-theme-dark {
+.App-content-theme-dark .settings__container {
   background-color: black;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* position: absolute;
-  top: 0; */
 }
 
 .settings__nav {
@@ -31,7 +24,7 @@
   margin: 0 0 10px 0;
 }
 
-.settings__container-theme-dark .settings__nav {
+.App-content-theme-dark .settings__container .settings__nav {
   border-bottom: 1px solid #45484c;
 }
 
@@ -53,7 +46,7 @@
   background-color: #bbbbbb;
 }
 
-.settings__container-theme-dark .settings-return-button:active {
+.App-content-theme-dark .settings__container .settings-return-button:active {
   background-color: #1c1c1f;
 }
 
@@ -70,7 +63,7 @@
   /* text-align: center; */
 }
 
-.settings__container-theme-dark h1 {
+.App-content-theme-dark .settings__container h1 {
   margin: 0;
   padding: 10px 0 20px 0;
   color: white;
@@ -81,6 +74,6 @@
   margin: 20px 0 0px 20px;
 }
 
-.settings__container-theme-dark .settings-element h3 {
+.App-content-theme-dark .settings__container .settings-element h3 {
   color: white;
 }

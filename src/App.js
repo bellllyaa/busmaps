@@ -90,7 +90,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <div className="App-content" >
+        <div className={`App-content${theme.palette.mode === "light" ? "" : "-theme-dark"}`} >
           <Routes>
             <Route path="/" element={<Home key={theme.palette.mode}/>} />
             <Route path="/settings" element={<Settings />} />

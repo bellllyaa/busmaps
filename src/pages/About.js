@@ -23,7 +23,7 @@ function About () {
   }, [])
 
   return (
-    <div className={`about__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`}>
+    <div className="about__container">
       <div className="about__nav">
         <button className="about-return-button" onClick={() => {navigateTo("/settings")}}>
           <img

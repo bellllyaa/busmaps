@@ -25,9 +25,7 @@ const Settings = () => {
 
   return (
     <div
-      className={`settings__container${
-        theme.palette.mode === "light" ? "" : "-theme-dark"
-      }`}
+      className="settings__container"
     >
       <div className="settings__nav">
         <button

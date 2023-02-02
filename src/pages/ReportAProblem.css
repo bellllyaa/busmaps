@@ -9,11 +9,7 @@
   left: 0;
 }
 
-.report-a-problem__container-theme-dark {
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
+.App-content-theme-dark .report-a-problem__container {
   background-color: black;
 }
 
@@ -28,7 +24,7 @@
   margin: 0 0 10px 0;
 }
 
-.report-a-problem__container-theme-dark .report-a-problem__nav {
+.App-content-theme-dark .report-a-problem__container .report-a-problem__nav {
   border-bottom: 1px solid #45484c;
 }
 
@@ -50,7 +46,7 @@
   background-color: #bbbbbb;
 }
 
-.report-a-problem__container-theme-dark .report-a-problem-return-button:active {
+.App-content-theme-dark .report-a-problem__container .report-a-problem-return-button:active {
   background-color: #1c1c1f;
 }
 
@@ -67,7 +63,7 @@
   /* text-align: center; */
 }
 
-.report-a-problem__container-theme-dark h1 {
+.App-content-theme-dark .report-a-problem__container h1 {
   margin: 0;
   padding: 10px 0 20px 0;
   color: white;
@@ -83,7 +79,7 @@
   text-align: center;
 }
 
-.report-a-problem__container-theme-dark .report-a-problem__attach-data h3 {
+.App-content-theme-dark .report-a-problem__container .report-a-problem__attach-data h3 {
   color: white;
 }
 
@@ -105,7 +101,7 @@
   font-size: 15px;
 }
 
-.report-a-problem__container-theme-dark #report-a-problem-input-text {
+.App-content-theme-dark .report-a-problem__container #report-a-problem-input-text {
   color: white;
   box-shadow: 0px 0px 10px 0px rgba(139, 139, 152, 0.3);
 }
@@ -116,7 +112,7 @@
   box-shadow: none;
 }
 
-.report-a-problem__container-theme-dark #report-a-problem-input-text:focus {
+.App-content-theme-dark .report-a-problem__container #report-a-problem-input-text:focus {
   border: 1px solid #45484c;
 }
 
@@ -135,7 +131,7 @@
   color: black;
 }
 
-.report-a-problem__container-theme-dark .report-a-problem-input-photo__container button {
+.App-content-theme-dark .report-a-problem__container .report-a-problem-input-photo__container button {
   background-color: #2f3033;
   color: white;
 }
@@ -146,7 +142,7 @@
   box-shadow: none;
 }
 
-.report-a-problem__container-theme-dark .report-a-problem-input-photo__container button:active {
+.App-content-theme-dark .report-a-problem__container .report-a-problem-input-photo__container button:active {
   border: 1px solid #45484c;
 }
 
@@ -166,7 +162,7 @@
   max-width: 60vw;
 }
 
-.report-a-problem__container-theme-dark .report-a-problem-input-photo__container #report-a-problem-chosen-photo {
+.App-content-theme-dark .report-a-problem__container .report-a-problem-input-photo__container #report-a-problem-chosen-photo {
   background-color: #45484c;
 }
 
@@ -186,7 +182,7 @@
   transform: translate(-50%, -70px);
 }
 
-.report-a-problem__container-theme-dark #report-a-problem-send-button {
+.App-content-theme-dark .report-a-problem__container #report-a-problem-send-button {
   background-color: #2f3033;
 }
 
@@ -197,7 +193,7 @@
   box-shadow: none;
 }
 
-.report-a-problem__container-theme-dark #report-a-problem-send-button:active {
+.App-content-theme-dark .report-a-problem__container #report-a-problem-send-button:active {
   border: 1px solid #45484c;
 }
 
@@ -208,7 +204,7 @@
   margin: 0;
 }
 
-.report-a-problem__container-theme-dark #report-a-problem-send-button h3 {
+.App-content-theme-dark .report-a-problem__container #report-a-problem-send-button h3 {
   color: white;
 }
 

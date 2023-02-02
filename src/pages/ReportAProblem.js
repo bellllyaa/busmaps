@@ -365,7 +365,7 @@ const ReportAProblem = () => {
   }, [])
 
   return (
-    <div className={`report-a-problem__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`}>
+    <div className="report-a-problem__container">
       <div className="report-a-problem__nav">
         <button className="report-a-problem-return-button" onClick={() => {navigateTo("/")}}>
           <img
