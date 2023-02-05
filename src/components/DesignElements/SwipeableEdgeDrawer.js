@@ -292,7 +292,22 @@ function SwipeableEdgeDrawer(props) {
             {busStop ? (
               <div className={`upper-part__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`}>
                 <h2 ref={stopName}>{busStop.stopName}</h2>
-                {toggleDrawer ? <p>Przystanek</p> : null}
+                {toggleDrawer ? (
+                  <div id="stop-info" onClick={() => {
+                    try {
+                      const el = document.querySelector(theme.palette.mode === "light" ? ".css-1wr8kee" : ".css-1wk78lo");
+                      const maxElScrollTop = el.scrollHeight - el.clientHeight - 0.5;
+                      el.scroll(0, maxElScrollTop);
+                    } catch {}
+                  }}>
+                    <img
+                      src="https://zkmgdynia.pl/assets/images/logo.png"
+                      alt=""
+                      style={{backgroundColor: "#3b84df"}}
+                    />
+                    <p>Przystanek</p>
+                  </div>
+                ) : null}
                 <div className="buttons__container">
                   <button id="show-options-button" onClick={() => {
                     // document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#bbbbbb" : "#1c1c1f";

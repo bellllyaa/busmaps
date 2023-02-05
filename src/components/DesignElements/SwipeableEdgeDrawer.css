@@ -16,21 +16,42 @@ h2 {
   color: white;
 }
 
-.upper-part__container p {
+.upper-part__container #stop-info, .upper-part__container-theme-dark #stop-info {
   position: absolute;
   bottom: 0;
-  transform: translateX(15px) translateY(-1px);
+  display: flex;
+  /* height:14px; */
+}
+
+/* .upper-part__container #stop-info:active {
+  background-color: #bbbbbb;
+}
+
+.upper-part__container-theme-dark #stop-info:active {
+  background-color: #1c1c1f;
+} */
+
+.upper-part__container #stop-info img, .upper-part__container-theme-dark #stop-info img {
+  height: 14px;
+  width: 14px;
+  margin: 16px 0 0 15px;
+  padding: 2.5px;
+  border-radius: 4px;
+}
+
+.upper-part__container #stop-info p, .upper-part__container-theme-dark #stop-info p {
+  transform: translateX(5px) translateY(-1px);
   color: gray;
   font-size: 14px;
 }
 
-.upper-part__container-theme-dark p {
+/* .upper-part__container-theme-dark p {
   position: absolute;
   bottom: 0;
   transform: translateX(15px) translateY(-1px);
   color: gray;
   font-size: 14px;
-}
+} */
 
 .buttons__container {
   display: inline-block;
