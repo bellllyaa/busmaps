@@ -243,7 +243,7 @@ function SwipeableEdgeDrawer(props) {
       }
     }
     
-  }, [stopName])
+  }, [stopName, toggleDrawer])
 
   return (
     <div className="swipable-edge-drawer">

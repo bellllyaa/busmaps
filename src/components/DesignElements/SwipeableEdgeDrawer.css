@@ -10,7 +10,7 @@ h2 {
   display: inline-block;
   padding-bottom: 20px;
   color: black;
-  transition: margin 0.5s;
+  /* transition: margin 0.5s; */
 }
 
 .upper-part__container-theme-dark h2 {
