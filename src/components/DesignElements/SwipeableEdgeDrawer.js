@@ -144,6 +144,9 @@ function SwipeableEdgeDrawer(props) {
 
   React.useEffect(() => {
     if (toggleDrawer === false) {
+      try {
+        document.querySelector(`.upper-part__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).querySelector("h2").style.marginRight = "15px";
+      } catch {}
       if (sessionStorage.getItem("downloadBannerVisibility") !== "false") {
         try {
           if (theme.palette.mode === "light") {
@@ -166,6 +169,9 @@ function SwipeableEdgeDrawer(props) {
         document.getElementsByClassName("buttons__container")[0].style.display = "none";
       } catch {}
     } else if (toggleDrawer === true) {
+      try {
+        document.querySelector(`.upper-part__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).querySelector("h2").style.marginRight = "100px";
+      } catch {}
       if (sessionStorage.getItem("downloadBannerVisibility") !== "false") {
         try {
           if (theme.palette.mode === "light") {
