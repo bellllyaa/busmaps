@@ -24,8 +24,11 @@ import DownloadBanner from "../DownloadBanner/DownloadBanner";
 import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
+// mapboxgl.accessToken =
+//   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
+
+  mapboxgl.accessToken =
+  "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xjeG1hazJyMG41NzN3cXJ5bDFoZGFpMSJ9.kjSwIXyUxEUzLycrSD4Iag";
 
 const getLastUserLocation = (par) => {
   const lastMapCenter = JSON.parse(localStorage.getItem("mapCenter"));
@@ -115,9 +118,6 @@ function MapboxMap() {
     if (currentMapCenter.zoom >= 14.00 && currentMarkers.status === "created") {
 
       currentMarkers.status = "changed";
-      // console.log(".");
-      // console.log(currentMapCenter.zoom);
-      // console.log(currentMarkers);
 
     } else if (currentMapCenter.zoom >= 14.00 && currentMarkers.lng === null && currentMarkers.status === "changed") {
 
@@ -129,9 +129,6 @@ function MapboxMap() {
         marker.remove();
       }
       currentMarkers = {lng: null, lat: null, zoom: null, markers: null, status: "changed"};
-      // console.log(currentMarkers);
-
-      // return;
 
     } else if (currentMarkers.lng != null && currentMapCenter.zoom < 14.00) {
       
@@ -145,13 +142,6 @@ function MapboxMap() {
     } else {
       return;
     }
-
-    // if (document.getElementsByClassName("mapboxgl-ctrl-geolocate-active").length === 1) {
-    //   localStorage.setItem("lastUserLocationLon", lng);
-    //   localStorage.setItem("lastUserLocationLat", lat);
-    //   console.log(map.current)
-    //   console.log(lng, lat);
-    // }
 
     console.log("Adding stops...");
     // console.log(map.current);
@@ -306,7 +296,6 @@ function MapboxMap() {
       style: theme.palette.mode === "light"
       ? "mapbox://styles/mapbox/streets-v12"
       : "mapbox://styles/mapbox/dark-v10",
-      // style: "mapbox://styles/mapbox/dark-v10",
       center: [lng, lat],
       zoom: zoom,
       // attributionControl: false
