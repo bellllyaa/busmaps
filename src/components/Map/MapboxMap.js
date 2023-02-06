@@ -24,11 +24,11 @@ import DownloadBanner from "../DownloadBanner/DownloadBanner";
 import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 
-// mapboxgl.accessToken =
-//   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
 
-  mapboxgl.accessToken =
-  "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xjeG1hazJyMG41NzN3cXJ5bDFoZGFpMSJ9.kjSwIXyUxEUzLycrSD4Iag";
+// mapboxgl.accessToken =
+//   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xjeG1hazJyMG41NzN3cXJ5bDFoZGFpMSJ9.kjSwIXyUxEUzLycrSD4Iag";
 
 const getLastUserLocation = (par) => {
   const lastMapCenter = JSON.parse(localStorage.getItem("mapCenter"));
