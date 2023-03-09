@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
 
 import "./Options.css";
+import pythagoras from "../../hooks/pythagoras";
 
 // Icons
 import settingsIcon from "../../assets/settings.svg";
@@ -28,7 +29,13 @@ const Options = () => {
     }
 
     for (const stop of favoriteStops) {
-      if (stop.stopId === lastOpenedStops[0].stopId && stop.stopName === lastOpenedStops[0].stopName) {
+      if (
+        stop.stopName === lastOpenedStops[0].stopName &&
+        pythagoras(
+          Math.abs(stop.location.lng - lastOpenedStops[0].location.lng),
+          Math.abs(stop.location.lat - lastOpenedStops[0].location.lat)
+        ) < 0.005
+      ) {
         return true;
       }
     }
@@ -94,7 +101,7 @@ const Options = () => {
             />
           </button>
         </li>
-        <li style={{ height: "5px", borderTop: "none" }}>
+        <li style={{ height: "7px", borderTop: "none" }}>
           <div className="options__divider"></div>
         </li>
         <li style={{ borderTop: "none" }}>
@@ -110,7 +117,13 @@ const Options = () => {
                 localStorage.getItem("favoriteStops")
               );
               for (const stop of favoriteStops) {
-                if (stop.stopId === lastOpenedStops[0].stopId && stop.stopName === lastOpenedStops[0].stopName) {
+                if (
+                  stop.stopName === lastOpenedStops[0].stopName &&
+                  pythagoras(
+                    Math.abs(stop.location.lng - lastOpenedStops[0].location.lng),
+                    Math.abs(stop.location.lat - lastOpenedStops[0].location.lat)
+                  ) < 0.005
+                ) {
                   const index = favoriteStops.indexOf(stop);
                   favoriteStops.splice(index, 1);
                   break;
@@ -121,6 +134,7 @@ const Options = () => {
               } else {
                 localStorage.setItem("favoriteStops", JSON.stringify(favoriteStops));
               }
+              console.log("favoriteStops:")
               console.log(JSON.parse(localStorage.getItem("favoriteStops")));
               document
                 .querySelector(
@@ -157,14 +171,33 @@ const Options = () => {
                   return;
                 }
                 if (favoriteStops === null) {
-                  favoriteStops = [lastOpenedStops[0]];
+                  // favoriteStops = [lastOpenedStops[0]];
+                  favoriteStops = [{
+                    stopName: lastOpenedStops[0].stopName,
+                    location: {
+                      lat: lastOpenedStops[0].location.lat,
+                      lng: lastOpenedStops[0].location.lng
+                    },
+                    stopType: lastOpenedStops[0].stopType,
+                    zoneName: lastOpenedStops[0].zoneName
+                  }]
                 } else {
-                  favoriteStops.push(lastOpenedStops[0]);
+                  // favoriteStops.push(lastOpenedStops[0]);
+                  favoriteStops.push({
+                    stopName: lastOpenedStops[0].stopName,
+                    location: {
+                      lat: lastOpenedStops[0].location.lat,
+                      lng: lastOpenedStops[0].location.lng
+                    },
+                    stopType: lastOpenedStops[0].stopType,
+                    zoneName: lastOpenedStops[0].zoneName
+                  })
                 }
                 localStorage.setItem(
                   "favoriteStops",
                   JSON.stringify(favoriteStops)
                 );
+                console.log("favoriteStops:")
                 console.log(JSON.parse(localStorage.getItem("favoriteStops")));
                 document
                   .querySelector(

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useTheme } from '@mui/material/styles';
 
-import { useToggleDrawer, useBusStop } from "../../pages/Home";
+import isIPhone from "../../hooks/isIPhone";
+
+import { useToggleDrawer, useCurrentStop } from "../../pages/Home";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 import "./SearchBar.css";
 import arrowLeftIcon from "../../assets/arrow-left.svg";
@@ -9,6 +11,12 @@ import searchIcon from "../../assets/search.svg";
 import xSymbolIcon from "../../assets/x-symbol.svg";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
+import tramIcon from "../../assets/tram.svg";
+import tramDarkIcon from "../../assets/tram-dark.svg";
+import trainIcon from "../../assets/train.svg";
+import trainDarkIcon from "../../assets/train-dark.svg";
+import impostorIcon from "../../assets/impostor.svg";
+import impostorDarkIcon from "../../assets/impostor-dark.svg";
 import enterIcon from "../../assets/enter.svg";
 import enterDarkIcon from "../../assets/enter-dark.svg";
 import goofyAhh from "../../data/goofy_ahh.json";
@@ -23,44 +31,29 @@ function SearchBar() {
   const [searchField, setSearchField] = useState("");
   const [searchShow, setSearchShow] = useState(false);
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
-  const { busStop, setBusStop } = useBusStop();
-  // const [closestStopsList, setClosestStopsList] = useState(null);
+  const { currentStop, setCurrentStop } = useCurrentStop();
   const [userLocationTime, setUserLocationTime] = useState(null);
-  // const [reportsStatus, setReportsStatus] = useState(false);
   const theme = useTheme();
 
-  const setToggleDrawerFunc = (value, busStop) => {
-    // document.getElementById("bus-stop__select__dropdown").style.display = "none";
-
-    // localStorage.setItem("lastOpenedStopId0", busStop.stopId);
-    // localStorage.setItem("lastOpenedStopName0", busStop.stopName);
-
-    // console.log(localStorage.getItem("lastOpenedStopId0"));
-
-    setBusStop(busStop);
+  const setToggleDrawerFunc = (value, stop) => {
+    
+    setCurrentStop(stop);
     setToggleDrawer(value);
 
-    console.log(busStop);
+    console.log(stop);
   };
-
-  const isIPhone = () => {
-    if (window.navigator.userAgent.indexOf('iPhone') != -1 && window.navigator.standalone == true) {
-      // window.alert("true")
-      return true
-    } else {
-      return false
-    }
-  }
 
   const convertToEnglishAlfabet = (str) => {
     return str
+      .replace(/\s+/g, ' ')
       .trim()
       .toLowerCase()
       .replaceAll('"', "")
       .replaceAll("'", "")
-      .replaceAll("  ", " ")
+      // .replaceAll("  ", " ")
       .replaceAll(" -", "")
       .replaceAll(".", "")
+      .replaceAll(",", "")
       .replaceAll("ź", "z")
       .replaceAll("ż", "z")
       .replaceAll("ó", "o")
@@ -98,11 +91,12 @@ function SearchBar() {
 
   const SearchResultList = (props) => {
 
-    const closestStops = JSON.parse(sessionStorage.getItem("zkmBusStops"));
+    const closestStops = JSON.parse(sessionStorage.getItem("stops"));
     const filteredSearchField = convertToEnglishAlfabet(searchField);
-    // console.log(filteredSearchField);
     let searchResultList = filterStopsBySearch(closestStops, filteredSearchField);
     const searchResultListCut = searchResultList.slice(0, 6)
+
+    // console.log(searchResultListCut)
 
     // if (searchResultListCut.length <= 5 && searchResultListCut.length >= 1) {
     //   console.log(document.getElementById("search-result-list-table").firstChild.firstChild);
@@ -117,28 +111,44 @@ function SearchBar() {
           <div>
             <table id="search-result-list-table">
               <tbody>
-                {searchResultListCut.map((stop) => {
+                {searchResultListCut.map(stop => {
+
+                  const vehicle = {
+                    icon: null,
+                    color: null
+                  }
+                  if (localStorage.getItem("mode") === "ohio") {
+                    vehicle.icon = theme.palette.mode === "light" ? impostorIcon : impostorDarkIcon
+                    vehicle.color = "#3b92f2"
+                  } else if (stop.stopType === "train") {
+                    vehicle.icon = theme.palette.mode === "light" ? trainIcon : trainDarkIcon
+                    vehicle.color = "#e9b800"
+                  } else if (stop.stopType === "tram" || stop.stopType === "bus, tram") {
+                    vehicle.icon = theme.palette.mode === "light" ? tramIcon : tramDarkIcon
+                    vehicle.color = "#f20000"
+                  } else {
+                    vehicle.icon = theme.palette.mode === "light" ? busIcon : busDarkIcon
+                    vehicle.color = "#3b92f2"
+                  }
+
                   return (
                     <tr
-                      key={stop.stopName + stop.stopId}
+                      key={stop.stopName}
                       className="search-result-item"
                       onClick={() => {
                         // console.log("clicked");
                         sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, {
-                          stopId: stop.stopId,
-                          stopName: stop.stopName,
-                        });
+                        setToggleDrawerFunc(true, stop);
                       }}
                     >
                       <td>
-                        <img src={theme.palette.mode === "light" ? busIcon : busDarkIcon} alt="Stop icon"></img>
+                        <img src={vehicle.icon} alt="Stop icon" style={{backgroundColor: vehicle.color}}></img>
                       </td>
                       <td className="search-result-item-stop">
                         <div id="stop-name">{stop.stopName}</div>
-                        <div id="stop-zone-id">{stop.zoneId}</div>
+                        {stop.zoneName !== null ? <div id="stop-zone-id">{stop.zoneName}</div> : null}
                       </td>
                       {searchResultListCut.indexOf(stop) === 0 ? (
                         <td>
@@ -189,24 +199,39 @@ function SearchBar() {
           <div>
             <table id="search-result-closest-stops-table">
               <tbody>
-                {lastOpenedStopsCut.map((stop) => {
+                {lastOpenedStopsCut.map(stop => {
+
+                  const vehicle = {
+                    icon: null,
+                    color: null
+                  }
+                  if (localStorage.getItem("mode") === "ohio") {
+                    vehicle.icon = theme.palette.mode === "light" ? impostorIcon : impostorDarkIcon
+                    vehicle.color = "#3b92f2"
+                  } else if (stop.stopType === "train") {
+                    vehicle.icon = theme.palette.mode === "light" ? trainIcon : trainDarkIcon
+                    vehicle.color = "#e9b800"
+                  } else if (stop.stopType === "tram" || stop.stopType === "bus, tram") {
+                    vehicle.icon = theme.palette.mode === "light" ? tramIcon : tramDarkIcon
+                    vehicle.color = "#f20000"
+                  } else {
+                    vehicle.icon = theme.palette.mode === "light" ? busIcon : busDarkIcon
+                    vehicle.color = "#3b92f2"
+                  }
+
                   return (
                     <tr
-                      key={stop.stopName + stop.stopId}
+                      key={stop.stopName + stop.zoneName}
                       className="search-result-item"
                       onClick={() => {
-                        // console.log("clicked");
                         sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, {
-                          stopId: stop.stopId,
-                          stopName: stop.stopName,
-                        });
+                        setToggleDrawerFunc(true, stop);
                       }}
                     >
                       <td>
-                        <img src={theme.palette.mode === "light" ? busIcon : busDarkIcon} alt="Stop icon"></img>
+                        <img src={vehicle.icon} alt="Stop icon" style={{backgroundColor: vehicle.color}}></img>
                       </td>
                       <td className="search-result-item-stop">
                         <div id="stop-name">{stop.stopName}</div>
@@ -225,11 +250,9 @@ function SearchBar() {
   const ClosestStopsList = () => {
     // setTimeout(() => {setClosestStopsList(JSON.parse(sessionStorage.getItem("zkmBusStops")))}, 10);
 
-    let closestStops = JSON.parse(sessionStorage.getItem("zkmBusStops"));
+    let closestStops = JSON.parse(sessionStorage.getItem("stops"));
 
     const userLocation = JSON.parse(localStorage.getItem("userLocation"));
-    // console.log("userLocation:");
-    // console.log(userLocation);
 
     if (
       closestStops === null ||
@@ -239,10 +262,10 @@ function SearchBar() {
       (userLocation.time === null && userLocationTime === null) ||
       (new Date() - Date.parse(userLocation.time) > 600000)
     ) {
-      if (closestStops != null) {
+      if (closestStops !== null) {
         if ('geolocation' in navigator) {
           console.log("Geolocation is available")
-          navigator.geolocation.getCurrentPosition((position) => {
+          navigator.geolocation.getCurrentPosition(position => {
             localStorage.setItem("userLocation", JSON.stringify({lng: position.coords.longitude, lat: position.coords.latitude, time: new Date()}));
             // localStorage.setItem("lastUserLocationLon", position.coords.longitude);
             // localStorage.setItem("lastUserLocationLat", position.coords.latitude);
@@ -284,12 +307,12 @@ function SearchBar() {
     // console.log(new Date() - Date.parse(userLocation.time));
 
     closestStops = sortStopsByLocation(closestStops, {
-      lon: userLocation.lng,
+      lng: userLocation.lng,
       lat: userLocation.lat,
     });
 
-    sessionStorage.setItem("zkmBusStops", JSON.stringify(closestStops));
-    console.log("Displaying closest stops...");
+    sessionStorage.setItem("stops", JSON.stringify(closestStops));
+    // console.log("Displaying closest stops...");
     // console.log(userLocation);
     // console.log(closestStops);
 
@@ -320,24 +343,40 @@ function SearchBar() {
           <div>
             <table id="search-result-closest-stops-table">
               <tbody>
-                {closestStopsCut.map((stop) => {
+                {closestStopsCut.map(stop => {
+
+                  const vehicle = {
+                    icon: null,
+                    color: null
+                  }
+                  if (localStorage.getItem("mode") === "ohio") {
+                    vehicle.icon = theme.palette.mode === "light" ? impostorIcon : impostorDarkIcon
+                    vehicle.color = "#3b92f2"
+                  } else if (stop.stopType === "train") {
+                    vehicle.icon = theme.palette.mode === "light" ? trainIcon : trainDarkIcon
+                    vehicle.color = "#e9b800"
+                  } else if (stop.stopType === "tram" || stop.stopType === "bus, tram") {
+                    vehicle.icon = theme.palette.mode === "light" ? tramIcon : tramDarkIcon
+                    vehicle.color = "#f20000"
+                  } else {
+                    vehicle.icon = theme.palette.mode === "light" ? busIcon : busDarkIcon
+                    vehicle.color = "#3b92f2"
+                  }
+
                   return (
                     <tr
-                      key={stop.stopName + stop.stopId}
+                      key={stop.stopName + stop.zoneName}
                       className="search-result-item"
                       onClick={() => {
                         // console.log("clicked");
                         sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, {
-                          stopId: stop.stopId,
-                          stopName: stop.stopName,
-                        });
+                        setToggleDrawerFunc(true, stop);
                       }}
                     >
                       <td>
-                        <img src={theme.palette.mode === "light" ? busIcon : busDarkIcon} alt="Stop icon"></img>
+                        <img src={vehicle.icon} alt="Stop icon" style={{backgroundColor: vehicle.color}}></img>
                       </td>
                       <td className="search-result-item-stop">
                         <div id="stop-name">{stop.stopName}</div>

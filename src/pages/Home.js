@@ -7,10 +7,12 @@ import "./Home.css";
 
 const ToggleDrawerContext = createContext(null);
 const BusStopContext = createContext(null);
+const CurrentStopContext = createContext(null);
 
 function Home() {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [busStop, setBusStop] = useState(null);
+  const [currentStop, setCurrentStop] = useState(null);
 
   // const [lastOpenedStops, setLastOpenedStops] = useState(
   //   [...Array(3).keys()].map((index) => ({
@@ -30,8 +32,10 @@ function Home() {
     <div>
       <ToggleDrawerContext.Provider value={{ toggleDrawer, setToggleDrawer }}>
         <BusStopContext.Provider value={{ busStop, setBusStop }}>
-          <MapboxMap />
-          <SwipeableEdgeDrawer />
+          <CurrentStopContext.Provider value={{ currentStop, setCurrentStop }}>
+            <MapboxMap />
+            <SwipeableEdgeDrawer />
+          </CurrentStopContext.Provider>
         </BusStopContext.Provider>
       </ToggleDrawerContext.Provider>
     </div>
@@ -41,3 +45,4 @@ function Home() {
 export default Home;
 export const useToggleDrawer = () => useContext(ToggleDrawerContext);
 export const useBusStop = () => useContext(BusStopContext);
+export const useCurrentStop = () => useContext(CurrentStopContext);

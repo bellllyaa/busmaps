@@ -200,6 +200,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .search-result-item-stop #stop-name {
   /* vertical-align: middle; */
   font-size: 17px;
+  margin-right: 50px;
 }
 
 .search-result-item-stop #stop-zone-id {

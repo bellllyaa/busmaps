@@ -1,3 +1,8 @@
+.departures-table__container, .departures-table__container-theme-dark {
+  /* width: 100%; */
+  /* height: 100%; */
+}
+
 #departures-table {
   /* position: static; */
   padding: 0;
@@ -41,7 +46,7 @@
   /* margin-left: 18.5px; */
 }
 
-#departures-table .bus-delayed {
+#departures-table .bus-late {
   color: red;
   /* margin-left: 18.5px; */
 }
@@ -77,6 +82,7 @@
   width: 100%;
   text-align: center;
   font-weight: 600;
+  min-width: 30px;
 }
 
 .bus-short-name__SCHEDULED p {
@@ -102,6 +108,7 @@
   /* border: 1px solid black; */
   color: black;
   background-color: rgb(210, 210, 210);
+  min-width: 30px;
 }
 
 .departures-table__container-theme-dark .bus-short-name__SCHEDULED p {
@@ -246,7 +253,7 @@
   font-size: 12px;
   color: #93949a;
   /* margin: 0 0 70px 35px; */
-  margin: 30px 0 70px 0;
+  margin: 30px 5vw 70px 5vw;
   text-align: center;
 }
 

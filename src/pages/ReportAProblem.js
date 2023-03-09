@@ -328,30 +328,30 @@ const ReportAProblem = () => {
 
     console.log("Getting all logs...");
 
-    let listOfLogs = [];
+    let listOfLogs = {};
 
-    listOfLogs.push(new Date());
-    listOfLogs.push(navigator.userAgent);
+    listOfLogs.dateNow = new Date();
+    listOfLogs.userAgent = navigator.userAgent;
     
     if (localStorage.getItem("userLocation") != null) {
-      listOfLogs.push(JSON.parse(localStorage.getItem("userLocation")));
+      listOfLogs.userLocation = JSON.parse(localStorage.getItem("userLocation"));
     }
 
     if (sessionStorage.getItem("stop_info_logs") != null) {
-      listOfLogs.push(JSON.parse(sessionStorage.getItem("stop_info_logs")));
+      listOfLogs.stopInfoLogs = JSON.parse(sessionStorage.getItem("stop_info_logs"));
     }
 
     if (localStorage.getItem("lastOpenedStops") != null) {
-      listOfLogs.push(JSON.parse(localStorage.getItem("lastOpenedStops")));
+      listOfLogs.lastOpenedStops = JSON.parse(localStorage.getItem("lastOpenedStops"));
     }
 
     if (localStorage.getItem("beforeinstallprompt")) {
-      listOfLogs.push(JSON.parse(localStorage.getItem("beforeinstallprompt")));
+      listOfLogs.beforeInstallPrompt = JSON.parse(localStorage.getItem("beforeinstallprompt"));
     }
 
     // setLogsList(listOfLogs);
 
-    const listOfLogsBlob = new Blob([JSON.stringify(listOfLogs)], {type: "application/json"});
+    const listOfLogsBlob = new Blob([JSON.stringify(listOfLogs, null, 2)], {type: "application/json"});
     
     // Construct a file
     let file = new File([listOfLogsBlob], 'logs.json', {

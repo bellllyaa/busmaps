@@ -8,9 +8,6 @@ import Settings from "./pages/Settings";
 import ReportAProblem from "./pages/ReportAProblem";
 import About from "./pages/About";
 
-import trips from "./data/trips.json";
-import routes from "./data/routes.json";
-
 function App() {
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -25,7 +22,12 @@ function App() {
   );
   console.log(theme);
 
-  if (localStorage.getItem("lastUserLocationLat") != null) {
+  if (localStorage.getItem("lastUserLocationLat") !== null) {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
+  if (localStorage.getItem("lastOpenedStops") !== null && !JSON.parse(localStorage.getItem("lastOpenedStops"))[0].providers) {
     localStorage.clear();
     sessionStorage.clear();
   }

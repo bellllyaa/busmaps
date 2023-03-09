@@ -21,6 +21,7 @@ h2 {
   position: absolute;
   bottom: 0;
   display: flex;
+  padding: 0 0 0 15px;
   /* height:14px; */
 }
 
@@ -35,13 +36,16 @@ h2 {
 .upper-part__container #stop-info img, .upper-part__container-theme-dark #stop-info img {
   height: 14px;
   width: 14px;
-  margin: 16px 0 0 15px;
-  padding: 2.5px;
+  /* margin: 16px 0 0 15px; */
+  margin: 16px 5px 0 0;
+  padding: 2px;
   border-radius: 4px;
+  box-shadow: 0px 1px 2px 0px rgba(100, 100, 111, 0.2);
 }
 
 .upper-part__container #stop-info p, .upper-part__container-theme-dark #stop-info p {
-  transform: translateX(5px) translateY(-1px);
+  transform: translateY(-1px);
+  /* padding: 0 0 0 5px; */
   color: gray;
   font-size: 14px;
 }

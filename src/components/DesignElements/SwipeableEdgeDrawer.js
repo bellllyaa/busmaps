@@ -12,18 +12,20 @@ import { useTheme } from '@mui/material/styles';
 // import Skeleton from '@mui/material/Skeleton';
 // import Typography from '@mui/material/Typography';
 
-import { useToggleDrawer, useBusStop } from "../../pages/Home";
+import { useToggleDrawer, useBusStop, useCurrentStop } from "../../pages/Home";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-// import DeparturesTable from "../BusStop/DeparturesTable";
-import CallDeparturesTable from "./CallDeparturesTable";
+import DeparturesTable from "../BusStop/DeparturesTable";
 import Options from "./Options";
-// import Select from "react-select";
 import "./SwipeableEdgeDrawer.css";
-// import zkmBusStops from "../Map/data/zkm-bus-stops.json";
 
 // Icons
 import XSymbolIcon from "../../assets/x-symbol.svg";
 import threeDotsIcon from "../../assets/three-dots.svg";
+import ztmGdanskLogo from "../../assets/stop-providers/ztm-gdansk-logo.png";
+import zkmGdyniaLogo from "../../assets/stop-providers/zkm-gdynia-logo.png";
+import polRegioLogo from "../../assets/stop-providers/polregio-logo.svg";
+import pkpIntercityLogo from "../../assets/stop-providers/pkp-intercity-logo.jpg";
+import skmTrojmiastoLogo from "../../assets/stop-providers/skm-trojmiasto-logo.png";
 
 // const createRoutesDropdown = () => {
 //   if (zkmBusStops) {
@@ -97,6 +99,7 @@ function SwipeableEdgeDrawer(props) {
   const theme = useTheme();
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
   const { busStop, setBusStop } = useBusStop();
+  const { currentStop, setCurrentStop } = useCurrentStop();
   const windowDimensions = useWindowDimensions();
   // console.log(windowDimensions);
   const [optionsVisibility, setOptionsVisibility] = React.useState(false);
@@ -141,6 +144,10 @@ function SwipeableEdgeDrawer(props) {
     // });
     // document.getElementById('#bus-stop__select__dropdown').animate({marginTop: '-=15px'});
   }, []);
+
+  // React.useEffect(() => {
+  //   console.log(currentStop)
+  // }, [currentStop])
 
   React.useEffect(() => {
     if (toggleDrawer === false) {
@@ -215,6 +222,7 @@ function SwipeableEdgeDrawer(props) {
       // console.log(textHeight);
       // console.log(stopName.current.innerText);
 
+      console.log(textHeight)
       if (textHeight >= 200) {
         try {
           document.querySelector(`.mapboxgl-ctrl-geolocate-custom-buttons__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`).style.top = "calc(100% - 339px)";
@@ -272,6 +280,7 @@ function SwipeableEdgeDrawer(props) {
           disableSwipeToOpen={false}
           ModalProps={{
             keepMounted: true,
+            // keepMounted: currentStop !== null ? true : false,
           }}
         >
           <StyledBox
@@ -283,7 +292,7 @@ function SwipeableEdgeDrawer(props) {
               visibility: "visible",
               right: 0,
               left: 0,
-              top: stopNameHeight
+              top: stopNameHeight,
             }}
           >
             <Puller />
@@ -295,43 +304,136 @@ function SwipeableEdgeDrawer(props) {
                 placeholder="Bus stop"
               />
             </div> */}
-            {busStop ? (
-              <div className={`upper-part__container${theme.palette.mode === "light" ? "" : "-theme-dark"}`}>
-                <h2 ref={stopName}>{busStop.stopName}</h2>
+            {currentStop && currentStop !== null ? (
+              <div
+                className={`upper-part__container${
+                  theme.palette.mode === "light" ? "" : "-theme-dark"
+                }`}
+              >
+                <h2 ref={stopName}>{currentStop.stopName}</h2>
                 {toggleDrawer ? (
-                  <div id="stop-info" onClick={() => {
-                    try {
-                      const el = document.querySelector(theme.palette.mode === "light" ? ".css-1wr8kee" : ".css-1wk78lo");
-                      const maxElScrollTop = el.scrollHeight - el.clientHeight - 0.5;
-                      el.scroll(0, maxElScrollTop);
-                    } catch {}
-                  }}>
-                    <img
-                      src="https://zkmgdynia.pl/assets/images/logo.png"
-                      alt=""
-                      style={{backgroundColor: "#3b84df"}}
-                    />
-                    <p>Przystanek</p>
+                  <div
+                    id="stop-info"
+                    onClick={() => {
+                      try {
+                        const el = document.querySelector(
+                          theme.palette.mode === "light"
+                            ? ".css-1wr8kee"
+                            : ".css-1wk78lo"
+                        );
+                        const maxElScrollTop =
+                          el.scrollHeight - el.clientHeight - 0.5;
+                        el.scroll(0, maxElScrollTop);
+                      } catch {}
+                    }}
+                  >
+                    {currentStop &&
+                    currentStop.providers.find(
+                      (provider) => provider.stopProvider === "ZTM Gdańsk"
+                    ) !== undefined ? (
+                      <img
+                        src={ztmGdanskLogo}
+                        alt=""
+                        style={{ backgroundColor: "#ffffff" }}
+                      />
+                    ) : null}
+                    {currentStop &&
+                    currentStop.providers.find(
+                      (provider) => provider.stopProvider === "ZKM Gdynia"
+                    ) !== undefined ? (
+                      <img
+                        src={zkmGdyniaLogo}
+                        alt=""
+                        style={{ backgroundColor: "#3b84df" }}
+                      />
+                    ) : null}
+                    {currentStop &&
+                    currentStop.providers.find(
+                      (provider) => provider.stopProvider === "SKM Trójmiasto"
+                    ) !== undefined ? (
+                      <img
+                        src={skmTrojmiastoLogo}
+                        alt=""
+                        style={{ backgroundColor: "#ffffff" }}
+                      />
+                    ) : null}
+                    {currentStop &&
+                    currentStop.providers.find(
+                      (provider) => provider.stopProvider === "PolRegio"
+                    ) !== undefined ? (
+                      <img
+                        src={polRegioLogo}
+                        alt=""
+                        style={{ backgroundColor: "#ffffff" }}
+                      />
+                    ) : null}
+                    {currentStop &&
+                    currentStop.providers.find(
+                      (provider) => provider.stopProvider === "PKP Intercity"
+                    ) !== undefined ? (
+                      <img
+                        src={pkpIntercityLogo}
+                        alt=""
+                        style={{ backgroundColor: "#ffffff" }}
+                      />
+                    ) : null}
+                    
+                    <p>
+                      {currentStop.stopType === "train"
+                        ? "Stacja kolejowa"
+                        : currentStop.stopType === "bus, tram"
+                          ? "Przystanek autobusowy i tramwajowy"
+                          : currentStop.stopType === "tram"
+                            ? "Przystanek tramwajowy"
+                            : currentStop.stopType === "bus"
+                              ? "Przystanek autobusowy"
+                              : "Przystanek"}
+                    </p>
                   </div>
                 ) : null}
                 <div className="buttons__container">
-                  <button id="show-options-button" onClick={() => {
-                    // document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#bbbbbb" : "#1c1c1f";
-                    // setTimeout(() => {
-                    //   document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#e9e9e9" : "#37383d";
-                    // }, 70);
-                    // e.target.style.backgroundColor = "black";
-                    setOptionsVisibility(!optionsVisibility)
-                  }}>
-                    <img src={threeDotsIcon} alt="Options button" style={{width: "15px", marginTop: "3px"}} />
+                  <button
+                    id="show-options-button"
+                    onClick={() => {
+                      // document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#bbbbbb" : "#1c1c1f";
+                      // setTimeout(() => {
+                      //   document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#e9e9e9" : "#37383d";
+                      // }, 70);
+                      // e.target.style.backgroundColor = "black";
+                      setOptionsVisibility(!optionsVisibility);
+                    }}
+                  >
+                    <img
+                      src={threeDotsIcon}
+                      alt="Options button"
+                      style={{ width: "15px", marginTop: "3px" }}
+                    />
                   </button>
-                  <button id="close-button" onClick={setToggleDrawerFunc(false)}>
-                    <img src={XSymbolIcon} alt="Close button" style={{width: "12px", marginTop: "3px"}} />
+                  <button
+                    id="close-button"
+                    // onClick={setToggleDrawerFunc(false)}
+                    onClick={() => {
+                      setToggleDrawer(false)
+                      // setCurrentStop(null)
+                    }}
+                    // onClick={setCurrentStop(null)}
+                  >
+                    <img
+                      src={XSymbolIcon}
+                      alt="Close button"
+                      style={{ width: "12px", marginTop: "3px" }}
+                    />
                   </button>
                 </div>
               </div>
             ) : (
-              <h2 style={{color: theme.palette.mode === "light" ? "black" : "white"}}>Wybierz przystanek</h2>
+              <h2
+                style={{
+                  color: theme.palette.mode === "light" ? "black" : "white",
+                }}
+              >
+                Wybierz przystanek
+              </h2>
             )}
           </StyledBox>
           <StyledBox
@@ -340,32 +442,11 @@ function SwipeableEdgeDrawer(props) {
               pb: 0,
               height: "100%",
               overflow: "auto",
-              // marginTop: toggleDrawer === true && isIPhone() ? "-20px" : 0,
             }}
           >
-            {/* <p style={{marginTop: "20px"}}></p> */}
-            {/* {optionsVisibility && <Options />} */}
-            {busStop != null ? (
-              <CallDeparturesTable
-                key={busStop.stopId}
-                busStopId={busStop.stopId}
-                busStopName={busStop.stopName}
-              />
-            ) : (
-              <></>
-            )}
-            {/* <div className="bus-stop__select__dropdown">
-              <Select
-                options={createRoutesDropdown()}
-                onChange={onChangeStop}
-                placeholder="Bus stop"
-              />
-            </div> */}
-            {/* <BusStop /> */}
-            {/* {windowDimensions.width}x{windowDimensions.height} */}
-            {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
-              <Button onClick={setToggleDrawerFunc(false)}>Close</Button>
-            </Box> */}
+            
+            <DeparturesTable key={currentStop !== null ? currentStop.stopName : "no-stop"} />
+            
           </StyledBox>
         </SwipeableDrawer>
       </Root>

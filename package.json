@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "leaflet": "^1.9.3",
     "mapbox-gl": "^2.12.0",
+    "moment-timezone": "^0.5.41",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",

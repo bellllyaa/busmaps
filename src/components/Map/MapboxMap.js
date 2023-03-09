@@ -3,20 +3,20 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import "./MapboxMap.css";
 import { useTheme } from '@mui/material/styles';
 
-import zkmBusStops from "../../data/zkm-bus-stops.json";
 import {
   useToggleDrawer,
   useBusStop,
-  useLastOpenedStops,
+  useCurrentStop,
 } from "../../pages/Home";
+import pythagoras from "../../hooks/pythagoras";
+
 import MapboxButtons from "./MapButtons/MapboxButtons";
-// import geolocationControlOffIcon from "../../assets/map-custom-controls/geolocation-control-off.svg";
-// import geolocationControlOffDarkIcon from "../../assets/map-custom-controls/geolocation-control-off-dark.svg";
-// import geolocationControlIcon from "../../assets/map-custom-controls/geolocation-control.svg";
-// import geolocationControlDarkIcon from "../../assets/map-custom-controls/geolocation-control-dark.svg";
-// import geolocationControlActiveIcon from "../../assets/map-custom-controls/geolocation-control-active.svg";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
+import tramIcon from "../../assets/tram.svg";
+import tramDarkIcon from "../../assets/tram-dark.svg";
+import trainIcon from "../../assets/train.svg";
+import trainDarkIcon from "../../assets/train-dark.svg";
 import impostorIcon from "../../assets/impostor.svg";
 import impostorDarkIcon from "../../assets/impostor-dark.svg";
 import starIcon from "../../assets/star1.svg";
@@ -24,11 +24,16 @@ import DownloadBanner from "../DownloadBanner/DownloadBanner";
 import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 
+// Safe token
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
 
 // mapboxgl.accessToken =
 //   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xjeG1hazJyMG41NzN3cXJ5bDFoZGFpMSJ9.kjSwIXyUxEUzLycrSD4Iag";
+
+const LOCAL_URL = "http://localhost:8080";
+const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
+const PROXY_URL = GOOGLE_PROXY_URL;
 
 const getLastUserLocation = (par) => {
   const lastMapCenter = JSON.parse(localStorage.getItem("mapCenter"));
@@ -59,20 +64,13 @@ function MapboxMap() {
 
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
   const { busStop, setBusStop } = useBusStop();
+  const { currentStop, setCurrentStop } = useCurrentStop();
   // const [currentMarkers, setCurrentMarkers] = useState("bb");
 
-  const setToggleDrawerFunc = (value, busStop) => {
-    // document.getElementById("bus-stop__select__dropdown").style.display = "none";
-
-    // localStorage.setItem("lastOpenedStopId0", busStop.stopId);
-    // localStorage.setItem("lastOpenedStopName0", busStop.stopName);
-
-    // console.log(localStorage.getItem("lastOpenedStopId0"));
-
-    setBusStop(busStop);
+  const setToggleDrawerFunc = (value, stop) => {
+    // setBusStop(busStop);
+    setCurrentStop(stop);
     setToggleDrawer(value);
-
-    // console.log(busStop);
   };
 
   // const setCurrentMarkersFunc = (value) => {
@@ -80,7 +78,7 @@ function MapboxMap() {
   //   setCurrentMarkers(value);
   // }
 
-  const isFavorite = (currentStop) => {
+  const isStopFavorite = (currentStop) => {
     const favoriteStops = JSON.parse(localStorage.getItem("favoriteStops"));
 
     if (favoriteStops === null) {
@@ -88,7 +86,13 @@ function MapboxMap() {
     }
 
     for (const stop of favoriteStops) {
-      if (stop.stopId === currentStop.stopId && stop.stopName === currentStop.stopName) {
+      if (
+        stop.stopName === currentStop.stopName &&
+        pythagoras(
+          Math.abs(stop.location.lng - currentStop.location.lng),
+          Math.abs(stop.location.lat - currentStop.location.lat)
+        ) < 0.005
+      ) {
         return true;
       }
     }
@@ -96,14 +100,20 @@ function MapboxMap() {
     return false;
   }
 
-  const isSelected = (currentStop) => {
+  const isStopSelected = (currentStop) => {
     const lastOpenedStops = JSON.parse(localStorage.getItem("lastOpenedStops"));
 
     if (lastOpenedStops === null) {
       return false;
     }
 
-    if (currentStop.stopId === lastOpenedStops[0].stopId && currentStop.stopName === lastOpenedStops[0].stopName) {
+    if (
+      currentStop.stopName === lastOpenedStops[0].stopName &&
+        pythagoras(
+          Math.abs(currentStop.location.lng - lastOpenedStops[0].location.lng),
+          Math.abs(currentStop.location.lat - lastOpenedStops[0].location.lat)
+        ) < 0.005
+    ) {
       return true;
     } else {
       return false;
@@ -148,6 +158,7 @@ function MapboxMap() {
     // console.log(currentMapCenter);
 
     let currentMarkersList = [];
+    let zkmBusStops = []
 
     for (const stop of zkmBusStops) {
       
@@ -159,7 +170,7 @@ function MapboxMap() {
       // console.log(Math.abs(stop.stopLon - currentMapCenter.lng).toFixed(5));
       // console.log(Math.abs(stop.stopLat - currentMapCenter.lat));
 
-      const isStopSelected = isSelected(stop);
+      const isStopSelected = isStopSelected(stop);
       const el = document.createElement("div");
       const width = 20;
       const height = 20;
@@ -188,7 +199,7 @@ function MapboxMap() {
       elIcon.style.borderRadius = "4px";
       el.appendChild(elIcon);
 
-      if (isFavorite(stop)) {
+      if (isStopFavorite(stop)) {
         const elStarIcon = document.createElement("img");
         elStarIcon.setAttribute(
           "src", starIcon);
@@ -213,6 +224,188 @@ function MapboxMap() {
 
       let marker = new mapboxgl.Marker(el)
         .setLngLat([stop.stopLon, stop.stopLat])
+        .addTo(map.current);
+        currentMarkersList.push(marker);
+    }
+    // console.log(".");
+    // console.log(currentMarkers);
+    // console.log({lng: currentMapCenter.lng, lat: currentMapCenter.lat, zoom: currentMapCenter.zoom, markers: currentMarkersList});
+    //setCurrentMarkers({lng: currentMapCenter.lng, lat: currentMapCenter.lat, zoom: currentMapCenter.zoom, markers: currentMarkersList});
+    // setCurrentMarkersFunc("bruh");
+    currentMarkers.lng = currentMapCenter.lng;
+    currentMarkers.lat = currentMapCenter.lat;
+    currentMarkers.zoom = currentMapCenter.zoom;
+    currentMarkers.markers = currentMarkersList;
+    // console.log(currentMarkers);
+    // console.log(".");
+  };
+
+  const updateDisplayedStops = (currentMapCenter, force) => {
+
+    if (currentMapCenter.zoom >= 14.00 && currentMarkers.status === "created") {
+
+      currentMarkers.status = "changed";
+
+    } else if (currentMapCenter.zoom >= 14.00 && currentMarkers.lng === null && currentMarkers.status === "changed") {
+
+      // console.log(".");
+
+    } else if ((force && currentMapCenter.zoom >= 14.00) || currentMapCenter.zoom >= 14.00 && currentMarkers.lng != null && (Math.abs(currentMarkers.lng - currentMapCenter.lng) > 0.005 || Math.abs(currentMarkers.lat - currentMapCenter.lat)) > 0.005) {
+      
+      for (const marker of currentMarkers.markers) {
+        marker.remove();
+      }
+      currentMarkers = {lng: null, lat: null, zoom: null, markers: null, status: "changed"};
+
+    } else if (currentMarkers.lng != null && currentMapCenter.zoom < 14.00) {
+      
+      for (const marker of currentMarkers.markers) {
+        marker.remove();
+      }
+      currentMarkers = {lng: null, lat: null, zoom: null, markers: null, status: "changed"};
+      // console.log(currentMarkers);
+      return;
+
+    } else {
+      return;
+    }
+
+    console.log("Adding stops...");
+    // console.log(map.current);
+    // console.log(currentMapCenter);
+
+    const stops = JSON.parse(sessionStorage.getItem("stops"));
+    let currentMarkersList = [];
+
+    for (const stop of stops) {
+      
+      if (!(Math.abs(stop.location.lng - currentMapCenter.lng).toFixed(5) < 0.01 && Math.abs(stop.location.lat - currentMapCenter.lat).toFixed(5) < 0.01)) {
+        continue
+      }
+      // console.log(stop.stopName);
+      // console.log(stop.stopName);
+      // console.log(Math.abs(stop.stopLon - currentMapCenter.lng).toFixed(5));
+      // console.log(Math.abs(stop.stopLat - currentMapCenter.lat));
+
+      const isCurrentStopSelected = isStopSelected(stop);
+      
+      const el = document.createElement("div");
+      let width = 20;
+      let height = 20;
+      el.className = "marker";
+
+      const elIcon = document.createElement("img");
+      elIcon.setAttribute("alt", "Stop button");
+      elIcon.style.borderRadius = "4px";
+      elIcon.style.margin = "15px";
+
+      if (stop.stopType === "train") {
+
+        elIcon.setAttribute(
+          "src",
+          theme.palette.mode === "light" && !isCurrentStopSelected
+            ? trainIcon
+            : trainDarkIcon
+        );
+        elIcon.style.backgroundColor = "#e9b800";
+        elIcon.style.padding = "4.5px";
+        elIcon.style.borderRadius = "6px";
+        height = 25;
+        width = 25;
+
+      } else if (stop.stopType === "tram" || stop.stopType === "bus, tram") {
+
+        elIcon.setAttribute(
+          "src",
+          theme.palette.mode === "light" && !isCurrentStopSelected
+            ? tramIcon
+            : tramDarkIcon
+        );
+        elIcon.style.backgroundColor = "#f20000";
+        elIcon.style.padding = "3px";
+
+      } else {
+
+        elIcon.setAttribute(
+          "src",
+          theme.palette.mode === "light" && !isCurrentStopSelected
+            ? busIcon
+            : busDarkIcon
+        );
+        elIcon.style.backgroundColor = "#3b92f2";
+        elIcon.style.padding = "4px";
+
+      }
+      if (stop.stopType === "bus, tram") {
+        elIcon.style.marginLeft = "2px";
+
+        const elIcon1 = document.createElement("img");
+        elIcon1.setAttribute("alt", "Stop button");
+        elIcon1.style.borderRadius = "4px";
+        elIcon1.style.margin = "15px 0 15px 15px";
+        elIcon1.setAttribute(
+          "src",
+          theme.palette.mode === "light" && !isCurrentStopSelected
+            ? busIcon
+            : busDarkIcon
+        );
+        elIcon1.style.backgroundColor = isCurrentStopSelected ? "#ffffff" : "#3b92f2";
+        elIcon1.style.padding = "4px";
+        elIcon1.style.height = `${height}px`;
+        elIcon1.style.width = `${width}px`;
+        el.appendChild(elIcon1);
+      }
+
+      if (localStorage.getItem("mode") === "ohio") {
+        elIcon.setAttribute(
+          "src",
+          theme.palette.mode === "light" && !isCurrentStopSelected
+            ? impostorDarkIcon
+            : impostorIcon
+        );
+        elIcon.style.padding = "4px";
+      }
+
+      elIcon.style.height = `${height}px`;
+      elIcon.style.width = `${width}px`;
+      if (isCurrentStopSelected) {
+        elIcon.style.backgroundColor = "#ffffff"
+      }
+      
+      if (isCurrentStopSelected && theme.palette.mode === "light") {
+        elIcon.style.boxShadow = "0px 0px 5px 0px rgba(17, 17, 17, 0.3)"
+      }
+      
+      el.appendChild(elIcon);
+
+      if (isStopFavorite(stop)) {
+        const elStarIcon = document.createElement("img");
+        elStarIcon.setAttribute(
+          "src", starIcon);
+        elStarIcon.setAttribute("alt", "Favorite");
+        elStarIcon.style.height = `${height * 3 / 4}px` //"15px";
+        elStarIcon.style.width = `${width * 3 / 4}px` //"15px";
+        elStarIcon.style.backgroundColor = theme.palette.mode === "light" ? "#ffffff" : "#232527";
+        elStarIcon.style.borderRadius = "50%";
+        elStarIcon.style.transform = `translateY(-${height+5}px) translateX(-${width+3}px)`;
+        if (isCurrentStopSelected && theme.palette.mode === "light") {
+          elStarIcon.style.boxShadow = "0px 0px 5px 0px rgba(17, 17, 17, 0.1)"
+        }
+        el.appendChild(elStarIcon);
+      }
+
+      el.addEventListener("click", (e) => {
+        map.current.flyTo({center: [stop.location.lng, stop.location.lat], zoom: map.current.getZoom()})
+        // console.log(e.target)
+        // elIcon.style.backgroundColor = "#ffffff"
+        setToggleDrawerFunc(true, stop);
+        // console.log(stop);
+      });
+
+      // console.log(map.current);
+
+      let marker = new mapboxgl.Marker(el)
+        .setLngLat([stop.location.lng, stop.location.lat])
         .addTo(map.current);
         currentMarkersList.push(marker);
     }
@@ -262,29 +455,32 @@ function MapboxMap() {
     //   }, 100);
     // }
 
-    // console.log(theme);
-    // theme.palette.mode === "light"
-    //   ? grey[100]
-    //   : theme.palette.background.default
-
     // console.log("useEffect");
     setTimeout(() => {map.current.flyTo({center: [lng, lat], zoom: 15})}, 1000);
 
-    if (localStorage.getItem("userLocation") != null) {
-      const lastUserLocation = JSON.parse(localStorage.getItem("userLocation"));
+    fetch(PROXY_URL + "/stops")
+      .then(response => response.json())
+      .then(data => {
+        let stops = data;
 
-      zkmBusStops = sortStopsByLocation(zkmBusStops, {lon: Number(lastUserLocation.lng), lat: Number(lastUserLocation.lat)})
+        if (localStorage.getItem("userLocation") != null) {
+          const lastUserLocation = JSON.parse(localStorage.getItem("userLocation"));
+          stops = sortStopsByLocation(data, {lng: Number(lastUserLocation.lng), lat: Number(lastUserLocation.lat)})
+        }
 
-      // console.log(zkmBusStops);
-    }
-    sessionStorage.setItem("zkmBusStops", JSON.stringify(zkmBusStops));
+        console.log("Stops:")
+        console.log(stops)
+        sessionStorage.setItem("stops", JSON.stringify(stops));
+        updateDisplayedStops({
+          lng: map.current.getCenter().lng.toFixed(4),
+          lat: map.current.getCenter().lat.toFixed(4),
+          zoom: map.current.getZoom(),
+        })
+      })
 
     if (localStorage.getItem("lastOpenedStops") != null) {
       let lastOpenedStop = JSON.parse(localStorage.getItem("lastOpenedStops"))[0];
-      setToggleDrawerFunc(true, {
-        stopId: Number(lastOpenedStop.stopId),
-        stopName: lastOpenedStop.stopName,
-      });
+      setToggleDrawerFunc(true, lastOpenedStop);
     }
   }, []);
 
@@ -372,12 +568,17 @@ function MapboxMap() {
     map.current.on("move", () => {
       setLng(map.current.getCenter().lng.toFixed(4));
       setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
-      addBusStops({
+      setZoom(map.current.getZoom());
+      // addBusStops({
+      //   lng: map.current.getCenter().lng.toFixed(4),
+      //   lat: map.current.getCenter().lat.toFixed(4),
+      //   zoom: map.current.getZoom().toFixed(2),
+      // });
+      updateDisplayedStops({
         lng: map.current.getCenter().lng.toFixed(4),
         lat: map.current.getCenter().lat.toFixed(4),
-        zoom: map.current.getZoom().toFixed(2),
-      });
+        zoom: map.current.getZoom(),
+      })
     });
 
     map.current.on("moveend", () => {
@@ -395,13 +596,18 @@ function MapboxMap() {
       }
     });
 
-    if (currentMarkers.status === "created") {
-      addBusStops({
-        lng: map.current.getCenter().lng.toFixed(4),
-        lat: map.current.getCenter().lat.toFixed(4),
-        zoom: map.current.getZoom().toFixed(2),
-      });
-    }
+    // if (currentMarkers.status === "created") {
+    //   // addBusStops({
+    //   //   lng: map.current.getCenter().lng.toFixed(4),
+    //   //   lat: map.current.getCenter().lat.toFixed(4),
+    //   //   zoom: map.current.getZoom().toFixed(2),
+    //   // });
+    //   updateDisplayedStops({
+    //     lng: map.current.getCenter().lng.toFixed(4),
+    //     lat: map.current.getCenter().lat.toFixed(4),
+    //     zoom: map.current.getZoom().toFixed(2),
+    //   })
+    // }
   });
 
   useEffect(() => {
@@ -412,7 +618,7 @@ function MapboxMap() {
 
           if (localStorage.getItem("lastOpenedStops") != null) {
             let lastOpenedStop = JSON.parse(localStorage.getItem("lastOpenedStops"))[0];
-            map.current.flyTo({center: [lastOpenedStop.lng, lastOpenedStop.lat], zoom: 15});
+            map.current.flyTo({center: [lastOpenedStop.location.lng, lastOpenedStop.location.lat], zoom: 15});
             sessionStorage.removeItem("mapFlyToStop");
             clearInterval(interval);
           }
@@ -429,11 +635,16 @@ function MapboxMap() {
       <DownloadBanner />
       <SearchBar />
       <button id="map-update-button" onClick={() => {
-        addBusStops({
+        // addBusStops({
+        //   lng: lng,
+        //   lat: lat,
+        //   zoom: zoom,
+        // }, true);
+        updateDisplayedStops({
           lng: lng,
           lat: lat,
           zoom: zoom,
-        }, true);
+        }, true)
       }}></button>
 
       <MapboxButtons />
