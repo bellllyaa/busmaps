@@ -152,13 +152,13 @@ function DeparturesTable(props) {
                     <br />
                     min
                   </span>
-                ) : differenceRealNow >= -1 ? (
+                ) : differenceRealNow > -1 ? (
                   <span className={arriving_status}>{"Teraz"}</span>
                 ) : (
-                  <span className={arriving_status}>
-                    {differenceRealNow}
+                  <span className={arriving_status} style={{whiteSpace: "nowrap"}}>
+                    {Math.abs(differenceRealNow)}
                     <br />
-                    min
+                    min temu
                   </span>
                 )}
               </p>
@@ -197,13 +197,13 @@ function DeparturesTable(props) {
                     <br />
                     min
                   </span>
-                ) : differencePlanNow >= -1 ? (
+                ) : differencePlanNow > -1 ? (
                   <span className={arriving_status}>{"Teraz"}</span>
                 ) : (
-                  <span className={arriving_status}>
-                    {differencePlanNow}
+                  <span className={arriving_status} style={{whiteSpace: "nowrap"}}>
+                    {Math.abs(differencePlanNow)}
                     <br />
-                    min
+                    min temu
                   </span>
                 )}
               </p>
@@ -226,7 +226,7 @@ function DeparturesTable(props) {
     //   console.log(date.format('YYYY-MM-DD HH:mm:ss Z'))
     // }
 
-    const dateMin = moment().tz("Europe/Warsaw").add(-5, "minutes");
+    const dateMin = moment().tz("Europe/Warsaw").add(-2, "minutes");
     const dateMax = moment().tz("Europe/Warsaw").add(1, "days");
 
     const departuresArrCut = [];
@@ -278,7 +278,7 @@ function DeparturesTable(props) {
                       dateNow) /
                       1000 /
                       60
-                  ) < -1
+                  ) < 0
                     ? { opacity: "50%" }
                     : {}
                 }
