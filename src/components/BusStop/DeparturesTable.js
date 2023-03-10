@@ -269,16 +269,14 @@ function DeparturesTable(props) {
               <tr
                 key={`${departure.routeId}_${departure.routeName}_${departure.tripId}_${departure.theoreticalTime}`}
                 style={
-                  Math.floor(
-                    (moment(
-                      departure.status === "REALTIME"
+                  (departure.status === "REALTIME"
                         ? departure.estimatedTime
                         : departure.theoreticalTime
-                    ) -
-                      dateNow) /
-                      1000 /
-                      60
-                  ) < 0
+                        - dateNow >= 0 ? Math.floor(((departure.status === "REALTIME"
+                        ? departure.estimatedTime
+                        : departure.theoreticalTime) - dateNow)/1000/60) : Math.round(((departure.status === "REALTIME"
+                        ? departure.estimatedTime
+                        : departure.theoreticalTime) - dateNow)/1000/60)) < 0
                     ? { opacity: "50%" }
                     : {}
                 }
