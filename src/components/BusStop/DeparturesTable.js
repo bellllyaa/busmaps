@@ -25,11 +25,11 @@ const PROXY_URL = GOOGLE_PROXY_URL;
 
 function DeparturesTable(props) {
   const theme = useTheme();
-  const [busStop, setBusStop] = useState();
   const [displayBusesNum, setDisplayBusesNum] = useState(10);
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
   const { currentStop, setCurrentStop } = useCurrentStop();
   const [currentStopDeparturesArr, setCurrentStopDeparturesArr] = useState(null);
+  const [previousDeparturesVisibleCount, setPreviousDeparturesVisibleCount] = useState(0)
   const [goofyAhhNum, setGoofyAhhNum] = useState(Math.floor(Math.random() * goofyAhh.fullHeight.length));
 
   const handleClick = (num, action) => {
@@ -227,7 +227,7 @@ function DeparturesTable(props) {
     //   console.log(date.format('YYYY-MM-DD HH:mm:ss Z'))
     // }
 
-    const dateMin = moment().tz("Europe/Warsaw").add(-2, "minutes");
+    const dateMin = moment().tz("Europe/Warsaw").add(-1, "minutes");
     const dateMax = moment().tz("Europe/Warsaw").add(1, "days");
 
     const departuresArrCut = [];
@@ -242,6 +242,33 @@ function DeparturesTable(props) {
         departuresArrCut.push(element)
       }
     }
+
+    const previousDepartures = []
+    let count = 0
+    for (let i = departuresArr.length-1; i>=0; i--) {
+      if (count >= previousDeparturesVisibleCount) {
+        break
+      }
+      if (moment(departuresArr[i].status === "REALTIME" ? departuresArr[i].estimatedTime : departuresArr[i].theoreticalTime) <= dateMin) {
+        departuresArrCut.unshift(departuresArr[i])
+        count++
+      }
+    }
+    // reversing
+    // departuresArr.sort(
+    //   (a, b) =>
+    //     moment(b.status === "REALTIME" ? b.estimatedTime : b.theoreticalTime) -
+    //     moment(a.status === "REALTIME" ? a.estimatedTime : a.theoreticalTime)
+    // );
+    // for (const element of departuresArr) {
+    //   if (
+    //     moment(element.status === "REALTIME" ? element.estimatedTime : element.theoreticalTime) <= dateMin
+    //   ) {
+    //     previousDepartures.push(element)
+    //   }
+    // }
+    // console.log(previousDepartures)
+
     console.log("departuresArr:")
     console.log(departuresArr)
     console.log("departuresArrCut:")
@@ -268,20 +295,39 @@ function DeparturesTable(props) {
           <tbody>
             {departuresArrCut.map((departure) => (
               <tr
-                key={`${departure.routeId}_${departure.routeName}_${departure.tripId}_${departure.theoreticalTime}_${departuresArrCut.indexOf(departure)}`}
+                key={`${departure.routeId}_${departure.routeName}_${
+                  departure.tripId
+                }_${departure.theoreticalTime}_${departuresArrCut.indexOf(
+                  departure
+                )}`}
                 style={
-                  (moment(departure.status === "REALTIME"
-                        ? departure.estimatedTime
-                        : departure.theoreticalTime)
-                        - dateNow >= 0
-                        ? Math.floor((
-                          moment(departure.status === "REALTIME"
-                          ? departure.estimatedTime
-                          : departure.theoreticalTime) - dateNow)/1000/60)
-                        : Math.round((
-                          moment(departure.status === "REALTIME"
-                          ? departure.estimatedTime
-                          : departure.theoreticalTime) - dateNow)/1000/60)) < 0
+                  (moment(
+                    departure.status === "REALTIME"
+                      ? departure.estimatedTime
+                      : departure.theoreticalTime
+                  ) -
+                    dateNow >=
+                  0
+                    ? Math.floor(
+                        (moment(
+                          departure.status === "REALTIME"
+                            ? departure.estimatedTime
+                            : departure.theoreticalTime
+                        ) -
+                          dateNow) /
+                          1000 /
+                          60
+                      )
+                    : Math.round(
+                        (moment(
+                          departure.status === "REALTIME"
+                            ? departure.estimatedTime
+                            : departure.theoreticalTime
+                        ) -
+                          dateNow) /
+                          1000 /
+                          60
+                      )) < 0
                     ? { opacity: "50%" }
                     : {}
                 }
@@ -381,33 +427,35 @@ function DeparturesTable(props) {
         <div id="departures-table__information">
           <p>
             Informacje o przyjazdach są dostarczane przez{" "}
-            {currentStop.providers.map(provider => {
-
-              const index = currentStop.providers.indexOf(provider)
-              let divider = ""
-              if (index === currentStop.providers.length-1 && index !== 0) {
-                divider = " i "
+            {currentStop.providers.map((provider) => {
+              const index = currentStop.providers.indexOf(provider);
+              let divider = "";
+              if (index === currentStop.providers.length - 1 && index !== 0) {
+                divider = " i ";
               } else if (index !== 0) {
-                divider = ", "
+                divider = ", ";
               }
-              let link = ""
+              let link = "";
               if (provider.stopProvider === "ZTM Gdańsk") {
-                link = "https://ztm.gda.pl"
+                link = "https://ztm.gda.pl";
               } else if (provider.stopProvider === "ZKM Gdynia") {
-                link = "https://zkmgdynia.pl"
+                link = "https://zkmgdynia.pl";
               } else if (provider.stopProvider === "SKM Trójmiasto") {
-                link = "https://www.skm.pkp.pl"
+                link = "https://www.skm.pkp.pl";
               } else if (provider.stopProvider === "PolRegio") {
-                link = "https://polregio.pl"
+                link = "https://polregio.pl";
               } else if (provider.stopProvider === "PKP Intercity") {
-                link = "https://www.intercity.pl"
+                link = "https://www.intercity.pl";
               }
 
               return (
                 <>
-                  {divider}<a href={link} target="_blank">{provider.stopProvider}</a>
+                  {divider}
+                  <a href={link} target="_blank">
+                    {provider.stopProvider}
+                  </a>
                 </>
-              )
+              );
             })}
           </p>
         </div>
@@ -432,6 +480,10 @@ function DeparturesTable(props) {
     );
 
   }
+
+  useEffect(() => {
+    setPreviousDeparturesVisibleCount(0)
+  }, [currentStop])
 
   // Updating every 10 seconds
   useEffect(() => {
@@ -491,18 +543,25 @@ function DeparturesTable(props) {
   }, [currentStop])
 
   return (
-    <div className={theme.palette.mode === "light" ? "departures-table__container" : "departures-table__container-theme-dark"}>
-
+    <div
+      className={
+        theme.palette.mode === "light"
+          ? "departures-table__container"
+          : "departures-table__container-theme-dark"
+      }
+    >
       {currentStopDeparturesArr !== null ? (
         <PullToRefresh
-          onRefresh={() => {
+          onRefresh={() =>
             new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve("foo");
-              }, 300);
+              setPreviousDeparturesVisibleCount(previousDeparturesVisibleCount + 3)
+              resolve()
+              // setTimeout(() => {
+              //   console.log("update");
+              //   resolve();
+              // }, 3000);
             })
-              .then(value => console.log(value))
-          }}
+          }
           resistance={0}
           // canFetchMore={true}
           // onFetchMore={() => {console.log("more")}}
@@ -511,11 +570,16 @@ function DeparturesTable(props) {
           {displayDeparturesTable(currentStopDeparturesArr)}
         </PullToRefresh>
       ) : (
-        <><Loading /><Loading /><Loading /><Loading /><Loading /></>
+        <>
+          <Loading />
+          <Loading />
+          <Loading />
+          <Loading />
+          <Loading />
+        </>
       )}
-
     </div>
-  )
+  );
 }
 
 export default DeparturesTable;
