@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from '@mui/material/styles';
 import * as MdDirections from "react-icons/md";
 import moment from "moment-timezone";
+import PullToRefresh from 'react-simple-pull-to-refresh';
 
 import { useToggleDrawer, useCurrentStop } from "../../pages/Home";
 import Loading from "../DesignElements/Loading";
@@ -267,7 +268,7 @@ function DeparturesTable(props) {
           <tbody>
             {departuresArrCut.map((departure) => (
               <tr
-                key={`${departure.routeId}_${departure.routeName}_${departure.tripId}_${departure.theoreticalTime}`}
+                key={`${departure.routeId}_${departure.routeName}_${departure.tripId}_${departure.theoreticalTime}_${departuresArrCut.indexOf(departure)}`}
                 style={
                   Math.floor(
                     (moment(
@@ -491,7 +492,22 @@ function DeparturesTable(props) {
     <div className={theme.palette.mode === "light" ? "departures-table__container" : "departures-table__container-theme-dark"}>
 
       {currentStopDeparturesArr !== null ? (
-        displayDeparturesTable(currentStopDeparturesArr)
+        <PullToRefresh
+          onRefresh={() => {
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve("foo");
+              }, 300);
+            })
+              .then(value => console.log(value))
+          }}
+          resistance={0}
+          // canFetchMore={true}
+          // onFetchMore={() => {console.log("more")}}
+          // fetchMoreThreshold={90}
+        >
+          {displayDeparturesTable(currentStopDeparturesArr)}
+        </PullToRefresh>
       ) : (
         <><Loading /><Loading /><Loading /><Loading /><Loading /></>
       )}

@@ -177,9 +177,9 @@
   padding: 0 70px;
   height: 40px;
   position: absolute;
-  bottom: 0;
   left: 50%;
-  transform: translate(-50%, -70px);
+  transform: translate(-50%, -0px);
+  bottom: 20vh;
 }
 
 .App-content-theme-dark .report-a-problem__container #report-a-problem-send-button {
