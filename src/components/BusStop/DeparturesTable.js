@@ -104,8 +104,8 @@ function DeparturesTable(props) {
       const estimatedTime = moment(departure.estimatedTime)
       const theoreticalTime = moment(departure.theoreticalTime)
       
-      const differenceRealNow = Math.floor((estimatedTime - dateNow)/1000/60)
-      const differencePlanNow = Math.floor((theoreticalTime - dateNow)/1000/60)
+      const differenceRealNow = estimatedTime - dateNow >= 0 ? Math.floor((estimatedTime - dateNow)/1000/60) : Math.round((estimatedTime - dateNow)/1000/60)
+      const differencePlanNow = theoreticalTime - dateNow >= 0 ? Math.floor((theoreticalTime - dateNow)/1000/60) : Math.round((theoreticalTime - dateNow)/1000/60)
       
       let arriving_status
       if (differenceRealNow - differencePlanNow > 0) {
@@ -171,7 +171,7 @@ function DeparturesTable(props) {
 
       const theoreticalTime = moment(departure.theoreticalTime)
 
-      const differencePlanNow = Math.floor((theoreticalTime - dateNow)/1000/60)
+      const differencePlanNow = theoreticalTime - dateNow >= 0 ? Math.floor((theoreticalTime - dateNow)/1000/60) : Math.round((theoreticalTime - dateNow)/1000/60)
 
       const arriving_status = "bus-scheduled";
 
@@ -270,16 +270,18 @@ function DeparturesTable(props) {
               <tr
                 key={`${departure.routeId}_${departure.routeName}_${departure.tripId}_${departure.theoreticalTime}_${departuresArrCut.indexOf(departure)}`}
                 style={
-                  Math.floor(
-                    (moment(
-                      departure.status === "REALTIME"
+                  (moment(departure.status === "REALTIME"
                         ? departure.estimatedTime
-                        : departure.theoreticalTime
-                    ) -
-                      dateNow) /
-                      1000 /
-                      60
-                  ) < 0
+                        : departure.theoreticalTime)
+                        - dateNow >= 0
+                        ? Math.floor((
+                          moment(departure.status === "REALTIME"
+                          ? departure.estimatedTime
+                          : departure.theoreticalTime) - dateNow)/1000/60)
+                        : Math.round((
+                          moment(departure.status === "REALTIME"
+                          ? departure.estimatedTime
+                          : departure.theoreticalTime) - dateNow)/1000/60)) < 0
                     ? { opacity: "50%" }
                     : {}
                 }
