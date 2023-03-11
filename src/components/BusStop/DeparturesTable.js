@@ -482,8 +482,10 @@ function DeparturesTable(props) {
   }
 
   useEffect(() => {
-    setPreviousDeparturesVisibleCount(0)
-  }, [currentStop])
+    if (toggleDrawer === false) {
+      setPreviousDeparturesVisibleCount(0)
+    }
+  }, [currentStop, toggleDrawer])
 
   // Updating every 10 seconds
   useEffect(() => {
