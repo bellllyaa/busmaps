@@ -19,10 +19,12 @@
 
 #departures-table tr {
   border-bottom: 1px solid #ddd;
+  background-color: white;
 }
 
 .departures-table__container-theme-dark #departures-table tr {
   border-bottom: 1px solid #45484c;
+  background-color: #232527;
 }
 
 #departures-table tr:first-child {

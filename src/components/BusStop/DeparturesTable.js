@@ -8,6 +8,7 @@ import { useToggleDrawer, useCurrentStop } from "../../pages/Home";
 import Loading from "../DesignElements/Loading";
 
 import './DeparturesTable.css';
+import iosSpinnerIcon from "../../assets/ios-spinner.svg";
 import arrowLeftIcon from "../../assets/arrow-left.svg";
 import busIcon from "../../assets/bus.svg";
 import busDarkIcon from "../../assets/bus-dark.svg";
@@ -564,10 +565,23 @@ function DeparturesTable(props) {
               // }, 3000);
             })
           }
-          resistance={0}
-          // canFetchMore={true}
-          // onFetchMore={() => {console.log("more")}}
-          // fetchMoreThreshold={90}
+          resistance={1}
+          pullDownThreshold={50}
+          maxPullDownDistance={50}
+          pullingContent={(
+            <img
+              src={iosSpinnerIcon}
+              alt="Loading icon"
+              style={{position: "relative", left: "50%", transform: "translate(-50%)", height: "25px", margin: "5px 0", zIndex: "-1"}}
+            />
+          )}
+          refreshingContent={(
+            <img
+              src={iosSpinnerIcon}
+              alt="Loading icon"
+              style={{height: "25px", margin: "5px 0", zIndex: "-1"}}
+            />
+          )}
         >
           {displayDeparturesTable(currentStopDeparturesArr)}
         </PullToRefresh>
