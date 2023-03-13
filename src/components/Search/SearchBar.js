@@ -494,7 +494,7 @@ function SearchBar() {
                 width: "100%"
               }}>
                 <tbody>
-                  <tr>
+                  <tr style={{borderBottom: "1px solid #ddd", height: "40px"}}>
                     <th>Stop name</th>
                     <th>First request date</th>
                     <th>Count</th>
@@ -503,6 +503,21 @@ function SearchBar() {
                     <tr
                       style={{borderBottom: "1px solid #ddd", height: "40px"}}
                       key={`devHistoryStopsNr${devHistoryStops.indexOf(element)}`}
+                      onClick={() => {
+                        const stops = JSON.parse(localStorage.getItem("stops"));
+                        if (stops !== null) {
+                          for (const stop of stops) {
+                            if (stop.stopName === element.stopName) {
+                              sessionStorage.setItem("mapFlyToStop", "true");
+                              setSearchShow(false);
+                              setSearchField("");
+                              setDevHistoryStops([]);
+                              setToggleDrawerFunc(true, stop);
+                              break;
+                            }
+                          }
+                        }
+                      }}
                     >
                       <td>{element.stopName}</td>
                       <td>{moment(element.requestDate).format("YYYY-MM-DD HH:mm:ss")}</td>
