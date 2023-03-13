@@ -33,7 +33,8 @@ mapboxgl.accessToken =
 
 const LOCAL_URL = "http://localhost:8080";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
-const PROXY_URL = GOOGLE_PROXY_URL;
+const AZURE_PROXY_URL = "https://busmaps-server.azurewebsites.net"
+const PROXY_URL = AZURE_PROXY_URL;
 
 const getLastUserLocation = (par) => {
   const lastMapCenter = JSON.parse(localStorage.getItem("mapCenter"));
@@ -274,7 +275,7 @@ function MapboxMap() {
     // console.log(map.current);
     // console.log(currentMapCenter);
 
-    const stops = JSON.parse(sessionStorage.getItem("stops"));
+    const stops = JSON.parse(localStorage.getItem("stops"));
     let currentMarkersList = [];
 
     for (const stop of stops) {
@@ -470,7 +471,7 @@ function MapboxMap() {
 
         console.log("Stops:")
         console.log(stops)
-        sessionStorage.setItem("stops", JSON.stringify(stops));
+        localStorage.setItem("stops", JSON.stringify(stops));
         updateDisplayedStops({
           lng: map.current.getCenter().lng.toFixed(4),
           lat: map.current.getCenter().lat.toFixed(4),

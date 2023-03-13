@@ -27,3 +27,7 @@ body {
     background-color: #343332;
   }
 }
+
+.darken {
+  filter: brightness(50%);
+}

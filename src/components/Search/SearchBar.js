@@ -21,19 +21,22 @@ import enterIcon from "../../assets/enter.svg";
 import enterDarkIcon from "../../assets/enter-dark.svg";
 import goofyAhh from "../../data/goofy_ahh.json";
 import ohioModeIntro from "../../assets/ohio-mode-intro.gif";
+import moment from "moment-timezone";
 
 const LOCAL_URL = "http://localhost:8080";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
-const PROXY_URL = GOOGLE_PROXY_URL;
+const AZURE_PROXY_URL = "https://busmaps-server.azurewebsites.net";
+const PROXY_URL = AZURE_PROXY_URL;
 
 function SearchBar() {
+  const theme = useTheme();
   const [searchField, setSearchField] = useState("");
   const [searchShow, setSearchShow] = useState(false);
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
   const { currentStop, setCurrentStop } = useCurrentStop();
   const [userLocationTime, setUserLocationTime] = useState(null);
-  const theme = useTheme();
+  const [devHistoryStops, setDevHistoryStops] = useState([]);
 
   const setToggleDrawerFunc = (value, stop) => {
     
@@ -91,9 +94,12 @@ function SearchBar() {
 
   const SearchResultList = (props) => {
 
-    const closestStops = JSON.parse(sessionStorage.getItem("stops"));
+    const closestStops = JSON.parse(localStorage.getItem("stops"));
     const filteredSearchField = convertToEnglishAlfabet(searchField);
-    let searchResultList = filterStopsBySearch(closestStops, filteredSearchField);
+    let searchResultList = [];
+    if (closestStops !== null) {
+      searchResultList = filterStopsBySearch(closestStops, filteredSearchField);
+    }
     const searchResultListCut = searchResultList.slice(0, 6)
 
     // console.log(searchResultListCut)
@@ -250,7 +256,7 @@ function SearchBar() {
   const ClosestStopsList = () => {
     // setTimeout(() => {setClosestStopsList(JSON.parse(sessionStorage.getItem("zkmBusStops")))}, 10);
 
-    let closestStops = JSON.parse(sessionStorage.getItem("stops"));
+    let closestStops = JSON.parse(localStorage.getItem("stops"));
 
     const userLocation = JSON.parse(localStorage.getItem("userLocation"));
 
@@ -311,7 +317,7 @@ function SearchBar() {
       lat: userLocation.lat,
     });
 
-    sessionStorage.setItem("stops", JSON.stringify(closestStops));
+    localStorage.setItem("stops", JSON.stringify(closestStops));
     // console.log("Displaying closest stops...");
     // console.log(userLocation);
     // console.log(closestStops);
@@ -467,6 +473,46 @@ function SearchBar() {
               // alt="Goofy ahh image"
             ></img>
           );
+        } else if (searchField === "/dev history stops") {
+          document.querySelector(".search-bar__container").querySelector("[type=search]").blur();
+          if (devHistoryStops.length === 0) {
+            fetch(PROXY_URL + "/dev/history/stops")
+              .then(result => result.json())
+              .then(data => {
+                console.log("Fetched successfully");
+                setDevHistoryStops(data);
+              })
+          }
+          return(
+            <div style={{
+              height: "calc(100vh - 150px)",
+              overflowY: "scroll"
+            }}
+            >
+              <table style={{
+                borderCollapse: "collapse",
+                width: "100%"
+              }}>
+                <tbody>
+                  <tr>
+                    <th>Stop name</th>
+                    <th>First request date</th>
+                    <th>Count</th>
+                  </tr>
+                  {devHistoryStops.map(element => (
+                    <tr
+                      style={{borderBottom: "1px solid #ddd", height: "40px"}}
+                      key={`devHistoryStopsNr${devHistoryStops.indexOf(element)}`}
+                    >
+                      <td>{element.stopName}</td>
+                      <td>{moment(element.requestDate).format("YYYY-MM-DD HH:mm:ss")}</td>
+                      <td>{element.count}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
         } /*else if (searchField === "/reports") {
           if (!(reportsStatus && reportsStatus.status)) {
             // console.log(reportsStatus);
@@ -611,6 +657,9 @@ function SearchBar() {
           style={{top: isIPhone() ? "11px" : "21px"}}
           onClick={() => {
             setSearchField("");
+            if (devHistoryStops.length !== 0) {
+              setDevHistoryStops([])
+            }
           }}
         >
           <img src={xSymbolIcon} alt="Clear search button" />
