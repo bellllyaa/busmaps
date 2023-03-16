@@ -473,7 +473,7 @@ function SearchBar() {
               // alt="Goofy ahh image"
             ></img>
           );
-        } else if (searchField === "/dev history stops") {
+        } else if (searchField === "/dev stats") {
           document.querySelector(".search-bar__container").querySelector("[type=search]").blur();
           if (devHistoryStops.length === 0) {
             fetch(PROXY_URL + "/dev/history/stops")

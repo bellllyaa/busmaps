@@ -293,67 +293,97 @@ function DeparturesTable(props) {
 
     return (
       <div>
-        <table id="departures-table">
-          <tbody>
-            {departuresArrCut.map((departure) => (
-              <tr
-                key={`${departure.routeId}_${departure.routeName}_${
-                  departure.tripId
-                }_${departure.theoreticalTime}_${departuresArrCut.indexOf(
-                  departure
-                )}`}
-                style={
-                  (moment(
-                    departure.status === "REALTIME"
-                      ? departure.estimatedTime
-                      : departure.theoreticalTime
-                  ) -
-                    dateNow >=
-                  0
-                    ? Math.floor(
-                        (moment(
-                          departure.status === "REALTIME"
-                            ? departure.estimatedTime
-                            : departure.theoreticalTime
-                        ) -
-                          dateNow) /
-                          1000 /
-                          60
-                      )
-                    : Math.round(
-                        (moment(
-                          departure.status === "REALTIME"
-                            ? departure.estimatedTime
-                            : departure.theoreticalTime
-                        ) -
-                          dateNow) /
-                          1000 /
-                          60
-                      )) < 0
-                    ? { opacity: "50%" }
-                    : {}
-                }
-              >
-                <td>
-                  <div className={"bus-short-name__" + departure.status}>
-                    <p
-                      style={
-                        departure.ohioStyle
-                          ? departure.ohioStyle
-                          : departure.color
-                          ? departure.color
-                          : {}
-                      }
-                    >
-                      {departure.routeName}
-                    </p>
-                  </div>
-                </td>
-                {convertArrivingTime(departure)}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <PullToRefresh
+          onRefresh={() =>
+            new Promise((resolve, reject) => {
+              setPreviousDeparturesVisibleCount(previousDeparturesVisibleCount + 3)
+              resolve()
+              // setTimeout(() => {
+              //   console.log("update");
+              //   resolve();
+              // }, 3000);
+            })
+          }
+          resistance={1}
+          pullDownThreshold={45}
+          maxPullDownDistance={50}
+          pullingContent={(
+            <img
+              src={iosSpinnerIcon}
+              alt="Loading icon"
+              style={{position: "relative", left: "50%", transform: "translate(-50%)", height: "25px", margin: "5px 0", zIndex: "-1"}}
+            />
+          )}
+          refreshingContent={(
+            <img
+              src={iosSpinnerIcon}
+              alt="Loading icon"
+              style={{height: "25px", margin: "5px 0", zIndex: "-1"}}
+            />
+          )}
+        >
+          <table id="departures-table">
+            <tbody>
+              {departuresArrCut.map((departure) => (
+                <tr
+                  key={`${departure.routeId}_${departure.routeName}_${
+                    departure.tripId
+                  }_${departure.theoreticalTime}_${departuresArrCut.indexOf(
+                    departure
+                  )}`}
+                  style={
+                    (moment(
+                      departure.status === "REALTIME"
+                        ? departure.estimatedTime
+                        : departure.theoreticalTime
+                    ) -
+                      dateNow >=
+                    0
+                      ? Math.floor(
+                          (moment(
+                            departure.status === "REALTIME"
+                              ? departure.estimatedTime
+                              : departure.theoreticalTime
+                          ) -
+                            dateNow) /
+                            1000 /
+                            60
+                        )
+                      : Math.round(
+                          (moment(
+                            departure.status === "REALTIME"
+                              ? departure.estimatedTime
+                              : departure.theoreticalTime
+                          ) -
+                            dateNow) /
+                            1000 /
+                            60
+                        )) < 0
+                      ? { opacity: "50%" }
+                      : {}
+                  }
+                >
+                  <td>
+                    <div className={"bus-short-name__" + departure.status}>
+                      <p
+                        style={
+                          departure.ohioStyle
+                            ? departure.ohioStyle
+                            : departure.color
+                            ? departure.color
+                            : {}
+                        }
+                      >
+                        {departure.routeName}
+                      </p>
+                    </div>
+                  </td>
+                  {convertArrivingTime(departure)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </PullToRefresh>
 
         {displayBusesNum < departuresArr.length ? (
           displayBusesNum <= 30 ? (
@@ -555,37 +585,7 @@ function DeparturesTable(props) {
       }
     >
       {currentStopDeparturesArr !== null ? (
-        <PullToRefresh
-          onRefresh={() =>
-            new Promise((resolve, reject) => {
-              setPreviousDeparturesVisibleCount(previousDeparturesVisibleCount + 3)
-              resolve()
-              // setTimeout(() => {
-              //   console.log("update");
-              //   resolve();
-              // }, 3000);
-            })
-          }
-          resistance={1}
-          pullDownThreshold={45}
-          maxPullDownDistance={50}
-          pullingContent={(
-            <img
-              src={iosSpinnerIcon}
-              alt="Loading icon"
-              style={{position: "relative", left: "50%", transform: "translate(-50%)", height: "25px", margin: "5px 0", zIndex: "-1"}}
-            />
-          )}
-          refreshingContent={(
-            <img
-              src={iosSpinnerIcon}
-              alt="Loading icon"
-              style={{height: "25px", margin: "5px 0", zIndex: "-1"}}
-            />
-          )}
-        >
-          {displayDeparturesTable(currentStopDeparturesArr)}
-        </PullToRefresh>
+        displayDeparturesTable(currentStopDeparturesArr)
       ) : (
         <>
           <Loading />
