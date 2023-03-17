@@ -151,15 +151,15 @@ function DeparturesTable(props) {
                   <span className={arriving_status}>{estimatedTime.format("HH:mm")}</span>
                 ) : differenceRealNow >= 1 ? (
                   <span className={arriving_status}>
-                    <div style={{fontSize: "25px", marginBottom: "-6px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{differenceRealNow}</div>
-                    <div style={{fontSize: "13px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min</div>
+                    <div style={{fontSize: "25px", marginBottom: "-10px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{differenceRealNow}</div>
+                    <div style={{fontSize: "16px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min</div>
                   </span>
                 ) : differenceRealNow > -1 ? (
                   <span className={arriving_status}>{"Teraz"}</span>
                 ) : (
                   <span className={arriving_status} style={{whiteSpace: "nowrap"}}>
-                    <div style={{fontSize: "25px", marginBottom: "-6px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{Math.abs(differenceRealNow)}</div>
-                    <div style={{fontSize: "13px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min temu</div>
+                    <div style={{fontSize: "25px", marginBottom: "-10px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{Math.abs(differenceRealNow)}</div>
+                    <div style={{fontSize: "16px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min temu</div>
                   </span>
                 )}
               </p>
@@ -194,15 +194,15 @@ function DeparturesTable(props) {
                   <span className={arriving_status}>{theoreticalTime.format("HH:mm")}</span>
                 ) : differencePlanNow >= 1 ? (
                   <span className={arriving_status}>
-                    <div style={{fontSize: "25px", marginBottom: "-6px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{differencePlanNow}</div>
-                    <div style={{fontSize: "13px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min</div>
+                    <div style={{fontSize: "25px", marginBottom: "-10px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{differencePlanNow}</div>
+                    <div style={{fontSize: "16px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min</div>
                   </span>
                 ) : differencePlanNow > -1 ? (
                   <span className={arriving_status}>{"Teraz"}</span>
                 ) : (
                   <span className={arriving_status} style={{whiteSpace: "nowrap"}}>
-                    <div style={{fontSize: "25px", marginBottom: "-6px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{Math.abs(differencePlanNow)}</div>
-                    <div style={{fontSize: "13px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min temu</div>
+                    <div style={{fontSize: "25px", marginBottom: "-10px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>{Math.abs(differencePlanNow)}</div>
+                    <div style={{fontSize: "16px", fontFamily: '"Sono", sans-serif', fontWeight: "500"}}>min temu</div>
                   </span>
                 )}
               </p>
