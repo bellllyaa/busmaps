@@ -3,6 +3,16 @@
   /* height: 100%; */
 }
 
+.departures-table__container .loading-err {
+  text-align: center;
+  color: black;
+}
+
+.departures-table__container-theme-dark .loading-err {
+  text-align: center;
+  color: white;
+}
+
 #departures-table {
   /* position: static; */
   padding: 0;

@@ -216,6 +216,12 @@ function DeparturesTable(props) {
 
   const displayDeparturesTable = (departuresArr) => {
 
+    if (departuresArr === false) {
+      return(
+        <p className="loading-err">Błąd podczas odświeania listy odjazdów</p>
+      )
+    }
+
     // const datePreviousDay = moment().tz("Europe/Warsaw").add(-1, "days");
     const dateNow = moment().tz("Europe/Warsaw"); //.format('YYYY-MM-DD HH:mm:ss')
     // const dateNextDay = moment().tz("Europe/Warsaw").add(1, "days"); //.format('YYYY-MM-DD HH:mm:ss')
@@ -519,6 +525,9 @@ function DeparturesTable(props) {
 
     function loadDepartures() {
       // console.log(currentStop)
+      if (toggleDrawer === false) {
+        return
+      }
       fetch(PROXY_URL + "/get-departures",
       {
         method: "POST",
@@ -531,6 +540,7 @@ function DeparturesTable(props) {
         .then(data => {
           setCurrentStopDeparturesArr(data);
         })
+        .catch(error => setCurrentStopDeparturesArr(false))
     }
 
     console.log("First loading:", currentStop);
