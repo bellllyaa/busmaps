@@ -1,0 +1,267 @@
+.stops-in-trip-table__container .loading-err {
+  text-align: center;
+  color: black;
+}
+
+.stops-in-trip-table__container-theme-dark .loading-err {
+  text-align: center;
+  color: white;
+}
+
+#stops-in-trip-table {
+  /* position: static; */
+  padding: 0;
+  margin: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#stops-in-trip-table tr {
+  border-bottom: 1px solid #ddd;
+  background-color: white;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table tr {
+  border-bottom: 1px solid #45484c;
+  background-color: #232527;
+}
+
+#stops-in-trip-table tr:first-child {
+  border-top: 1px solid #ddd;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table tr:first-child {
+  border-top: 1px solid #45484c;
+}
+
+#stops-in-trip-table tr:active {
+  background-color: #bbbbbb;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table tr:active {
+  background-color: #1c1c1f;
+}
+
+/*  */
+
+#stops-in-trip-table .bus-early {
+  color: red;
+  /* margin-left: 18.5px; */
+}
+
+#stops-in-trip-table .bus-late {
+  color: red;
+  /* margin-left: 18.5px; */
+}
+
+#stops-in-trip-table .bus-on_time {
+  color: green;
+  /* margin-left: 18.5px; */
+}
+
+#stops-in-trip-table .bus-scheduled {
+  color: black;
+  /* margin-left: 18.5px; */
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .bus-scheduled {
+  color: white;
+}
+
+#stops-in-trip-table .bus__direction p {
+  margin: 0;
+  color: black;
+  max-width: calc(100% - 40px);
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .bus__direction p {
+  color: white;
+}
+
+#stops-in-trip-table .bus__direction {
+  margin-left: 0px;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+}
+
+#stops-in-trip-table .bus__arriving-time {
+  text-align: center;
+}
+
+#stops-in-trip-table .bus__arriving-time p {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  right: 15px;
+}
+
+#stops-in-trip-table #departure-stop {
+  display: inline-flex;
+}
+
+#stops-in-trip-table .route-shape {
+  width: 60px;
+  padding: 0;
+  background-color: inherit;
+  border-bottom: 1px solid white;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .route-shape {
+  border-bottom: 1px solid #232527;
+}
+
+#stops-in-trip-table tr:first-child .route-shape {
+  /* border-top: 1px solid white; */
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table tr:first-child .route-shape {
+  /* border-top: 1px solid #232527; */
+}
+
+#stops-in-trip-table .route-shape .line {
+  width: 20px;
+  height: 80px;
+  margin: 0 0 0 20px;
+}
+
+#stops-in-trip-table .previous {
+  opacity: 50%;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .previous {
+  opacity: 70%;
+}
+
+/*  */
+
+#stops-in-trip-table .previous .route-shape .line {
+  background-color: #8cb8f3;
+  outline: 0.5px solid #8cb8f3;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .previous .route-shape .line {
+  background-color: #556b8e;
+  outline: 0.5px solid #556b8e;
+}
+
+#stops-in-trip-table .selected .route-shape .line {
+  background-color: #1973e8;
+  outline: 0.5px solid #1973e8;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .selected .route-shape .line {
+  background-color: #89b3f8;
+  outline: 0.5px solid #89b3f8;
+}
+
+#stops-in-trip-table .next .route-shape .line {
+  background-color: #1973e8;
+  outline: 0.5px solid #1973e8;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .next .route-shape .line {
+  background-color: #89b3f8;
+  outline: 0.5px solid #89b3f8;
+}
+
+#stops-in-trip-table tr:first-child .route-shape .line {
+  height: 50px;
+  margin: 30px 0 0 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+#stops-in-trip-table tr:last-child .route-shape .line {
+  height: 50px;
+  margin: 0 0 30px 20px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+#stops-in-trip-table .route-shape .circle {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+  transform: translate(6px, 36px);
+}
+
+#stops-in-trip-table .previous .route-shape .circle {
+  background-color: #d0e2f9;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .previous .route-shape .circle {
+  background-color: #353e4e;
+}
+
+#stops-in-trip-table .selected .route-shape .circle {
+  height: 12px;
+  width: 12px;
+  transform: translate(4px, 34px);
+  background-color: #ffffff;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .selected .route-shape .circle {
+  background-color: #202124;
+}
+
+#stops-in-trip-table .next .route-shape .circle {
+  background-color: #a3c7f5;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table .next .route-shape .circle {
+  background-color: #4b5c78;
+}
+
+#stops-in-trip-table tr:first-child .route-shape .circle {
+  height: 12px;
+  width: 12px;
+  transform: translate(4px, 4px);
+  background-color: #ffffff;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table tr:first-child .route-shape .circle {
+  background-color: #202124;
+}
+
+#stops-in-trip-table tr:last-child .route-shape .circle {
+  height: 12px;
+  width: 12px;
+  transform: translate(4px, 34px);
+  background-color: #ffffff;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table tr:last-child .route-shape .circle {
+  background-color: #202124;
+}
+
+/*  */
+
+/* #stops-in-trip-table #stops-in-trip-table-control-show-all .route-shape {
+  border-top: inherit;
+} */
+
+#stops-in-trip-table #stops-in-trip-table-control-show-all .route-shape .line {
+  height: 40px;
+  border-radius: 0;
+  background-color: #8cb8f3;
+  outline: 0.5px solid #8cb8f3;
+  opacity: 50%;
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+
+.stops-in-trip-table__container-theme-dark #stops-in-trip-table #stops-in-trip-table-control-show-all .route-shape .line {
+  background-color: #556b8e;
+  outline: 0.5px solid #556b8e;
+  opacity: 70%;
+}
+
+#stops-in-trip-table #stops-in-trip-table-control-show-all img {
+  height: 15px;
+  width: 15px;
+  transform: rotate(90deg) translate(30%);
+  margin: 0 5px 0 5px;
+}

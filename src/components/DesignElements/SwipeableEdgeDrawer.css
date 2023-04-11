@@ -135,3 +135,60 @@ h2 {
   padding-left: 15px;
   padding-right: 15px;
 } */
+
+.route-name {
+  display: flex;
+}
+
+.route-name p {
+  /* display: inline-block; */
+  /* display: flex; */
+  padding: 2px 13px 2px 13px;
+  margin: 30px 0 38px 15px;
+  background-color: rgb(210, 210, 210);
+  color: black;
+  border-radius: 6px;
+  font-weight: 600;
+  width: fit-content;
+  height: fit-content;
+}
+
+.route-name .REALTIME {
+  background-color: blue;
+  color: white;
+}
+
+.route-name #headsign {
+  background-color: inherit;
+  color: black;
+  margin: 31px 25px 13px 15px;
+  padding: 0 40px 2px 0;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.upper-part__container-theme-dark .route-name #headsign {
+  color: white;
+}
+
+#bus-info .buttons__container {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  -ms-transform: translateY(-70%);
+  transform: translateY(-70%);
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+}
+
+/* .upper-part__container #bus-info .provider img, .upper-part__container-theme-dark #bus-info .provider img {
+  height: 14px;
+  width: 14px;
+  margin: 16px 5px 0 0;
+  padding: 2px;
+  border-radius: 4px;
+  box-shadow: 0px 1px 2px 0px rgba(100, 100, 111, 0.2);
+} */

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from '@mui/material/styles';
-import * as MdDirections from "react-icons/md";
+// import * as MdDirections from "react-icons/md";
 import moment from "moment-timezone";
 import PullToRefresh from 'react-simple-pull-to-refresh';
 
-import { useToggleDrawer, useCurrentStop } from "../../pages/Home";
+import { useToggleDrawer, useCurrentStop, useCurrentTrip } from "../../pages/Home";
 import Loading from "../DesignElements/Loading";
 
 import './DeparturesTable.css';
@@ -30,8 +30,10 @@ function DeparturesTable(props) {
   const [displayBusesNum, setDisplayBusesNum] = useState(10);
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
   const { currentStop, setCurrentStop } = useCurrentStop();
+  const { currentTrip, setCurrentTrip } = useCurrentTrip();
   const [currentStopDeparturesArr, setCurrentStopDeparturesArr] = useState(null);
-  const [previousDeparturesVisibleCount, setPreviousDeparturesVisibleCount] = useState(0)
+  const [previousDeparturesVisibleCount, setPreviousDeparturesVisibleCount] = useState(0);
+
   const [goofyAhhNum, setGoofyAhhNum] = useState(Math.floor(Math.random() * goofyAhh.fullHeight.length));
 
   const handleClick = (num, action) => {
@@ -83,8 +85,6 @@ function DeparturesTable(props) {
       })
     } catch {}
   }, [])
-
-  // New
 
   const convertArrivingTime = (departure) => {
 
@@ -360,6 +360,9 @@ function DeparturesTable(props) {
                       ? { opacity: "50%" }
                       : {}
                   }
+                  onClick={() => {
+                    setCurrentTrip(departure)
+                  }}
                 >
                   <td>
                     <div className={"bus-short-name__" + departure.status}>
@@ -470,6 +473,8 @@ function DeparturesTable(props) {
                 link = "https://ztm.gda.pl";
               } else if (provider.stopProvider === "ZKM Gdynia") {
                 link = "https://zkmgdynia.pl";
+              } else if (provider.stopProvider === "MZK Wejherowo") {
+                link = "https://mzkwejherowo.pl/";
               } else if (provider.stopProvider === "SKM Trójmiasto") {
                 link = "https://www.skm.pkp.pl";
               } else if (provider.stopProvider === "PolRegio") {

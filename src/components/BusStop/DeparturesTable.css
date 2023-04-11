@@ -45,9 +45,13 @@
   border-top: 1px solid #45484c;
 }
 
-/* #departures-table tr:hover {
-  background-color: rgb(241, 241, 241);
-} */
+#departures-table tr:active {
+  background-color: #bbbbbb;
+}
+
+.departures-table__container-theme-dark #departures-table tr:active {
+  background-color: #1c1c1f;
+}
 
 /* .live {
   color: blue;

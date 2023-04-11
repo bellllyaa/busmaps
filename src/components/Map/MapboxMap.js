@@ -5,8 +5,8 @@ import { useTheme } from '@mui/material/styles';
 
 import {
   useToggleDrawer,
-  useBusStop,
   useCurrentStop,
+  useCurrentTrip
 } from "../../pages/Home";
 import pythagoras from "../../hooks/pythagoras";
 
@@ -61,15 +61,17 @@ function MapboxMap() {
   const [lng, setLng] = useState(getLastUserLocation("Lng"));
   const [lat, setLat] = useState(getLastUserLocation("Lat"));
   const [zoom, setZoom] = useState(13);
+  const [currentRouteSourceId, setCurrentRouteSourceId] = useState(null);
+  
   const theme = useTheme();
-
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
-  const { busStop, setBusStop } = useBusStop();
   const { currentStop, setCurrentStop } = useCurrentStop();
+  const { currentTrip, setCurrentTrip } = useCurrentTrip();
   // const [currentMarkers, setCurrentMarkers] = useState("bb");
 
   const setToggleDrawerFunc = (value, stop) => {
     // setBusStop(busStop);
+    setCurrentTrip(null);
     setCurrentStop(stop);
     setToggleDrawer(value);
   };
@@ -478,6 +480,15 @@ function MapboxMap() {
           zoom: map.current.getZoom(),
         })
       })
+      .catch(error => {
+        if (localStorage.getItem("stops") !== null) {
+          updateDisplayedStops({
+            lng: map.current.getCenter().lng.toFixed(4),
+            lat: map.current.getCenter().lat.toFixed(4),
+            zoom: map.current.getZoom(),
+          })
+        }
+      })
 
     if (localStorage.getItem("lastOpenedStops") != null) {
       let lastOpenedStop = JSON.parse(localStorage.getItem("lastOpenedStops"))[0];
@@ -626,7 +637,82 @@ function MapboxMap() {
         }
       }, 200);
     }
-  }, [toggleDrawer])
+  }, [currentStop])
+
+  useEffect(() => {
+    if (currentTrip === null) {
+      if (currentRouteSourceId !== null) {
+        if (map.current.getLayer(currentRouteSourceId)) map.current.removeLayer(currentRouteSourceId);
+        setCurrentRouteSourceId(null)
+      }
+    } else {
+
+      const currentTripSourceId = `route_${currentTrip.provider.replace(" ", "-")}_${currentTrip.routeType}_${currentTrip.routeId}_${currentTrip.tripId}`;
+      console.log(currentTripSourceId)
+      setCurrentRouteSourceId(currentTripSourceId)
+
+      if (map.current.getSource(currentTripSourceId)) {
+        map.current.addLayer({
+          id: currentTripSourceId,
+          type: "line",
+          source: currentTripSourceId,
+          layout: {
+            "line-join": "round",
+            "line-cap": "round"
+          },
+          paint: {
+            "line-color": "#89b3f8",
+            "line-width": 8
+          }
+        })
+      } else {
+        fetch(PROXY_URL + "/get-shapes",
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(currentTrip),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+
+          if (!data.coordinates) {
+            return
+          }
+
+          map.current.addSource(currentTripSourceId, {
+            type: "geojson",
+            data: {
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "LineString",
+                coordinates: data.coordinates
+              }
+            }
+          });
+
+          map.current.addLayer({
+            id: currentTripSourceId,
+            type: "line",
+            source: currentTripSourceId,
+            layout: {
+              "line-join": "round",
+              "line-cap": "round"
+            },
+            paint: {
+              "line-color": currentTrip.routeType === "train" ? "#e9b800" : currentTrip.routeType === "tram" ? "#f20000" : "#89b3f8",
+              "line-width": 8
+            }
+          })
+        })
+        .catch(error => console.log(error))
+      }
+
+    }
+  }, [currentTrip])
 
   return (
     <div>

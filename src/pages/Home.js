@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 import MapboxMap from "../components/Map/MapboxMap";
 import SwipeableEdgeDrawer from "../components/DesignElements/SwipeableEdgeDrawer";
@@ -6,13 +6,13 @@ import SwipeableEdgeDrawer from "../components/DesignElements/SwipeableEdgeDrawe
 import "./Home.css";
 
 const ToggleDrawerContext = createContext(null);
-const BusStopContext = createContext(null);
 const CurrentStopContext = createContext(null);
+const CurrentTripContext = createContext(null);
 
 function Home() {
   const [toggleDrawer, setToggleDrawer] = useState(false);
-  const [busStop, setBusStop] = useState(null);
   const [currentStop, setCurrentStop] = useState(null);
+  const [currentTrip, setCurrentTrip] = useState(null);
 
   // const [lastOpenedStops, setLastOpenedStops] = useState(
   //   [...Array(3).keys()].map((index) => ({
@@ -31,12 +31,12 @@ function Home() {
   return (
     <div>
       <ToggleDrawerContext.Provider value={{ toggleDrawer, setToggleDrawer }}>
-        <BusStopContext.Provider value={{ busStop, setBusStop }}>
-          <CurrentStopContext.Provider value={{ currentStop, setCurrentStop }}>
+        <CurrentStopContext.Provider value={{ currentStop, setCurrentStop }}>
+          <CurrentTripContext.Provider value={{ currentTrip, setCurrentTrip}}>
             <MapboxMap />
             <SwipeableEdgeDrawer />
-          </CurrentStopContext.Provider>
-        </BusStopContext.Provider>
+          </CurrentTripContext.Provider>
+        </CurrentStopContext.Provider>
       </ToggleDrawerContext.Provider>
     </div>
   );
@@ -44,5 +44,5 @@ function Home() {
 
 export default Home;
 export const useToggleDrawer = () => useContext(ToggleDrawerContext);
-export const useBusStop = () => useContext(BusStopContext);
 export const useCurrentStop = () => useContext(CurrentStopContext);
+export const useCurrentTrip = () => useContext(CurrentTripContext);

@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 
 import isIPhone from "../../hooks/isIPhone";
 
-import { useToggleDrawer, useCurrentStop } from "../../pages/Home";
+import { useToggleDrawer, useCurrentStop, useCurrentTrip } from "../../pages/Home";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 import "./SearchBar.css";
 import arrowLeftIcon from "../../assets/arrow-left.svg";
@@ -35,11 +35,13 @@ function SearchBar() {
   const [searchShow, setSearchShow] = useState(false);
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
   const { currentStop, setCurrentStop } = useCurrentStop();
+  const { currentTrip, setCurrentTrip } = useCurrentTrip();
   const [userLocationTime, setUserLocationTime] = useState(null);
   const [devHistoryStops, setDevHistoryStops] = useState([]);
 
   const setToggleDrawerFunc = (value, stop) => {
     
+    setCurrentTrip(null);
     setCurrentStop(stop);
     setToggleDrawer(value);
 
@@ -74,8 +76,9 @@ function SearchBar() {
     for (const stop of stopsList) {
       let isFound = true;
       const convertedStopName = convertToEnglishAlfabet(stop.stopName);
+      const convertedStopProvidersString = stop.providers.map(provider => convertToEnglishAlfabet(provider.stopProvider)).join(" ");
       for (const word of searchField.split(" ")) {
-        if (convertedStopName.search(word) === -1) {
+        if (convertedStopName.search(word) === -1 && convertedStopProvidersString.search(word) === -1) {
           isFound = false;
           break;
         }

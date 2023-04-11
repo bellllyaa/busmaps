@@ -12,7 +12,7 @@ import { useTheme } from '@mui/material/styles';
 // import Skeleton from '@mui/material/Skeleton';
 // import Typography from '@mui/material/Typography';
 
-import { useToggleDrawer, useBusStop, useCurrentStop } from "../../pages/Home";
+import { useToggleDrawer, useCurrentStop, useCurrentTrip } from "../../pages/Home";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import DeparturesTable from "../BusStop/DeparturesTable";
 import Options from "./Options";
@@ -23,9 +23,11 @@ import XSymbolIcon from "../../assets/x-symbol.svg";
 import threeDotsIcon from "../../assets/three-dots.svg";
 import ztmGdanskLogo from "../../assets/stop-providers/ztm-gdansk-logo.png";
 import zkmGdyniaLogo from "../../assets/stop-providers/zkm-gdynia-logo.png";
+import mzkWejherowoLogo from "../../assets/stop-providers/mzk-wejherowo-logo.png";
 import polRegioLogo from "../../assets/stop-providers/polregio-logo.svg";
 import pkpIntercityLogo from "../../assets/stop-providers/pkp-intercity-logo.jpg";
 import skmTrojmiastoLogo from "../../assets/stop-providers/skm-trojmiasto-logo.png";
+import StopsInTrip from "../StopsInTrip/StopsInTrip";
 
 // const createRoutesDropdown = () => {
 //   if (zkmBusStops) {
@@ -98,8 +100,8 @@ function SwipeableEdgeDrawer(props) {
   // Variables
   const theme = useTheme();
   const { toggleDrawer, setToggleDrawer } = useToggleDrawer();
-  const { busStop, setBusStop } = useBusStop();
   const { currentStop, setCurrentStop } = useCurrentStop();
+  const { currentTrip, setCurrentTrip } = useCurrentTrip();
   const windowDimensions = useWindowDimensions();
   // console.log(windowDimensions);
   const [optionsVisibility, setOptionsVisibility] = React.useState(false);
@@ -304,13 +306,72 @@ function SwipeableEdgeDrawer(props) {
                 placeholder="Bus stop"
               />
             </div> */}
-            {currentStop && currentStop !== null ? (
+            {currentTrip && currentTrip !== null ? (
+              <div
+                className={`upper-part__container${
+                  theme.palette.mode === "light" ? "" : "-theme-dark"
+                }`}
+              >
+                <span className="route-name">
+                  <p
+                    className={currentTrip.status}
+                    style={
+                      currentTrip.color
+                        ? currentTrip.color
+                        : {}
+                    }
+                  >
+                    {currentTrip.routeName}
+                  </p>
+                  <p id="headsign" ref={stopName}>{currentTrip.headsign}</p>
+                </span>
+
+                <div
+                  id="bus-info"
+                >
+                  <div className="buttons__container">
+                    <button
+                      id="close-button"
+                      onClick={() => setCurrentTrip(null)}
+                    >
+                      <img
+                        src={XSymbolIcon}
+                        alt="Close button"
+                        style={{ width: "12px", marginTop: "3px" }}
+                      />
+                    </button>
+                  </div>
+
+                  {toggleDrawer && false ? (
+                    <div className="provider">
+                      {currentTrip &&
+                      currentTrip.provider === "ZTM Gdańsk" ? (
+                        <img
+                          src={ztmGdanskLogo}
+                          alt=""
+                          style={{ backgroundColor: "#ffffff" }}
+                        />
+                      ) : currentTrip && currentTrip.provider === "ZKM Gdynia"
+                      ? (
+                        <img
+                          src={zkmGdyniaLogo}
+                          alt=""
+                          style={{ backgroundColor: "#3b84df" }}
+                        />
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
+
+              </div>
+            ) : currentStop && currentStop !== null && currentTrip === null ? (
               <div
                 className={`upper-part__container${
                   theme.palette.mode === "light" ? "" : "-theme-dark"
                 }`}
               >
                 <h2 ref={stopName}>{currentStop.stopName}</h2>
+
                 {toggleDrawer ? (
                   <div
                     id="stop-info"
@@ -345,6 +406,16 @@ function SwipeableEdgeDrawer(props) {
                         src={zkmGdyniaLogo}
                         alt=""
                         style={{ backgroundColor: "#3b84df" }}
+                      />
+                    ) : null}
+                    {currentStop &&
+                    currentStop.providers.find(
+                      (provider) => provider.stopProvider === "MZK Wejherowo"
+                    ) !== undefined ? (
+                      <img
+                        src={mzkWejherowoLogo}
+                        alt=""
+                        style={{ backgroundColor: "#ffffff", padding: "1px" }}
                       />
                     ) : null}
                     {currentStop &&
@@ -395,13 +466,9 @@ function SwipeableEdgeDrawer(props) {
                   <button
                     id="show-options-button"
                     onClick={() => {
-                      // document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#bbbbbb" : "#1c1c1f";
-                      // setTimeout(() => {
-                      //   document.querySelector("#show-options-button").style.backgroundColor = theme.palette.mode === "light" ? "#e9e9e9" : "#37383d";
-                      // }, 70);
-                      // e.target.style.backgroundColor = "black";
                       setOptionsVisibility(!optionsVisibility);
                     }}
+                    style={currentTrip ? {visibility: "hidden"} : {}}
                   >
                     <img
                       src={threeDotsIcon}
@@ -413,7 +480,11 @@ function SwipeableEdgeDrawer(props) {
                     id="close-button"
                     // onClick={setToggleDrawerFunc(false)}
                     onClick={() => {
-                      setToggleDrawer(false)
+                      if (currentTrip) {
+                        setCurrentTrip(null)
+                      } else {
+                        setToggleDrawer(false)
+                      }
                       // setCurrentStop(null)
                     }}
                     // onClick={setCurrentStop(null)}
@@ -431,10 +502,12 @@ function SwipeableEdgeDrawer(props) {
                 style={{
                   color: theme.palette.mode === "light" ? "black" : "white",
                 }}
+                ref={stopName}
               >
                 Wybierz przystanek
               </h2>
             )}
+
           </StyledBox>
           <StyledBox
             sx={{
@@ -445,7 +518,11 @@ function SwipeableEdgeDrawer(props) {
             }}
           >
             
-            <DeparturesTable key={currentStop !== null ? currentStop.stopName : "no-stop"} />
+            {currentTrip ? (
+              <StopsInTrip />
+            ) : (
+              <DeparturesTable key={currentStop !== null ? currentStop.stopName : "no-stop"} />
+            )}
             
           </StyledBox>
         </SwipeableDrawer>
