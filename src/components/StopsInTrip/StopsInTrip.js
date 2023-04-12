@@ -10,8 +10,9 @@ import arrowLeftIcon from "../../assets/arrow-left.svg";
 
 const LOCAL_URL = "http://localhost:8080";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
-const AZURE_PROXY_URL = "https://busmaps-server.azurewebsites.net"
-const PROXY_URL = AZURE_PROXY_URL;
+const AZURE_PROXY_URL = "https://busmaps-server.azurewebsites.net";
+const A2HOSTING_PROXY_URL = "https://www.busmaps-server.a2hosted.com";
+const PROXY_URL = A2HOSTING_PROXY_URL;
 
 function StopsInTrip() {
 
