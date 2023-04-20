@@ -72,7 +72,7 @@ function StopsInTrip() {
           <td>
             <div className="bus__arriving-time">
               <p>
-                {differenceRealNow > 60 ? (
+                {differenceRealNow > 60 || differenceRealNow < -60 ? (
                   <span className={arriving_status}>{estimatedTime.format("HH:mm")}</span>
                 ) : differenceRealNow >= 1 ? (
                   <span className={arriving_status}>
@@ -114,7 +114,7 @@ function StopsInTrip() {
           <td>
             <div className="bus__arriving-time">
               <p>
-                {differencePlanNow > 60 ? (
+                {differencePlanNow > 60 || differencePlanNow < -60 ? (
                   <span className={arriving_status}>{theoreticalTime.format("HH:mm")}</span>
                 ) : differencePlanNow >= 1 ? (
                   <span className={arriving_status}>

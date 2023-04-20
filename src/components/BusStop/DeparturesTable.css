@@ -58,17 +58,17 @@
 } */
 
 #departures-table .bus-early {
-  color: red;
+  color: #ffa500;
   /* margin-left: 18.5px; */
 }
 
 #departures-table .bus-late {
-  color: red;
+  color: #ff0000;
   /* margin-left: 18.5px; */
 }
 
 #departures-table .bus-on_time {
-  color: green;
+  color: #008000;
   /* margin-left: 18.5px; */
 }
 
@@ -92,7 +92,7 @@
   margin-left: 15px;
   margin-top: 25px;
   margin-bottom: 25px;
-  background-color: blue;
+  background-color: #0000ff;
   color: white;
   border-radius: 6px;
   width: 100%;
