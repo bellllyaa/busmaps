@@ -50,12 +50,12 @@
 }
 
 #stops-in-trip-table .bus-late {
-  color: red;
+  color: #ff0000;
   /* margin-left: 18.5px; */
 }
 
 #stops-in-trip-table .bus-on_time {
-  color: green;
+  color: #008000;
   /* margin-left: 18.5px; */
 }
 
@@ -137,32 +137,32 @@
 
 #stops-in-trip-table .previous .route-shape .line {
   background-color: #8cb8f3;
-  outline: 0.5px solid #8cb8f3;
+  outline: 1px solid #8cb8f3;
 }
 
 .stops-in-trip-table__container-theme-dark #stops-in-trip-table .previous .route-shape .line {
   background-color: #556b8e;
-  outline: 0.5px solid #556b8e;
+  outline: 1px solid #556b8e;
 }
 
 #stops-in-trip-table .selected .route-shape .line {
   background-color: #1973e8;
-  outline: 0.5px solid #1973e8;
+  outline: 1px solid #1973e8;
 }
 
 .stops-in-trip-table__container-theme-dark #stops-in-trip-table .selected .route-shape .line {
   background-color: #89b3f8;
-  outline: 0.5px solid #89b3f8;
+  outline: 1px solid #89b3f8;
 }
 
 #stops-in-trip-table .next .route-shape .line {
   background-color: #1973e8;
-  outline: 0.5px solid #1973e8;
+  outline: 1px solid #1973e8;
 }
 
 .stops-in-trip-table__container-theme-dark #stops-in-trip-table .next .route-shape .line {
   background-color: #89b3f8;
-  outline: 0.5px solid #89b3f8;
+  outline: 1px solid #89b3f8;
 }
 
 #stops-in-trip-table tr:first-child .route-shape .line {
@@ -247,7 +247,7 @@
   height: 40px;
   border-radius: 0;
   background-color: #8cb8f3;
-  outline: 0.5px solid #8cb8f3;
+  outline: 1px solid #8cb8f3;
   opacity: 50%;
   margin: 0 0 0 20px;
   padding: 0;
@@ -255,7 +255,7 @@
 
 .stops-in-trip-table__container-theme-dark #stops-in-trip-table #stops-in-trip-table-control-show-all .route-shape .line {
   background-color: #556b8e;
-  outline: 0.5px solid #556b8e;
+  outline: 1px solid #556b8e;
   opacity: 70%;
 }
 
