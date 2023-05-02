@@ -25,11 +25,11 @@ import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 
 // Safe token
-// mapboxgl.accessToken =
-//   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
-
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xjeG1hazJyMG41NzN3cXJ5bDFoZGFpMSJ9.kjSwIXyUxEUzLycrSD4Iag";
+  "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
+
+// mapboxgl.accessToken =
+//   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xjeG1hazJyMG41NzN3cXJ5bDFoZGFpMSJ9.kjSwIXyUxEUzLycrSD4Iag";
 
 const LOCAL_URL = "http://localhost:8080";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
