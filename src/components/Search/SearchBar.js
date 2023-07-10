@@ -146,11 +146,12 @@ function SearchBar() {
                       key={stop.stopName}
                       className="search-result-item"
                       onClick={() => {
+                        alert("Funkcja tymczasowo niedostępna")
                         // console.log("clicked");
-                        sessionStorage.setItem("mapFlyToStop", "true");
+                        /*sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, stop);
+                        setToggleDrawerFunc(true, stop);*/
                       }}
                     >
                       <td>
@@ -234,10 +235,11 @@ function SearchBar() {
                       key={stop.stopName + stop.zoneName}
                       className="search-result-item"
                       onClick={() => {
-                        sessionStorage.setItem("mapFlyToStop", "true");
+                        alert("Funkcja tymczasowo niedostępna")
+                        /*sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, stop);
+                        setToggleDrawerFunc(true, stop);*/
                       }}
                     >
                       <td>
@@ -379,10 +381,11 @@ function SearchBar() {
                       className="search-result-item"
                       onClick={() => {
                         // console.log("clicked");
-                        sessionStorage.setItem("mapFlyToStop", "true");
+                        alert("Funkcja tymczasowo niedostępna")
+                        /*sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, stop);
+                        setToggleDrawerFunc(true, stop);*/
                       }}
                     >
                       <td>
