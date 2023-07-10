@@ -400,9 +400,10 @@ function MapboxMap() {
 
       el.addEventListener("click", (e) => {
         map.current.flyTo({center: [stop.location.lng, stop.location.lat], zoom: map.current.getZoom()})
+        alert("Funkcja tymczasowo niedostępna")
         // console.log(e.target)
         // elIcon.style.backgroundColor = "#ffffff"
-        setToggleDrawerFunc(true, stop);
+        //setToggleDrawerFunc(true, stop);
         // console.log(stop);
       });
 
