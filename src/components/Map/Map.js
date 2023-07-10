@@ -308,12 +308,12 @@ function Map() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("lastOpenedStopId0") != null) {
+    /*if (localStorage.getItem("lastOpenedStopId0") != null) {
       setToggleDrawerFunc(true, {
         stopId: Number(localStorage.getItem("lastOpenedStopId0")),
         stopName: localStorage.getItem("lastOpenedStopName0"),
       });
-    }
+    }*/
     if (window.navigator.userAgent.slice(13, 19) === "iPhone") {
       // console.log("iPhone")
       // document.getElementsByClassName("leaflet-container")[0].style.height =
