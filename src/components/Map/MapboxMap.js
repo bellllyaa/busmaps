@@ -35,7 +35,8 @@ const LOCAL_URL = "http://localhost:8080";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
 const AZURE_PROXY_URL = "https://busmaps-server.uksouth.cloudapp.azure.com";
 const A2HOSTING_PROXY_URL = "https://www.busmaps-server.a2hosted.com";
-const PROXY_URL = AZURE_PROXY_URL;
+const OVHCLOUD_PROXY_URL = "https://data.busmaps.pl";
+const PROXY_URL = OVHCLOUD_PROXY_URL;
 
 const getLastUserLocation = (par) => {
   const lastMapCenter = JSON.parse(localStorage.getItem("mapCenter"));
@@ -400,11 +401,10 @@ function MapboxMap() {
 
       el.addEventListener("click", (e) => {
         map.current.flyTo({center: [stop.location.lng, stop.location.lat], zoom: map.current.getZoom()})
-        alert("Funkcja tymczasowo niedostępna")
-        // console.log(e.target)
-        // elIcon.style.backgroundColor = "#ffffff"
-        //setToggleDrawerFunc(true, stop);
-        // console.log(stop);
+        console.log(e.target)
+        elIcon.style.backgroundColor = "#ffffff"
+        setToggleDrawerFunc(true, stop);
+        console.log(stop);
       });
 
       // console.log(map.current);

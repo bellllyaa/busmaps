@@ -28,7 +28,8 @@ const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
 const AZURE_PROXY_URL = "https://busmaps-server.uksouth.cloudapp.azure.com";
 const A2HOSTING_PROXY_URL = "https://www.busmaps-server.a2hosted.com";
-const PROXY_URL = AZURE_PROXY_URL;
+const OVHCLOUD_PROXY_URL = "https://data.busmaps.pl";
+const PROXY_URL = OVHCLOUD_PROXY_URL;
 
 function SearchBar() {
   const theme = useTheme();
@@ -146,12 +147,11 @@ function SearchBar() {
                       key={stop.stopName}
                       className="search-result-item"
                       onClick={() => {
-                        alert("Funkcja tymczasowo niedostępna")
                         // console.log("clicked");
-                        /*sessionStorage.setItem("mapFlyToStop", "true");
+                        sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, stop);*/
+                        setToggleDrawerFunc(true, stop);
                       }}
                     >
                       <td>
@@ -235,11 +235,10 @@ function SearchBar() {
                       key={stop.stopName + stop.zoneName}
                       className="search-result-item"
                       onClick={() => {
-                        alert("Funkcja tymczasowo niedostępna")
-                        /*sessionStorage.setItem("mapFlyToStop", "true");
+                        sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, stop);*/
+                        setToggleDrawerFunc(true, stop);
                       }}
                     >
                       <td>
@@ -381,11 +380,10 @@ function SearchBar() {
                       className="search-result-item"
                       onClick={() => {
                         // console.log("clicked");
-                        alert("Funkcja tymczasowo niedostępna")
-                        /*sessionStorage.setItem("mapFlyToStop", "true");
+                        sessionStorage.setItem("mapFlyToStop", "true");
                         setSearchShow(false);
                         setSearchField("");
-                        setToggleDrawerFunc(true, stop);*/
+                        setToggleDrawerFunc(true, stop);
                       }}
                     >
                       <td>

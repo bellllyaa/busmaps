@@ -26,7 +26,8 @@ import zkmBusStops from "./data/zkm-bus-stops.json";
 const LOCAL_URL = "http://localhost:8080";
 const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
 const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
-const PROXY_URL = GOOGLE_PROXY_URL;
+const OVHCLOUD_PROXY_URL = "https://data.busmaps.pl";
+const PROXY_URL = OVHCLOUD_PROXY_URL;
 
 // Add location button
 const LocationButton = () => {
