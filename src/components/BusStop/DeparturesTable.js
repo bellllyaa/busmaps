@@ -218,11 +218,11 @@ function DeparturesTable(props) {
 
   const displayDeparturesTable = (departuresArr) => {
 
-    if (departuresArr === false) {
+    /*if (departuresArr === false) {
       return(
         <p className="loading-err">Błąd podczas odświeania listy odjazdów</p>
       )
-    }
+    }*/
 
     // const datePreviousDay = moment().tz("Europe/Warsaw").add(-1, "days");
     const dateNow = moment().tz("Europe/Warsaw"); //.format('YYYY-MM-DD HH:mm:ss')
@@ -235,6 +235,23 @@ function DeparturesTable(props) {
 
     const dateMin = moment().tz("Europe/Warsaw").add(-1, "minutes");
     const dateMax = moment().tz("Europe/Warsaw").add(1, "days");
+
+    const routeNames = [];
+    for (const element of departuresArr) {
+      if (
+        !routeNames.find(
+          (item) =>
+            item.routeName === element.routeName &&
+            item.routeType === element.routeType
+        )
+      ) {
+        routeNames.push({
+          routeName: element.routeName,
+          routeType: element.routeType,
+        });
+      }
+    }
+    console.log("routeNames:", routeNames)
 
     const departuresArrCut = [];
     for (const element of departuresArr) {
