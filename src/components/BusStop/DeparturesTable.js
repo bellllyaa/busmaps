@@ -610,7 +610,7 @@ function DeparturesTable(props) {
           : "departures-table__container-theme-dark"
       }
     >
-      {currentStopDeparturesArr !== null ? (
+      {currentStopDeparturesArr !== null && currentStopDeparturesArr !== false ? (
         displayDeparturesTable(currentStopDeparturesArr)
       ) : (
         <>
