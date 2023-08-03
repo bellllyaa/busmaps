@@ -35,6 +35,7 @@ function DeparturesTable(props) {
   const { currentTrip, setCurrentTrip } = useCurrentTrip();
   const [currentStopDeparturesArr, setCurrentStopDeparturesArr] = useState(null);
   const [previousDeparturesVisibleCount, setPreviousDeparturesVisibleCount] = useState(0);
+  const [filters, setFilters] = useState([]);
 
   const [goofyAhhNum, setGoofyAhhNum] = useState(Math.floor(Math.random() * goofyAhh.fullHeight.length));
 
@@ -216,6 +217,16 @@ function DeparturesTable(props) {
 
   }
 
+  const isFilterSelected = (filter) => {
+    for (const element of filters) {
+      if (element.routeName === filter.routeName && element.routeType === filter.routeType) {
+        return true
+      }
+    }
+
+    return false
+  }
+
   const displayDeparturesTable = (departuresArr) => {
 
     /*if (departuresArr === false) {
@@ -262,6 +273,9 @@ function DeparturesTable(props) {
         dateMin < (element.status === "REALTIME" ? moment(element.estimatedTime) : moment(element.theoreticalTime))
         && (element.status === "REALTIME" ? moment(element.estimatedTime) : moment(element.theoreticalTime)) < dateMax
       ) {
+        if (filters.length !== 0 && !isFilterSelected(element)) {
+          continue
+        }
         departuresArrCut.push(element)
       }
     }
@@ -314,6 +328,31 @@ function DeparturesTable(props) {
 
     return (
       <div>
+        <div className="filters">
+          {routeNames.map((routeName) => (
+            <p
+              className={isFilterSelected(routeName) ? "selected" : ""}
+              onClick={() => {
+                if (isFilterSelected(routeName)) {
+                  const arr = []
+                  for (const element of filters) {
+                    if (element.routeName !== routeName.routeName || element.routeType !== routeName.routeType) {
+                      arr.push(element)
+                    }
+                  }
+                  setFilters(arr)
+                } else {
+                  const arr = []
+                  for (const element of filters) {
+                    arr.push(element)
+                  }
+                  arr.push(routeName)
+                  setFilters(arr)
+                }
+              }}
+            >{routeName.routeName}</p>
+          ))}
+        </div>
         <PullToRefresh
           onRefresh={() =>
             new Promise((resolve, reject) => {

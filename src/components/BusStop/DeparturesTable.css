@@ -278,6 +278,48 @@
   color: #0a84fe;
 }
 
+/* Filters */
+
+.filters {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  overflow: auto;
+  white-space: nowrap;
+  padding: 0 15px 15px 15px;
+  margin: 0;
+  background-color: #fff;
+}
+
+.departures-table__container-theme-dark .filters {
+  background-color: #232527;
+}
+
+.filters p {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 13px;
+  color: black;
+  background-color: rgb(210, 210, 210);
+  padding: 1px 7px;
+  margin: 0 5px 0 0;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  min-width: 30px;
+}
+
+.departures-table__container-theme-dark .filters p {
+  color: white;
+  background-color: rgb(73, 73, 73);
+}
+
+.filters .selected {
+  background-color: #0a84fe;
+}
+
+/* /Filters */
+
 /* @media screen and (max-width: 600) {
   #departures-table {
     width: 300px;
