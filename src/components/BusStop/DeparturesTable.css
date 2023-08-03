@@ -291,6 +291,10 @@
   background-color: #fff;
 }
 
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
 .departures-table__container-theme-dark .filters {
   background-color: #232527;
 }
