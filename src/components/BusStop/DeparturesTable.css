@@ -314,7 +314,7 @@
   background-color: rgb(73, 73, 73);
 }
 
-.filters .selected {
+.filters .selected, .departures-table__container-theme-dark .filters .selected {
   background-color: #0a84fe;
 }
 
