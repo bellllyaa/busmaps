@@ -24,19 +24,15 @@ import DownloadBanner from "../DownloadBanner/DownloadBanner";
 import SearchBar from "../Search/SearchBar";
 import sortStopsByLocation from "../../hooks/sortStopsByLocation";
 
+import PROXY_URLS from "../../data/server_urls.json";
+const PROXY_URL = PROXY_URLS.urls[PROXY_URLS.selection];
+
 // Safe token
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xkYXFva3FpMDV5NTN2bmNuOHBjdnI1dSJ9.uH1jtv5wk0ENiGTWAtKzxA";
 
 // mapboxgl.accessToken =
 //   "pk.eyJ1IjoiYmVsbGx5YWEiLCJhIjoiY2xjeG1hazJyMG41NzN3cXJ5bDFoZGFpMSJ9.kjSwIXyUxEUzLycrSD4Iag";
-
-const LOCAL_URL = "http://localhost:8080";
-const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
-const AZURE_PROXY_URL = "https://busmaps-server.uksouth.cloudapp.azure.com";
-const A2HOSTING_PROXY_URL = "https://www.busmaps-server.a2hosted.com";
-const OVHCLOUD_PROXY_URL = "https://data.busmaps.pl";
-const PROXY_URL = OVHCLOUD_PROXY_URL;
 
 const getLastUserLocation = (par) => {
   const lastMapCenter = JSON.parse(localStorage.getItem("mapCenter"));

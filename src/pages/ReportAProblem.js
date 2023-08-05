@@ -6,11 +6,8 @@ import { useTheme } from '@mui/material/styles';
 import "./ReportAProblem.css";
 import arrowLeftIcon from "../assets/arrow-left.svg";
 
-const LOCAL_URL = "http://localhost:8080";
-const HEROKU_PROXY_URL = "https://bypass-cors-error-server.herokuapp.com";
-const GOOGLE_PROXY_URL = "https://bypass-cors-server.ew.r.appspot.com";
-const OVHCLOUD_PROXY_URL = "https://data.busmaps.pl";
-const PROXY_URL = OVHCLOUD_PROXY_URL;
+import PROXY_URLS from "../data/server_urls.json";
+const PROXY_URL = PROXY_URLS.urls[PROXY_URLS.selection];
 
 const ReportAProblem = () => {
 
