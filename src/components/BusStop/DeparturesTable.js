@@ -557,7 +557,7 @@ function DeparturesTable(props) {
               height: "100%",
               position: "absolute",
               left: "0",
-              top: "0",
+              top: "40px",
               zIndex: "1",
               opacity: theme.palette.mode === "light" ? "0.2" : "0.15",
               pointerEvents: "none",
