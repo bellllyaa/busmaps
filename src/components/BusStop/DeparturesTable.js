@@ -225,14 +225,8 @@ function DeparturesTable(props) {
 
   const displayDeparturesTable = (departuresArr) => {
 
-    /*if (departuresArr === false) {
-      return(
-        <p className="loading-err">Błąd podczas odświeania listy odjazdów</p>
-      )
-    }*/
-
     // const datePreviousDay = moment().tz("Europe/Warsaw").add(-1, "days");
-    const dateNow = moment().tz("Europe/Warsaw"); //.format('YYYY-MM-DD HH:mm:ss')
+    
     // const dateNextDay = moment().tz("Europe/Warsaw").add(1, "days"); //.format('YYYY-MM-DD HH:mm:ss')
     // const dates = [datePreviousDay, dateNow, dateNextDay];
     
@@ -240,9 +234,12 @@ function DeparturesTable(props) {
     //   console.log(date.format('YYYY-MM-DD HH:mm:ss Z'))
     // }
 
+    // Preparing dates
+    const dateNow = moment().tz("Europe/Warsaw"); //.format('YYYY-MM-DD HH:mm:ss')
     const dateMin = moment().tz("Europe/Warsaw").add(-1, "minutes");
     const dateMax = moment().tz("Europe/Warsaw").add(1, "days");
 
+    // Preparing filters
     const routeNames = [];
     for (const element of departuresArr) {
       if (
@@ -260,8 +257,17 @@ function DeparturesTable(props) {
     }
     console.log("routeNames:", routeNames)
 
-    const departuresArrCut = [];
+    // Filtering departures
+    const filteredDepartures = [];
     for (const element of departuresArr) {
+      if (filters.length === 0 || (filters.length !== 0 && isFilterSelected(element))) {
+        filteredDepartures.push(element)
+      }
+    }
+
+    // Preparing departures
+    const departuresArrCut = [];
+    for (const element of filteredDepartures) {
       if (departuresArrCut.length >= displayBusesNum) {
         break
       }
@@ -269,21 +275,17 @@ function DeparturesTable(props) {
         dateMin < (element.status === "REALTIME" ? moment(element.estimatedTime) : moment(element.theoreticalTime))
         && (element.status === "REALTIME" ? moment(element.estimatedTime) : moment(element.theoreticalTime)) < dateMax
       ) {
-        if (filters.length !== 0 && !isFilterSelected(element)) {
-          continue
-        }
         departuresArrCut.push(element)
       }
     }
 
-    const previousDepartures = []
     let count = 0
-    for (let i = departuresArr.length-1; i>=0; i--) {
+    for (let i = filteredDepartures.length-1; i>=0; i--) {
       if (count >= previousDeparturesVisibleCount) {
         break
       }
-      if (moment(departuresArr[i].status === "REALTIME" ? departuresArr[i].estimatedTime : departuresArr[i].theoreticalTime) <= dateMin) {
-        departuresArrCut.unshift(departuresArr[i])
+      if (moment(filteredDepartures[i].status === "REALTIME" ? filteredDepartures[i].estimatedTime : filteredDepartures[i].theoreticalTime) <= dateMin) {
+        departuresArrCut.unshift(filteredDepartures[i])
         count++
       }
     }
@@ -302,15 +304,14 @@ function DeparturesTable(props) {
     // }
     // console.log(previousDepartures)
 
-    console.log("departuresArr:")
-    console.log(departuresArr)
-    console.log("departuresArrCut:")
-    console.log(departuresArrCut)
+    console.log("departuresArr:", departuresArr)
+    console.log("filteredDepartures:", filteredDepartures)
+    console.log("departuresArrCut:", departuresArrCut)
 
     sessionStorage.setItem("stop_info_logs", JSON.stringify({
       date: dateNow.format('YYYY-MM-DD HH:mm:ss Z'),
       currentStop: currentStop,
-      departures: departuresArr
+      departures: filteredDepartures
     }))
 
     if (localStorage.getItem("mode") === "ohio") {
@@ -440,7 +441,7 @@ function DeparturesTable(props) {
           </table>
         </PullToRefresh>
 
-        {displayBusesNum < departuresArr.length ? (
+        {displayBusesNum < filteredDepartures.length ? (
           displayBusesNum <= 30 ? (
             <div>
               <button
@@ -475,7 +476,7 @@ function DeparturesTable(props) {
               <button
                 className="departures-list-control-button show-down"
                 onClick={() => {
-                  handleClick(departuresArr.length);
+                  handleClick(filteredDepartures.length);
                 }}
               >
                 <img src={arrowLeftIcon} alt="To top button" />

@@ -37,13 +37,13 @@
   background-color: #232527;
 }
 
-#departures-table tr:first-child {
+/* #departures-table tr:first-child {
   border-top: 1px solid #ddd;
 }
 
 .departures-table__container-theme-dark #departures-table tr:first-child {
   border-top: 1px solid #45484c;
-}
+} */
 
 #departures-table tr:active {
   background-color: #bbbbbb;
@@ -83,38 +83,20 @@
 
 .bus-short-name__REALTIME p {
   display: inline-block;
-  /* padding-left: max(9px, 20%); */
-  /* padding-right: max(9px, 20%); */
-  /* padding-left: clamp(9px, 15%, 20%);
-  padding-right: clamp(9px, 15%, 20%); */
-  padding-top: 2px;
-  padding-bottom: 2px;
-  margin-left: 15px;
-  margin-top: 25px;
-  margin-bottom: 25px;
   background-color: #0000ff;
   color: white;
   border-radius: 6px;
   width: 100%;
   text-align: center;
   font-weight: 600;
-  min-width: 30px;
+
+  padding: 2px 7px;
+  margin: 25px 0 25px 15px;
+  /* min-width: 25px; */
 }
 
 .bus-short-name__SCHEDULED p {
   display: inline-block;
-  /* padding-left: max(9px, 15%); */
-  /* padding-right: max(10px, 14%); */
-  /* padding-left: clamp(9px, 15px, 20%); */
-  /* padding-right: clamp(9px, 10px, 20%); */
-  /* padding-right: max(9px, min(10px, 20%)); */
-  /* padding-left: 10px; */
-  /* padding-right: 10px; */
-  padding-top: 2px;
-  padding-bottom: 2px;
-  margin-left: 15px;
-  margin-top: 25px;
-  margin-bottom: 25px;
   /* background-color: blue; */
   /* color: white; */
   border-radius: 6px;
@@ -124,7 +106,10 @@
   /* border: 1px solid black; */
   color: black;
   background-color: rgb(210, 210, 210);
-  min-width: 30px;
+
+  padding: 2px 5px;
+  margin: 25px 0 25px 15px;
+  /* min-width: 30px; */
 }
 
 .departures-table__container-theme-dark .bus-short-name__SCHEDULED p {
@@ -289,6 +274,7 @@
   padding: 0 15px 15px 15px;
   margin: 0;
   background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
 .filters::-webkit-scrollbar {
@@ -297,6 +283,7 @@
 
 .departures-table__container-theme-dark .filters {
   background-color: #232527;
+  border-bottom: 1px solid #45484c;
 }
 
 .filters p {
