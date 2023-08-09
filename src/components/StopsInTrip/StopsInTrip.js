@@ -247,7 +247,7 @@ function StopsInTrip() {
     console.log("First loading:", currentTrip);
 
     loadStopsInTrip();
-    setTimeout(() => loadStopsInTrip(), 5000)
+    setTimeout(() => loadStopsInTrip(), 3000)
     const interval = setInterval(() => loadStopsInTrip(), 15000)
     return () => {
       clearInterval(interval);
