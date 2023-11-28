@@ -145,6 +145,17 @@ function StopsInTrip() {
 
     const dateNow = moment().tz("Europe/Warsaw");
 
+    if (stopsInTripArr.length === 0) {
+      return (
+        <div>
+          <Loading />
+          <Loading />
+          <Loading />
+          <Loading />
+          <Loading />
+        </div>
+      )
+    }
     const currentStopSequence = stopsInTripArr.find(
       element => element.stopName === currentStop.stopName
     ).stopSequence
