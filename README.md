@@ -1,4 +1,4 @@
-# Front-End of BusMaps.pl - A convenient and fast way to check the departures of public transport in Tricity in real time
+# Front-End of <a href="https://busmaps.pl" >BusMaps.pl</a> - A convenient and fast way to check the departures of public transport in Tricity in real time
 
 <p float="left">
     <img align="top" src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-1.png?raw=true" alt="busmaps" style="width: 32%;">
