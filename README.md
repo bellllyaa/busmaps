@@ -2,10 +2,8 @@
 
 ![busmaps ad](https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-1.png?raw=true) ![busmaps ad](https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-2.png?raw=true)
 
-<div style="display: flex;">
-  <img src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-1.png?raw=true" alt="busmaps" style="width: 50%;">
-  <img src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-2.png?raw=true" alt="busmaps" style="width: 50%;">
-</div>
+<img src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-1.png?raw=true" alt="busmaps" style="width: 50%;">
+<img src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-2.png?raw=true" alt="busmaps" style="width: 50%;">
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
