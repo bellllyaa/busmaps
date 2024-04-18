@@ -3,9 +3,9 @@
 <p align="center">
     <img src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-1.png?raw=true" alt="busmaps" style="width: 70%;">
 </p>
-<p float="left">
-    <img align="center" src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-2.png?raw=true" alt="busmaps" style="width: 35%;">
-    <img align="center" src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-3.png?raw=true" alt="busmaps" style="width: 35%;">
+<p align="center">
+    <img src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-2.png?raw=true" alt="busmaps" style="width: 35%;">
+    <img src="https://github.com/bellllyaa/busmaps/blob/0a5054af637dc7fa0d2671dbe02c95b39a65ae67/src/assets/busmaps/busmaps-ig-3.png?raw=true" alt="busmaps" style="width: 35%;">
 </p>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
