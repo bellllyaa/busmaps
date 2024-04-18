@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Front-End of BusMaps.pl - A convenient and fast way to check the departures of public transport in Tricity in real time
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
