@@ -102,11 +102,14 @@ function DeparturesTable(props) {
 
     if (departure.status === "REALTIME") {
 
-      const estimatedTime = moment(departure.estimatedTime)
-      const theoreticalTime = moment(departure.theoreticalTime)
+      const estimatedTime = moment(departure.estimatedTime).startOf("minute")
+      const theoreticalTime = moment(departure.theoreticalTime).startOf("minute")
       
-      const differenceRealNow = estimatedTime - dateNow >= 0 ? Math.floor((estimatedTime - dateNow)/1000/60) : Math.round((estimatedTime - dateNow)/1000/60)
-      const differencePlanNow = theoreticalTime - dateNow >= 0 ? Math.floor((theoreticalTime - dateNow)/1000/60) : Math.round((theoreticalTime - dateNow)/1000/60)
+      // const differenceRealNow = estimatedTime - dateNow >= 0 ? Math.floor((estimatedTime - dateNow)/1000/60) : Math.round((estimatedTime - dateNow)/1000/60)
+      // const differencePlanNow = theoreticalTime - dateNow >= 0 ? Math.floor((theoreticalTime - dateNow)/1000/60) : Math.round((theoreticalTime - dateNow)/1000/60)
+
+      const differenceRealNow = Math.round((estimatedTime - dateNow.startOf("minute"))/1000/60)
+      const differencePlanNow = Math.round((theoreticalTime - dateNow.startOf("minute"))/1000/60)
       
       let arriving_status
       if (differenceRealNow - differencePlanNow > 0) {
@@ -127,12 +130,14 @@ function DeparturesTable(props) {
 
               {arriving_status == "bus-late" ? (
                 <p className={arriving_status}>
-                  Opóźnienie o {differenceRealNow - differencePlanNow} min
+                  Opóźnienie {/* o {differenceRealNow - differencePlanNow} min */}
+                  {" • "}{estimatedTime.format('HH:mm')}
                   {differenceRealNow <= 60 ? <>{" • "}<s>{theoreticalTime.format('HH:mm')}</s></> : <></>}
                 </p>
               ) : arriving_status == "bus-early" ? (
                 <p className={arriving_status}>
-                  Wcześniej o {differencePlanNow - differenceRealNow} min
+                  Wcześniej {/* o {differencePlanNow - differenceRealNow} min */}
+                  {" • "}{estimatedTime.format('HH:mm')}
                   {differenceRealNow <= 60 ? <>{" • "}<s>{theoreticalTime.format('HH:mm')}</s></> : <></>}
                 </p>
               ) : (
