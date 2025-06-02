@@ -1,7 +1,7 @@
 {
   "urls": {
     "Local": "http://localhost:8080",
-    "OVHcloud": "https://data.busmaps.pl"
+    "OVHcloud": "https://api.busmaps.pl"
   },
   "selection": "OVHcloud"
 }
