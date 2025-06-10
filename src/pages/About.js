@@ -35,7 +35,7 @@ function About () {
       </div>
       <div className="about">
         <div className="about-element">
-          <h3>Autor: <a href="https://www.facebook.com/bellllyaa" target="_blank">Artem Balianowski</a></h3>
+          <h3>Autor: {/*<a href="https://www.facebook.com/bellllyaa" target="_blank">*/}Artem Balianowski{/*}</a>*/}</h3>
         </div>
         <div className="about-element">
           <h3>Email: busmaps.pl@gmail.com</h3>
